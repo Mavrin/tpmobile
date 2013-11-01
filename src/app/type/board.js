@@ -8,7 +8,6 @@ var Board = basis.entity.createType('Board', {
     ownerId: Number,
     name: String,
     isShared: function(value){  // все таки лучше отдавать булевы значения как true/false, а не строками
-                                // тогда эту функцию можно будет заменить на Boolean
         return value === 'false' ? false : Boolean(value);
     }
 });
@@ -36,7 +35,8 @@ var splitByOwner = new basis.entity.Grouping({
                 return {
                     params: { // id из контекста, в id хранится значение по которому "группируются" Board
                               // this - это набор Board для определенного значения ownerId
-                       // where: "key=%224798826541417349196%22%20and%20(ownerId%20==%2040051%20or%20publicData.isShared%20==%20%22true%22)&select=new(key,publicData.acid)this.data.id
+                       where: '(ownerId == ' + this.ruleValue + ')',
+                       select: 'new(key,ownerId,publicData.name,publicData.isShared,publicData.customSharedData,publicData.createdAt,userData.menuIsVisible AS userMenuIsVisible,userData.menuNumericPriority AS userMenuNumericPriority,publicData.menuIsVisible,publicData.menuNumericPriority,publicData.viewMode,publicData.acid,userData.viewMode AS userViewMode)'
                     }
                 };
             },

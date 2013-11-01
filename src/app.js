@@ -3,6 +3,7 @@ basis.require('basis.net.action');
 basis.require('basis.ui');
 basis.require('basis.data.dataset');
 basis.require('basis.entity');
+basis.require('app.type');
 
 
 /**
@@ -45,7 +46,50 @@ userList.setChildNodes([
         boardList.setDelegate(this.pick());
     }
 });*/
+// список Board
+var boardTest = new basis.ui.Node({
+    active: true,
+    template:
+        '<div class="board-list_{noUser}">'+
+            '<ul{childNodesElement}/>' +
+            '</div>',
+    binding: {
+        userName: 'data:FirstName',
+        noUser: { // вычисляем что у списка нет привязанной модели
+            // это значение используем в классе, и можно cделать .board-list_noUser { display: none }
+            events: 'delegateChanged',
+            getter: function(node){
+                return !node.delegate;
+            }
+        }
+    },
+
+    handler: {
+        update: function(){
+            // когда boardList назначается новый пользователь, то должно поменять id
+            // тогда назначает другой набор в качестве источника
+
+            this.setDataSource(app.type.BoardSetting.byId(this.data.key));
+        }
+    },
+
+    childClass: {
+        template: '<li>[{key}] {name}</li>',
+        binding: {
+            id: 'data:key',
+            name: 'data:'
+        }
+    }
+});
+
 boardList.setDelegate(context);
+boardList.selection.addHandler({
+    itemsChanged: function(){
+        boardTest.setDelegate(this.pick())
+    }
+});
+
+
 
 module.exports = basis.app.create({
     title: 'My app',
@@ -57,11 +101,13 @@ module.exports = basis.app.create({
                     '<!--{loggedUser}-->' +
                     '<!--{userList}-->' +
                     '<!--{boardList}-->' +
+                    '<!--{boardTest}-->' +
                 '</div>',
             binding: {
                 loggedUser: userView,
                 userList: userList,
-                boardList: boardList
+                boardList: boardList,
+                boardTest:boardTest
             }
         });
     }

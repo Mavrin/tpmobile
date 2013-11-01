@@ -15,7 +15,7 @@ module.exports = new basis.ui.Node({
             }
         }
     },
-
+    selection: true,
     handler: {
         update: function(){
             // когда boardList назначается новый пользователь, то должно поменять id
