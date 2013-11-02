@@ -17,7 +17,7 @@ var context = new basis.data.Object({
 
 var stateApplication = new basis.data.Object({
     data:{
-        menuIsShow:false
+        isExpandMenu:false
     }
 });
 
@@ -38,9 +38,14 @@ var toggleMenu = new basis.ui.Node({
     active: true,
     delegate:stateApplication,
     template: resource('app/template/toggle-menu.tmpl'),
-    handler: {
-        click:function(){
-            debugger
+    action: {
+        toggle:function(){
+            var isExpand = true;
+            if(this.data.isExpandMenu) {
+                isExpand = false;
+            }
+            console.log(this.data.isExpandMenu);
+            this.update({isExpandMenu:isExpand});
         }
     }
 });
@@ -51,10 +56,18 @@ module.exports = basis.app.create({
         // делаем композицию
         return new basis.ui.Node({
             template: resource('app/template/layout.tmpl'),
+            delegate:stateApplication,
             binding: {
                 loggedUser: userView,
                 boardList: boardList,
-                toggleMenu:toggleMenu
+                toggleMenu:toggleMenu,
+                expand:{
+                    events: 'update',
+                    getter: function(node){
+                        console.log(node.data.isExpandMenu);
+                        return node.data.isExpandMenu;
+                    }
+                }
             }
         });
     }
