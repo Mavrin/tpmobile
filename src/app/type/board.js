@@ -6,7 +6,9 @@ basis.require('basis.data.dataset');
 var Board = basis.entity.createType('Board', {
     key: basis.entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
     ownerId: Number,
-    name: String,
+    name: function(value){
+        return value ? value.replace(/(^")(.+)("$)/i,"$2") : '';
+    },
     isShared: function(value){  // все таки лучше отдавать булевы значения как true/false, а не строками
         return value === 'false' ? false : Boolean(value);
     }

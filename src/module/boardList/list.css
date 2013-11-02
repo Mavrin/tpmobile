@@ -1,4 +1,11 @@
-.board-list_noUser
+.board-list {
+    margin:0;
+    list-style-type:none;
+    padding: 0;
+}
+.board-list__item
 {
-  display: none;
+    position: relative;
+    top:0;
+    left:0;
 }

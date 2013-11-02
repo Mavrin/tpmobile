@@ -2,24 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a55d5f1e-91a4-4667-997e-68737e4c760e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.bowerrc" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/type/boardSetting.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="DELETED" beforePath="D:\mavrin\tpmobile\.gitmodules" afterPath="" />
-      <change type="DELETED" beforePath="D:\mavrin\tpmobile\lib\basisjs" afterPath="" />
-      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\all_in_one.js" afterPath="" />
-      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\app\service.js" afterPath="" />
-      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\app\type\type.js" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/type/boardSettings.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/template/toggle-menu.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/template/toggle-menu.tmpl" />
+      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\app\type\boardSetting.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\module\userList\index.js" afterPath="" />
+      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\module\userList\list.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\module\userList\user.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\mavrin\tpmobile\src\module\userList\user.tmpl" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.js" afterPath="$PROJECT_DIR$/src/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type/board.js" afterPath="$PROJECT_DIR$/src/app/type/board.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/board.tmpl" afterPath="$PROJECT_DIR$/src/module/boardList/board.tmpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/index.js" afterPath="$PROJECT_DIR$/src/module/boardList/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/template/layout.css" afterPath="$PROJECT_DIR$/src/app/template/layout.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/template/layout.tmpl" afterPath="$PROJECT_DIR$/src/app/template/layout.tmpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/list.css" afterPath="$PROJECT_DIR$/src/module/boardList/list.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/list.tmpl" afterPath="$PROJECT_DIR$/src/module/boardList/list.tmpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type.js" afterPath="$PROJECT_DIR$/src/app/type.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tp.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="lib/basisjs/" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +45,7 @@
       <file leaf-file-name="list.tmpl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/module/boardList/list.tmpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="17" selection-start="17" selection-end="17" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+            <state line="2" column="41" selection-start="68" selection-end="68" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="153">
               <folding />
             </state>
           </provider>
@@ -51,7 +54,7 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="0" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="2023">
+            <state line="39" column="41" selection-start="950" selection-end="950" vertical-scroll-proportion="0.0" vertical-offset="308" max-vertical-offset="1122">
               <folding />
             </state>
           </provider>
@@ -60,7 +63,16 @@
       <file leaf-file-name="board.tmpl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/module/boardList/board.tmpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="28" selection-start="54" selection-end="54" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
+            <state line="0" column="29" selection-start="29" selection-end="29" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="136">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module/user/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="3" selection-start="65" selection-end="196" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
               <folding />
             </state>
           </provider>
@@ -69,16 +81,52 @@
       <file leaf-file-name="list.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/module/boardList/list.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+            <state line="1" column="13" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="boardSetting.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/type/boardSetting.js">
+      <file leaf-file-name="layout.tmpl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/template/layout.tmpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="32" selection-start="1277" selection-end="1277" vertical-scroll-proportion="1.5210526" vertical-offset="51" max-vertical-offset="918">
+            <state line="8" column="47" selection-start="211" selection-end="211" vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="289">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toggle-menu.tmpl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/template/toggle-menu.tmpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="62" selection-start="99" selection-end="99" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="187">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toggle-menu.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/template/toggle-menu.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="0" selection-start="255" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="board.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="4" selection-start="476" selection-end="476" vertical-scroll-proportion="0.44102564" vertical-offset="15" max-vertical-offset="1054">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="35" selection-start="139" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
               <folding />
             </state>
           </provider>
@@ -95,6 +143,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
     <option name="myDateState">
       <MyDateState />
     </option>
@@ -102,13 +151,20 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/module/boardList/list.tmpl" />
-        <option value="$PROJECT_DIR$/src/app/type/board.js" />
         <option value="$PROJECT_DIR$/src/module/boardList/index.js" />
-        <option value="$PROJECT_DIR$/src/app/type.js" />
-        <option value="$PROJECT_DIR$/src/module/boardList/board.tmpl" />
-        <option value="$PROJECT_DIR$/src/module/boardList/list.css" />
         <option value="$PROJECT_DIR$/src/app/type/boardSetting.js" />
+        <option value="$PROJECT_DIR$/src/app/type.js" />
+        <option value="$PROJECT_DIR$/src/app/type/boardSettings.js" />
+        <option value="$PROJECT_DIR$/src/module/boardList/list.tmpl" />
+        <option value="$PROJECT_DIR$/src/module/boardList/board.tmpl" />
+        <option value="$PROJECT_DIR$/src/app/type/board.js" />
+        <option value="$PROJECT_DIR$/src/module/boardList/list.css" />
+        <option value="$PROJECT_DIR$/src/app/template/layout.css" />
+        <option value="$PROJECT_DIR$/src/app/template/tooggler-menu.tmpl" />
+        <option value="$PROJECT_DIR$/src/app/template/tooggle-menu.tmpl" />
+        <option value="$PROJECT_DIR$/src/app/template/toggle-menu.css" />
+        <option value="$PROJECT_DIR$/src/app/template/toggle-menu.tmpl" />
+        <option value="$PROJECT_DIR$/src/app/template/layout.tmpl" />
         <option value="$PROJECT_DIR$/src/app.js" />
       </list>
     </option>
@@ -145,7 +201,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -175,28 +230,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tpmobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="module" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="userList" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -322,6 +355,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -332,6 +366,11 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\mavrin\tpmobile\src\app\template" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
@@ -395,21 +434,21 @@
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4573111" sideWeight="0.49973643" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6015702" sideWeight="0.49920928" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45641527" sideWeight="0.49973643" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5798237" sideWeight="0.49920928" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973504" sideWeight="0.49973643" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16816026" sideWeight="0.39842984" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22614655" sideWeight="0.4201763" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6015702" sideWeight="0.5007907" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5798237" sideWeight="0.5007907" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973504" sideWeight="0.49973643" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -424,7 +463,8 @@
     </option>
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="false" />
     <MESSAGE value="tempory commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="tempory commit" />
+    <MESSAGE value="add template" />
+    <option name="LAST_COMMIT_MESSAGE" value="add template" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -442,72 +482,112 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/module/userList/index.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="20" selection-start="131" selection-end="147" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+        <state line="52" column="7" selection-start="854" selection-end="854" vertical-scroll-proportion="0.33252132" vertical-offset="611" max-vertical-offset="3247" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/type/boardSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="62" selection-start="231" selection-end="231" vertical-scroll-proportion="0.0" vertical-offset="57" max-vertical-offset="1530">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
+    <entry file="file://$PROJECT_DIR$/basis.config">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="496" selection-end="496" vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1020">
+        <state line="16" column="25" selection-start="299" selection-end="299" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
+    <entry file="file://$PROJECT_DIR$/src/module/user/user.tmpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="67" selection-start="779" selection-end="815" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/type.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="42" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="153">
+        <state line="2" column="17" selection-start="82" selection-end="82" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="153">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript5.js">
+    <entry file="file://$PROJECT_DIR$/src/app/template/layout.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="7" selection-start="854" selection-end="854" vertical-scroll-proportion="0.33252132" vertical-offset="611" max-vertical-offset="3247">
+        <state line="21" column="88" selection-start="306" selection-end="306" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/user/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="3" selection-start="65" selection-end="196" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/module/boardList/list.tmpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="17" selection-start="17" selection-end="17" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+        <state line="2" column="41" selection-start="68" selection-end="68" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="153">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/template/toggle-menu.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="62" selection-start="99" selection-end="99" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="187">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/template/toggle-menu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="255" selection-end="268" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/template/layout.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="47" selection-start="211" selection-end="211" vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="289">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/module/boardList/list.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="1" selection-start="39" selection-end="39" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+        <state line="1" column="13" selection-start="27" selection-end="27" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardList/board.tmpl">
+    <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="28" selection-start="54" selection-end="54" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
+        <state line="6" column="35" selection-start="139" selection-end="161" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="0" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="2023">
+        <state line="39" column="41" selection-start="950" selection-end="950" vertical-scroll-proportion="0.0" vertical-offset="308" max-vertical-offset="1122">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/type/boardSetting.js">
+    <entry file="file://$PROJECT_DIR$/src/module/boardList/board.tmpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="32" selection-start="1277" selection-end="1277" vertical-scroll-proportion="1.5210526" vertical-offset="51" max-vertical-offset="918">
+        <state line="0" column="29" selection-start="29" selection-end="29" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="136">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="4" selection-start="476" selection-end="476" vertical-scroll-proportion="0.44102564" vertical-offset="15" max-vertical-offset="1054">
           <folding />
         </state>
       </provider>
