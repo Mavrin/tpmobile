@@ -8,12 +8,13 @@ basis.require('app.type');
 
 var context = new basis.data.Object({
     syncAction: basis.net.action.create({
-        url: '/api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
+        url: 'api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
         success: function (data) {
             this.update(data);
         }
     })
 });
+window.context = context ; //TODO remove awful code
 
 var stateApplication = new basis.data.Object({
     data:{
@@ -27,11 +28,11 @@ var boardList = resource('module/boardList/index.js').fetch();
 //ToDo create object logged user from context
 userView.setDelegate(context);
 
-
+var boardGrid = resource('module/boardGrid/index.js').fetch();
 boardList.setDelegate(context);
 boardList.selection.addHandler({
     itemsChanged: function(){
-        app.type.BoardSettings.byId(this.pick().data.key);
+        boardGrid.setDelegate(app.type.BoardSettings.byId(this.pick().data.key));
     }
 });
 
@@ -64,7 +65,8 @@ var page = new basis.ui.Node({
         }
     },
     binding: {
-        toggleMenu:toggleMenu
+        toggleMenu:toggleMenu,
+        boardGrid:boardGrid
     }
 });
 

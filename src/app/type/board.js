@@ -32,7 +32,7 @@ var splitByOwner = new basis.entity.Grouping({
     wrapper: Board,
     subsetClass: {
         syncAction: basis.net.action.create({ // каждая группа 
-            url: '/storage/v1/boards',
+            url: 'storage/v1/boards',
             request: function(){
                 return {
                     params: { // id из контекста, в id хранится значение по которому "группируются" Board

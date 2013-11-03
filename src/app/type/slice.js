@@ -2,56 +2,74 @@ basis.require('basis.entity');
 basis.require('basis.net.action');
 basis.require('basis.data.dataset');
 
-// создаем тип, это позволит ссылаться по идентификатору и нормализовывать значения
-var Board = basis.entity.createType('Board', {
-    key: basis.entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
-    ownerId: Number,
-    name: function(value){
-        return value ? value.replace(/(^")(.+)("$)/i,"$2") : '';
-    },
-    isShared: function(value){  // все таки лучше отдавать булевы значения как true/false, а не строками
-        return value === 'false' ? false : Boolean(value);
-    }
+
+var Slice =  {}
+
+Slice.SliceMethod = basis.data.Object.subclass({
+    /*isSyncRequired: function(){
+        return this.state == basis.data.STATE.UNDEFINED;
+    },*/
+    syncAction: basis.net.action.create({
+        method:'post',
+        contentType: 'application/json',
+        request: function() {
+            return {
+                url: 'slice/v1/matrix/' + this.method + '/',
+                postBody:JSON.stringify(this.sliceConfig)
+            };
+        },
+        success: function(data){
+            this.update(data); //пока так
+        }
+    })
+});
+/*Slice.y = Slice.SliceMethod.subclass({method:'yaxis'}); //так не получилось action не дает сделать одновременно сделать запрос вообще здесь нужен сервис
+Slice.x = Slice.SliceMethod.subclass({method:'xaxis'});*/
+Slice.y = basis.data.Object.subclass({
+    syncAction: basis.net.action.create({
+        method:'post',
+        contentType: 'application/json',
+        request: function() {
+            return {
+                url: 'slice/v1/matrix/yaxis/',
+                postBody:JSON.stringify(this.sliceConfig)
+            };
+        },
+        success: function(data){
+            this.update(data); //пока так
+        }
+    })
+});
+Slice.x = basis.data.Object.subclass({
+    syncAction: basis.net.action.create({
+        method:'post',
+        contentType: 'application/json',
+        request: function() {
+            return {
+                url: 'slice/v1/matrix/xaxis/',
+                postBody:JSON.stringify(this.sliceConfig)
+            };
+        },
+        success: function(data){
+            this.update(data); //пока так
+        }
+    })
+});
+Slice.cells = basis.data.Object.subclass({
+    syncAction: basis.net.action.create({
+        method:'post',
+        contentType: 'application/json',
+        request: function() {
+            return {
+                url: 'slice/v1/matrix/cells/',
+                postBody:JSON.stringify(this.sliceConfig)
+            };
+        },
+        success: function(data){
+            this.update(data); //пока так
+        }
+    })
 });
 
-/**
-Ответ сервера имеет вид
-{"items":[{
-"key":"1346841558973",
-"ownerId":3721,
-"name":"\"My Work\"",
-"isShared":"true"
-}]
-}
-**/
 
-// разбивка Board по полю ownerId
-var splitByOwner = new basis.entity.Grouping({
-    source: Board.all,     // все экземпляры типа хранятся в наборе, который хранится в свойстве all
-    rule: 'data.ownerId',  // это шоткат для function(item){ return item.data.onwerId }
-    wrapper: Board,
-    subsetClass: {
-        syncAction: basis.net.action.create({ // каждая группа 
-            url: '/storage/v1/boards',
-            request: function(){
-                return {
-                    params: { // id из контекста, в id хранится значение по которому "группируются" Board
-                              // this - это набор Board для определенного значения ownerId
-                       where: '(ownerId == ' + this.ruleValue + ')',
-                       select: 'new(key,ownerId,publicData.name,publicData.isShared,publicData.customSharedData,publicData.createdAt,userData.menuIsVisible AS userMenuIsVisible,userData.menuNumericPriority AS userMenuNumericPriority,publicData.menuIsVisible,publicData.menuNumericPriority,publicData.viewMode,publicData.acid,userData.viewMode AS userViewMode)'
-                    }
-                };
-            },
-            success: function (data) {
-                this.sync(data.items);
-            }
-        })
-    }
-});
-
-// функция хелпер, которая возвращает набор для заданого ownerId
-Board.byOwner = function(id){
-    return id != null ? splitByOwner.getSubset(id, true) : null;
-};
-
-module.exports = Board;
+module.exports = Slice;

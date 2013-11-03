@@ -27,3 +27,7 @@
     padding: 7px 0 7px 7px;
     color: #606C7B;
 }
+.board-list__item-link_selected {
+    color: #16343B;
+    background: #F8F8F8;
+}

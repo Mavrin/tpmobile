@@ -8,8 +8,6 @@ module.exports = new basis.ui.Node({
     selection: true,
     handler: {
         update: function(){
-            // когда boardList назначается новый пользователь, то должно поменять id
-            // тогда назначает другой набор в качестве источника
             this.setDataSource(app.type.Board.byOwner(this.data.LoggedUser.Id));
         }
     },

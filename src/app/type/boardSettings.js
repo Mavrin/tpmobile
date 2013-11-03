@@ -57,14 +57,14 @@ BoardSettings.byId = (function(){
         syncAction: basis.net.action.create({
             request: function() {
                 return {
-                    url: '/storage/v1/boards/' + this.key
+                    url: 'storage/v1/boards/' + this.key
                 };
             },
             success: function(data){
                 var item = Object.create(BoardSettings.type.defaults,{}); //может можно как-то проще
-                item.cells = data.publicData.cells;
-                item.x = data.publicData.x;
-                item.y = data.publicData.y;
+                item.cells = data.publicData.cells && JSON.parse(data.publicData.cells) || [];
+                item.x = data.publicData.x && JSON.parse(data.publicData.x) || [];
+                item.y = data.publicData.y && JSON.parse(data.publicData.y) || [];
                 item.key = data.key;
                 item.name = data.publicData.name;
                 this.update(item);

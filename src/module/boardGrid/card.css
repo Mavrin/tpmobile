@@ -1,0 +1,6 @@
+.card {
+    width: 300px;
+    overflow-y: hidden;
+    height: 44px;
+    padding: 4px 0  0 8px;
+}
