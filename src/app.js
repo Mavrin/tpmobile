@@ -8,9 +8,9 @@ basis.require('app.type');
 
 var context = new basis.data.Object({
     syncAction: basis.net.action.create({
-        url: '/api/v1/context?format=json',
+        url: '/api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
         success: function (data) {
-            this.update(data.LoggedUser);
+            this.update(data);
         }
     })
 });
@@ -24,6 +24,7 @@ var stateApplication = new basis.data.Object({
 var userView = resource('module/user/index.js').fetch();
 var boardList = resource('module/boardList/index.js').fetch();
 
+//ToDo create object logged user from context
 userView.setDelegate(context);
 
 
@@ -44,9 +45,26 @@ var toggleMenu = new basis.ui.Node({
             if(this.data.isExpandMenu) {
                 isExpand = false;
             }
-            console.log(this.data.isExpandMenu);
             this.update({isExpandMenu:isExpand});
         }
+    }
+});
+
+var page = new basis.ui.Node({
+    active: true,
+    delegate:stateApplication,
+    template: resource('app/template/page.tmpl'),
+    action: {
+        toggle:function(){
+            var isExpand = true;
+            if(this.data.isExpandMenu) {
+                isExpand = false;
+                this.update({isExpandMenu:isExpand});
+            }
+        }
+    },
+    binding: {
+        toggleMenu:toggleMenu
     }
 });
 
@@ -60,11 +78,10 @@ module.exports = basis.app.create({
             binding: {
                 loggedUser: userView,
                 boardList: boardList,
-                toggleMenu:toggleMenu,
+                page:page,
                 expand:{
                     events: 'update',
-                    getter: function(node){
-                        console.log(node.data.isExpandMenu);
+                    getter: function(node) {
                         return node.data.isExpandMenu;
                     }
                 }

@@ -1,0 +1,20 @@
+.board-grid {
+    position: relative;
+    height: 100%;
+}
+.board-grid__axis {
+    border: 1px solid #C7CCD2;
+}
+.board-grid__axis_x {
+    height: 32px;
+}
+.board-grid__axis_y {
+    width: 32px;
+    border-top: 0;
+    float: left;
+    height: 100%;
+}
+.board-grid__cell {
+    float: right;
+    height: 100%;
+}

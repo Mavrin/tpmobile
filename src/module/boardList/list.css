@@ -2,10 +2,28 @@
     margin:0;
     list-style-type:none;
     padding: 0;
+    font-size: 16px;
 }
 .board-list__item
 {
+    list-style: none;
+    display: block;
+    font-size: .750em;
+    font-weight: 600;
+    text-shadow: 0 1px #FFF;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #C7CCD2;
+    background-color: rgba(245, 247, 248, 0.5);
     position: relative;
-    top:0;
-    left:0;
+    z-index: 1;
+}
+
+.board-list__item-link
+{
+    text-decoration: none;
+    display: block;
+    overflow: hidden;
+    font-size: 16px;
+    padding: 7px 0 7px 7px;
+    color: #606C7B;
 }
