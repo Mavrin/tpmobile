@@ -24,6 +24,10 @@
     width: 32px;
     line-height: 32px;
 }
+.board-grid__rotated-text:nth-child(2),
+.board-grid__rotated-text:nth-child(3) {
+    display: none;
+}
 .board-grid__rotated-text-inner {
     display: inline-block;
     white-space: nowrap;
@@ -38,6 +42,10 @@
 .board-grid__axis-text {
     overflow: hidden;
     display: inline-block;
+}
+.board-grid__axis-text:nth-child(2),
+.board-grid__axis-text:nth-child(3) {
+    display: none;
 }
 .board-grid__cell {
     float: left;

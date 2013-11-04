@@ -2,23 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a55d5f1e-91a4-4667-997e-68737e4c760e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/boardGrid/card.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/boardGrid/card.tmpl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/boardGrid/cell.tmpl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/app/type/context.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/card/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/module/toggleMenu/index.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/template/toggle-menu.css" afterPath="$PROJECT_DIR$/src/module/toggleMenu/toggle-menu.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/app/template/toggle-menu.tmpl" afterPath="$PROJECT_DIR$/src/module/toggleMenu/toggle-menu.tmpl" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/module/boardGrid/card.css" afterPath="$PROJECT_DIR$/src/module/card/card.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/module/boardGrid/card.tmpl" afterPath="$PROJECT_DIR$/src/module/card/card.tmpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.js" afterPath="$PROJECT_DIR$/src/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl" afterPath="$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl" afterPath="$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/basis.config" afterPath="$PROJECT_DIR$/basis.config" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardGrid/board-grid.css" afterPath="$PROJECT_DIR$/src/module/boardGrid/board-grid.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardGrid/board-grid.tmpl" afterPath="$PROJECT_DIR$/src/module/boardGrid/board-grid.tmpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type/board.js" afterPath="$PROJECT_DIR$/src/app/type/board.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/board.tmpl" afterPath="$PROJECT_DIR$/src/module/boardList/board.tmpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type/boardSettings.js" afterPath="$PROJECT_DIR$/src/app/type/boardSettings.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardGrid/index.js" afterPath="$PROJECT_DIR$/src/module/boardGrid/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/index.js" afterPath="$PROJECT_DIR$/src/module/boardList/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/module/boardList/list.css" afterPath="$PROJECT_DIR$/src/module/boardList/list.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/template/page.tmpl" afterPath="$PROJECT_DIR$/src/app/template/page.tmpl" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type/slice.js" afterPath="$PROJECT_DIR$/src/app/type/slice.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/type.js" afterPath="$PROJECT_DIR$/src/app/type.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tp.iws" />
@@ -43,46 +40,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cell.tmpl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/cell.tmpl">
+      <file leaf-file-name="context.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/type/context.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="53" selection-end="53" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="136">
+            <state line="14" column="0" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module/user/index.js">
+      <file leaf-file-name="type.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/type.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="25" selection-start="169" selection-end="180" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/template/layout.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="249" max-vertical-offset="918">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="board-grid.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="56" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="850">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="card.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/card.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="14" selection-start="82" selection-end="82" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
+            <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
               <folding />
             </state>
           </provider>
@@ -91,25 +61,52 @@
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/module/boardGrid/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="3" selection-start="923" selection-end="923" vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="2142">
+            <state line="26" column="24" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0" vertical-offset="332" max-vertical-offset="2280">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="card.tmpl" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/card.tmpl">
+      <file leaf-file-name="board-grid.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="10" selection-start="72" selection-end="72" vertical-scroll-proportion="0.07439825" vertical-offset="0" max-vertical-offset="457">
+            <state line="46" column="22" selection-start="966" selection-end="966" vertical-scroll-proportion="3.3986928" vertical-offset="170" max-vertical-offset="870">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board-grid.tmpl" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.tmpl">
+      <file leaf-file-name="basis.config" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/basis.config">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="31" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="187">
+            <state line="24" column="45" selection-start="620" selection-end="620" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="axisy.tmpl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="50" selection-start="50" selection-end="50" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="120">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="card.tmpl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module/card/card.tmpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="10" selection-start="72" selection-end="72" vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="135">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="axisx.tmpl" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="24" selection-start="24" selection-end="24" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="120">
               <folding />
             </state>
           </provider>
@@ -118,16 +115,16 @@
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="31" selection-start="258" selection-end="258" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
+            <state line="22" column="0" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="board.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="18" selection-start="1167" selection-end="1167" vertical-scroll-proportion="0.0" vertical-offset="347" max-vertical-offset="1054">
+            <state line="18" column="48" selection-start="407" selection-end="422" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1215">
               <folding />
             </state>
           </provider>
@@ -152,30 +149,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/module/boardList/list.css" />
-        <option value="$PROJECT_DIR$/src/module/boardGrid/board-grid.tmpl" />
-        <option value="$PROJECT_DIR$/src/app/template/page.tmpl" />
-        <option value="$PROJECT_DIR$/src/app.js" />
-        <option value="$PROJECT_DIR$/src/app/type/board.js" />
-        <option value="$PROJECT_DIR$/src/app/type/boardSettings.js" />
-        <option value="$PROJECT_DIR$/basis.config" />
-        <option value="$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl" />
-        <option value="$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl" />
-        <option value="$PROJECT_DIR$/src/app/type/slice.js" />
         <option value="$PROJECT_DIR$/src/module/boardGrid/card.html" />
         <option value="$PROJECT_DIR$/src/module/boardGrid/cell.tmpl" />
-        <option value="$PROJECT_DIR$/src/module/boardGrid/board-grid.css" />
         <option value="$PROJECT_DIR$/src/module/boardGrid/card.css" />
-        <option value="$PROJECT_DIR$/src/module/boardGrid/index.js" />
         <option value="$PROJECT_DIR$/src/module/boardGrid/card.tmpl" />
+        <option value="$PROJECT_DIR$/src/app/type.js" />
+        <option value="$PROJECT_DIR$/src/module/tooggleMenu/toggle-menu.js" />
+        <option value="$PROJECT_DIR$/src/module/toggleMenu/index.js" />
+        <option value="$PROJECT_DIR$/src/module/card/index.html.js" />
+        <option value="$PROJECT_DIR$/src/module/card/index.js" />
+        <option value="$PROJECT_DIR$/src/app/type/context.js" />
+        <option value="$PROJECT_DIR$/src/app.js" />
+        <option value="$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl" />
+        <option value="$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl" />
+        <option value="$PROJECT_DIR$/basis.config" />
+        <option value="$PROJECT_DIR$/src/module/boardGrid/index.js" />
+        <option value="$PROJECT_DIR$/src/module/boardGrid/board-grid.css" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="x" value="1365" />
+    <option name="y" value="5" />
+    <option name="width" value="1442" />
+    <option name="height" value="905" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -254,6 +251,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tpmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="toggleMenu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tpmobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="module" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="card" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -389,8 +430,8 @@
     <property name="options.lastSelected" value="preferences.fileTypes" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -398,8 +439,21 @@
       <recent name="D:\mavrin\tpmobile\src\app\type" />
       <recent name="D:\mavrin\tpmobile\src\app\template" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/module/card" />
+      <recent name="$PROJECT_DIR$/src/module/boardGrid" />
+      <recent name="$PROJECT_DIR$/src/module/tooggleMenu" />
+    </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -408,14 +462,6 @@
       <option name="saveOutputToFile" value="false" />
       <option name="showConsoleOnStdErr" value="false" />
       <option name="showConsoleOnStdOut" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
@@ -471,24 +517,24 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="1365" y="5" width="1442" height="905" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45641527" sideWeight="0.49973643" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50049067" sideWeight="0.49920928" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45562914" sideWeight="0.49973643" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.72450334" sideWeight="0.4988086" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.589404" sideWeight="0.49973643" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22614655" sideWeight="0.49950933" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20636043" sideWeight="0.2754967" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.50049067" sideWeight="0.5007907" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29238755" sideWeight="0.50039715" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973504" sideWeight="0.49973643" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -505,7 +551,8 @@
     <MESSAGE value="tempory commit" />
     <MESSAGE value="add template" />
     <MESSAGE value="add   preview board" />
-    <option name="LAST_COMMIT_MESSAGE" value="add   preview board" />
+    <MESSAGE value="small  composition" />
+    <option name="LAST_COMMIT_MESSAGE" value="small  composition" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -523,104 +570,6 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="127" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="643">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="83" selection-start="62" selection-end="83" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="119">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/basisjs/src/basis/net/service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3026">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardList/list.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="22" selection-start="30" selection-end="49" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/type/slice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="40" selection-start="1876" selection-end="1876" vertical-scroll-proportion="0.0" vertical-offset="674" max-vertical-offset="1360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardList/board.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="669">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/cell.tmpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="53" selection-end="53" vertical-scroll-proportion="-1.3076923" vertical-offset="0" max-vertical-offset="136">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/user/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="169" selection-end="180" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="18" selection-start="1167" selection-end="1167" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1054">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/template/layout.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="31" selection-start="258" selection-end="258" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="3" selection-start="923" selection-end="923" vertical-scroll-proportion="0.0" vertical-offset="578" max-vertical-offset="2142">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="56" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="850">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/card.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="14" selection-start="82" selection-end="82" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="187">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.tmpl">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="31" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="187">
@@ -628,9 +577,107 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/card.tmpl">
+    <entry file="file://$PROJECT_DIR$/src/module/user/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="10" selection-start="72" selection-end="72" vertical-scroll-proportion="0.07439825" vertical-offset="0" max-vertical-offset="457">
+        <state line="8" column="14" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/type/board.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="34" selection-start="31" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/toggleMenu/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="26" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/card/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="5" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/cell.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="4" selection-start="4" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="488">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisx.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="24" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="501">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/axisy.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="50" selection-start="50" selection-end="50" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="120">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/type/context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/type.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="18" selection-start="18" selection-end="18" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/basis.config">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="45" selection-start="620" selection-end="620" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardList/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="48" selection-start="407" selection-end="422" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1215">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="24" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0" vertical-offset="332" max-vertical-offset="2280">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/card/card.tmpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="10" selection-start="72" selection-end="72" vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="135">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/module/boardGrid/board-grid.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="22" selection-start="966" selection-end="966" vertical-scroll-proportion="3.3986928" vertical-offset="170" max-vertical-offset="870">
           <folding />
         </state>
       </provider>

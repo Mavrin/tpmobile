@@ -6,50 +6,34 @@ basis.require('basis.entity');
 basis.require('app.type');
 
 
-var context = new basis.data.Object({
-    syncAction: basis.net.action.create({
-        url: 'api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
-        success: function (data) {
-            this.update(data);
-        }
-    })
-});
-window.context = context ; //TODO remove awful code
+
 
 var stateApplication = new basis.data.Object({
     data:{
         isExpandMenu:false
     }
 });
+var context = app.type.Context;
 
 var userView = resource('module/user/index.js').fetch();
 var boardList = resource('module/boardList/index.js').fetch();
+var boardGrid = resource('module/boardGrid/index.js').fetch();
+var toggleMenu = resource('module/toggleMenu/index.js').fetch();
 
 //ToDo create object logged user from context
 userView.setDelegate(context);
 
-var boardGrid = resource('module/boardGrid/index.js').fetch();
 boardList.setDelegate(context);
+toggleMenu.setDelegate(stateApplication);
+
+
 boardList.selection.addHandler({
     itemsChanged: function(){
         boardGrid.setDelegate(app.type.BoardSettings.byId(this.pick().data.key));
     }
 });
 
-var toggleMenu = new basis.ui.Node({
-    active: true,
-    delegate:stateApplication,
-    template: resource('app/template/toggle-menu.tmpl'),
-    action: {
-        toggle:function(){
-            var isExpand = true;
-            if(this.data.isExpandMenu) {
-                isExpand = false;
-            }
-            this.update({isExpandMenu:isExpand});
-        }
-    }
-});
+
 
 var page = new basis.ui.Node({
     active: true,
@@ -73,7 +57,6 @@ var page = new basis.ui.Node({
 module.exports = basis.app.create({
     title: 'My app',
     init: function () {
-        // делаем композицию
         return new basis.ui.Node({
             template: resource('app/template/layout.tmpl'),
             delegate:stateApplication,
