@@ -3,7 +3,16 @@ basis.require('basis.net.action');
 
 
 function CellSettings(value, oldValue){
-    return typeof value == 'string' ? JSON.parse(value) : oldValue || null;
+    if (typeof value == 'string')
+    {
+        value = JSON.parse(value);
+        value.id = value.types[0];
+        value.items = value.types.map(function(type){
+            return { id: type, filter: null }
+        });  
+    }
+
+    return typeof value == 'object' ? value : oldValue || null;
 }
 
 // создаем тип, это позволит ссылаться по идентификатору и нормализовывать значения

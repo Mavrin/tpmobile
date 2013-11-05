@@ -18,10 +18,15 @@ var getFirstItemFromAxis = function(data) {
     return getCellItems(data)[0]||{};
 };
 
-var getCell = function (xData, yData, sliceConfig) {
-    var where = '((x in ["' + getFirstItemFromAxis(xData.data).id + '"])and(y in ["' + getFirstItemFromAxis(yData.data).id + '"]))';
-    sliceConfig.where = where;
-    cell.setDelegate(new slice.cells({sliceConfig: sliceConfig}));
+var getCell = function (x, y, boardData) {
+    var where = '((x in ["' + x + '"])and(y in ["' + y + '"]))';
+    var sliceConfig = {
+        base64: true,
+        definition: basis.object.slice(boardData),
+        where: where,
+        take: 3
+    };
+    cell.setDelegate(new slice.cells({ sliceConfig: sliceConfig }));
 };
 
 var convertCell = function(types) {
@@ -34,23 +39,21 @@ var convertCell = function(types) {
  наверное это пока не вопрос? Скорее это не сложно будет реализовать или может я сразу нитуда иду.
   */
 var Axis = basis.ui.Node.subclass({
+    autoDelegate: true,
     active: true,
-    handler: {
-        update: function (node) {
-            var dataset = new basis.data.Dataset({
-                items: basis.array.flatten(getItems(node.data).map(function (item) {
-                    return item.dynamic.items.map(function(value){
-                        return new basis.data.Object({
-                            data: {
-                                name: value.data.name
-                            }
-                        });
-                    });
-                }))
-            });
 
-            this.setDataSource(dataset);
+    handler: {
+        targetChanged: function(){
+            this.setDataSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+        },
+        update: function(sender, delta){
+            if (this.axisKey in delta)
+                this.setActive(this.data[this.axisKey]);
         }
+    },
+
+    sorting: function(item){
+        return item.data.orderingValue || item.basisObjectId;
     },
     childClass: {
         binding: {
@@ -60,6 +63,7 @@ var Axis = basis.ui.Node.subclass({
 });
 
 var axisX = new Axis({
+    axisKey: 'x',
     template: resource('axisx.tmpl'),
     childClass: {
         template: '<span class="board-grid__axis-text">{name}</span>',
@@ -67,6 +71,7 @@ var axisX = new Axis({
 });
 
 var axisY = new Axis({
+    axisKey: 'y',
     template: resource('axisy.tmpl'),
     childClass: {
         template: '<span class="board-grid__rotated-text"><span class="board-grid__rotated-text-inner">{name}</span></span>'
@@ -93,11 +98,16 @@ var cell = new basis.ui.Node({
             this.setDataSource(dataset);
         }
     },
+    setXY: function(x, y){
+        this.x = x;
+        this.y = y;
+        if (this.x && this.y)
+            getCell(this.x, this.y, view.data);
+    },
     childClass: resource('../card/index.js').fetch()
 });
 
-
-module.exports = new basis.ui.Node({
+var view = new basis.ui.Node({
     active: true,
 
     template: resource('board-grid.tmpl'),
@@ -105,47 +115,20 @@ module.exports = new basis.ui.Node({
         axisY: axisY,
         axisX: axisX,
         cell: cell
-    },
-
-    handler: {
-        update: function(node) {
-            if (!this.data.cells)
-                return;
-
-            var definition = node.data;
-            /*я не знаю сходил контест за данными,
-              если он изменяется,
-              я должен перезабрать данные.
-              Как мне разрулить эту зависимость?
-             */
-            definition.global = {acid: app.type.Context.data.Acid};
-
-            definition.cells.items = convertCell(node.data.cells.types);
-            definition.y.id = node.data.y.types[0];
-            definition.x.id = node.data.x.types[0];
-            var sliceConfig = {base64: true, definition: definition, take: 3};
-            var x = new slice.x({sliceConfig: sliceConfig});
-            var y = new slice.y({sliceConfig: sliceConfig});
-
-            //как избавиться от такого кода, обычно я  решил бы через промисы?
-            x.addHandler({
-                update: function(data) {
-                    if (y.state ==  basis.data.STATE.READY) {
-                        getCell(data, y, sliceConfig);
-                    }
-                }
-            });
-
-            y.addHandler({
-                update: function(data) {
-                    if (x.state ==  basis.data.STATE.READY) {
-                        getCell(x, data, sliceConfig);
-                    }
-                }
-            });
-
-            axisX.setDelegate(x);
-            axisY.setDelegate(y);
-        }
     }
 });
+
+// временное решение, дальше мы это переделаем
+axisX.addHandler({
+    childNodesModified: function(){
+        cell.setXY(this.firstChild ? this.firstChild.data.id : null, cell.y);
+    }
+});
+
+axisY.addHandler({
+    childNodesModified: function(){
+        cell.setXY(cell.x, this.firstChild ? this.firstChild.data.id : null);
+    }
+});
+
+module.exports = view;
