@@ -8,8 +8,7 @@
     border-color: #808080;
 }
 
-.card-type-userstory:before {
-
+.card_type-UserStory:before {
     background: #6498d8;
     position: absolute;
     top: 0;

@@ -1,39 +1,6 @@
 basis.require('basis.ui');
 basis.require('app.type');
 
-//не знаю как сделать slice сервисом?
-var slice = app.type.Slice;
-
-var getItems = function(data) {
-    var items = data && data.items || [];
-    return items;
-};
-
-var getCellItems = function(data) {
-    var items = getItems(data)[0] && data.items[0].dynamic && data.items[0].dynamic.items || [];
-    return items;
-};
-
-var getFirstItemFromAxis = function(data) {
-    return getCellItems(data)[0]||{};
-};
-
-var getCell = function (x, y, boardData) {
-    var where = '((x in ["' + x + '"])and(y in ["' + y + '"]))';
-    var sliceConfig = {
-        base64: true,
-        definition: basis.object.slice(boardData),
-        where: where,
-        take: 3
-    };
-    cell.setDelegate(new slice.cells({ sliceConfig: sliceConfig }));
-};
-
-var convertCell = function(types) {
-    return types.map(function(type) {
-        return {id: type, filter: null}
-    });
-};
 /*ось показыват только одно значение во viewport(сейчас три),
  но я могу жестом свайпнуть и изменить ось, и после этого забрать данные для ячейки(cell),
  наверное это пока не вопрос? Скорее это не сложно будет реализовать или может я сразу нитуда иду.
@@ -83,26 +50,22 @@ var cell = new basis.ui.Node({
     active: true,
     template: resource('cell.tmpl'),
     handler: {
-        update: function(node) {
-            var dataset = new basis.data.Dataset({
-                items: getCellItems(node.data).map(function(value){
-                    return new basis.data.Object({
-                        data: {
-                            name: value.data.name,
-                            id: value.data.id,
-                            type:value.type.toLocaleLowerCase()
-                        }
-                    });
-                })
-            });
-            this.setDataSource(dataset);
+        update: function(sender, delta){
+            if ('items' in delta)
+                this.setDataSource(this.data.items);
         }
     },
-    setXY: function(x, y){
+    setXY: function(x, y){ // этот метод тоже временное решение
         this.x = x;
         this.y = y;
-        if (this.x && this.y)
-            getCell(this.x, this.y, view.data);
+        if (this.x && this.y && view.data.key)
+        {
+            this.setDelegate(app.type.Cell({
+                boardId: view.data.key,
+                x: this.x,
+                y: this.y
+            }));
+        }
     },
     childClass: resource('../card/index.js').fetch()
 });
