@@ -11,7 +11,7 @@ module.exports = basis.app.create({
 
         boardList.selection.addHandler({
             itemsChanged: function(){
-                boardGrid.setDelegate(app.type.BoardSettings.byId(this.pick().data.key));
+                boardGrid.setDelegate(this.pick());
             }
         });
 

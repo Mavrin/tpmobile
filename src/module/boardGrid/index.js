@@ -109,6 +109,9 @@ module.exports = new basis.ui.Node({
 
     handler: {
         update: function(node) {
+            if (!this.data.cells)
+                return;
+
             var definition = node.data;
             /*я не знаю сходил контест за данными,
               если он изменяется,

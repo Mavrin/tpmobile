@@ -1,29 +1,40 @@
 basis.require('basis.entity');
 basis.require('basis.net.action');
-basis.require('basis.data.dataset');
+
+
+function CellSettings(value, oldValue){
+    return typeof value == 'string' ? JSON.parse(value) : oldValue || null;
+}
 
 // создаем тип, это позволит ссылаться по идентификатору и нормализовывать значения
 var Board = basis.entity.createType('Board', {
     key: basis.entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
     ownerId: Number,
-    name: function(value){
-        return value ? value.replace(/(^")(.+)("$)/i,"$2") : '';
-    },
-    isShared: function(value){  // все таки лучше отдавать булевы значения как true/false, а не строками
-        return value === 'false' ? false : Boolean(value);
-    }
+    name: String,
+    isShared: Boolean,
+
+    cells: CellSettings,
+    x: CellSettings,
+    y: CellSettings
 });
 
-/**
-Ответ сервера имеет вид
-{"items":[{
-"key":"1346841558973",
-"ownerId":3721,
-"name":"\"My Work\"",
-"isShared":"true"
-}]
-}
-**/
+// учим Board синхронизироваться
+Board.extend({
+    syncAction: basis.net.action.create({
+        url: 'storage/v1/boards/:id',
+        request: function() {
+            return {
+                routerParams: {
+                    id: this.getId()
+                }
+            };
+        },
+        success: function(data){
+            // пока из данных берем только x, y, cells
+            this.update(basis.object.slice(data.publicData, ['cells', 'x', 'y']));
+        }
+    })
+});
 
 // разбивка Board по полю ownerId
 var splitByOwner = new basis.entity.Grouping({
@@ -43,7 +54,11 @@ var splitByOwner = new basis.entity.Grouping({
                 };
             },
             success: function (data) {
-                this.sync(data.items.map(Board.reader));
+                this.sync(data.items.map(function(data){
+                    data.name = data.name.substr(1, data.name.length - 2);
+                    data.isShared = data.isShared === 'false' ? false : true;
+                    return Board.reader(data);
+                }));
             }
         })
     }
