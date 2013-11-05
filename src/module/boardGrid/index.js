@@ -108,7 +108,7 @@ module.exports = new basis.ui.Node({
               я должен перезабрать данные.
               Как мне разрулить эту зависимость?
              */
-            definition.global = {acid: window.context.data.Acid};
+            definition.global = {acid: app.type.Context.data.Acid};
 
             definition.cells.items = convertCell(node.data.cells.types);
             definition.y.id = node.data.y.types[0];

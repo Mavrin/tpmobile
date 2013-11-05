@@ -3,15 +3,17 @@ basis.require('app.type');
 
 // список Board
 module.exports = new basis.ui.Node({
+    autoDelegate: true,
     active: true,
+
     template: resource('list.tmpl'),
-    selection: true,
     handler: {
         update: function(){
             this.setDataSource(app.type.Board.byOwner(this.data.LoggedUser.Id));
         }
     },
 
+    selection: true,
     childClass: {
         template: resource('board.tmpl'),
         binding: {
