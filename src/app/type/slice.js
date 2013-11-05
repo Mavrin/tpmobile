@@ -23,7 +23,8 @@ Slice.SliceMethod = basis.data.Object.subclass({
         }
     })
 });
-/*Slice.y = Slice.SliceMethod.subclass({method:'yaxis'}); //так не получилось action не дает сделать одновременно сделать запрос вообще здесь нужен сервис
+
+/*Slice.y = Slice.SliceMethod.subclass({method:'yaxis'}); 
 Slice.x = Slice.SliceMethod.subclass({method:'xaxis'});*/
 Slice.y = basis.data.Object.subclass({
     syncAction: basis.net.action.create({
@@ -40,6 +41,7 @@ Slice.y = basis.data.Object.subclass({
         }
     })
 });
+
 Slice.x = basis.data.Object.subclass({
     syncAction: basis.net.action.create({
         method:'post',
@@ -47,7 +49,15 @@ Slice.x = basis.data.Object.subclass({
         request: function() {
             return {
                 url: 'slice/v1/matrix/xaxis/',
-                postBody:JSON.stringify(this.sliceConfig)
+                postBody: JSON.stringify({
+                    base64: true,
+                    definition: {
+                        cells: this.sliceConfig.definition.cells,
+                        global: this.sliceConfig.definition.global,
+                        x: this.sliceConfig.definition.x
+                    },
+                    take: 3
+                })
             };
         },
         success: function(data){
@@ -55,6 +65,7 @@ Slice.x = basis.data.Object.subclass({
         }
     })
 });
+
 Slice.cells = basis.data.Object.subclass({
     syncAction: basis.net.action.create({
         method:'post',

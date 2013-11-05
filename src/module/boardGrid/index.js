@@ -35,7 +35,6 @@ var convertCell = function(types) {
   */
 var Axis = basis.ui.Node.subclass({
     active: true,
-    template: resource('axisx.tmpl'),
     handler: {
         update: function (node) {
             var dataset = new basis.data.Dataset({
@@ -54,22 +53,23 @@ var Axis = basis.ui.Node.subclass({
         }
     },
     childClass: {
-        template: '<span class="board-grid__axis-text">{name}</span>',
         binding: {
-            name: "data:"
+            name: 'data:'
         }
     }
 });
 
-var axisX = new Axis();
+var axisX = new Axis({
+    template: resource('axisx.tmpl'),
+    childClass: {
+        template: '<span class="board-grid__axis-text">{name}</span>',
+    }
+});
 
 var axisY = new Axis({
     template: resource('axisy.tmpl'),
     childClass: {
-        template: '<span class="board-grid__rotated-text"><span class="board-grid__rotated-text-inner">{name}</span></span>',
-        binding: {
-            name: "data:"
-        }
+        template: '<span class="board-grid__rotated-text"><span class="board-grid__rotated-text-inner">{name}</span></span>'
     }
 });
 
@@ -99,7 +99,14 @@ var cell = new basis.ui.Node({
 
 module.exports = new basis.ui.Node({
     active: true,
+
     template: resource('board-grid.tmpl'),
+    binding: {
+        axisY: axisY,
+        axisX: axisX,
+        cell: cell
+    },
+
     handler: {
         update: function(node) {
             var definition = node.data;
@@ -137,10 +144,5 @@ module.exports = new basis.ui.Node({
             axisX.setDelegate(x);
             axisY.setDelegate(y);
         }
-    },
-    binding: {
-        axisY: axisY,
-        axisX: axisX,
-        cell: cell
     }
 });
