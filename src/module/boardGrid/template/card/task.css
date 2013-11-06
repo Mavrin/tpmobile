@@ -1,0 +1,12 @@
+.card_type-Task:before {
+    background: #008800;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    content: '';
+
+    width: 3px;
+
+    height: 100%;
+}

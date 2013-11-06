@@ -1,6 +1,9 @@
 basis.require('basis.ui');
 basis.require('app.type');
 
+
+var cards = resource('cards.js').fetch();
+
 /*ось показыват только одно значение во viewport(сейчас три),
  но я могу жестом свайпнуть и изменить ось, и после этого забрать данные для ячейки(cell),
  наверное это пока не вопрос? Скорее это не сложно будет реализовать или может я сразу нитуда иду.
@@ -67,8 +70,15 @@ var cell = new basis.ui.Node({
             }));
         }
     },
-    childClass: resource('../card/index.js').fetch()  // классы надо объявлять либо в рамках модуля,
-                                                      // либо в рамках всего приложения, но не как модуль
+
+    childClass: cards.BaseCard,
+    childFactory: function(config){
+        var CardClass = cards[config.delegate && config.delegate.data.type] || cards.BaseCard;
+        return new CardClass(config);
+    },
+    sorting: function(item){
+        return item.data.orderingValue || item.basisObjectId;
+    }
 });
 
 var view = new basis.ui.Node({

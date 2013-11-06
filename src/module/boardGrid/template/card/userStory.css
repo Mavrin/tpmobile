@@ -1,0 +1,12 @@
+.card_type-UserStory:before {
+    background: #6498d8;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    content: '';
+
+    width: 3px;
+
+    height: 100%;
+}
