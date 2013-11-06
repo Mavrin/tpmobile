@@ -1,7 +1,6 @@
 basis.require('basis.entity');
 
 module.exports = {
-    Context: resource('type/context.js').fetch(),
     Board: resource('type/board.js').fetch(),
     AxisItem: resource('type/axisItem.js').fetch(),
     Cell: resource('type/cell.js').fetch(),

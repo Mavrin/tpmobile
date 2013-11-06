@@ -1,4 +1,5 @@
 basis.require('basis.entity');
+basis.require('app.service');
 
 var Cell = basis.entity.createType('Cell', {
     boardId: basis.entity.StringId,  // \
@@ -19,13 +20,9 @@ Cell.extend({
                (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) &&
                this.getId();
     },
-    syncAction: basis.net.action.create({
+    syncAction: app.service.createAction({
         method: 'POST',
-        contentType: 'application/json',
         url: 'slice/v1/matrix/cells/',
-        poolHashGetter: function(reqData){
-            return reqData.origin.basisObjectId;
-        },
         request: function(){
             return {
                 postBody: JSON.stringify({

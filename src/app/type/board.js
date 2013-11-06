@@ -1,5 +1,5 @@
 basis.require('basis.entity');
-basis.require('basis.net.action');
+basis.require('app.service');
 
 
 function CellSettings(value, oldValue){
@@ -29,7 +29,7 @@ var Board = basis.entity.createType('Board', {
 
 // учим Board синхронизироваться
 Board.extend({
-    syncAction: basis.net.action.create({
+    syncAction: app.service.createAction({
         url: 'storage/v1/boards/:id',
         request: function() {
             return {
@@ -51,7 +51,7 @@ var splitByOwner = new basis.entity.Grouping({
     rule: 'data.ownerId',  // это шоткат для function(item){ return item.data.onwerId }
     wrapper: Board,
     subsetClass: {
-        syncAction: basis.net.action.create({ // каждая группа 
+        syncAction: app.service.createAction({ // каждая группа 
             url: 'storage/v1/boards',
             request: function(){
                 return {

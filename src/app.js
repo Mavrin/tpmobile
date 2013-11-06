@@ -1,6 +1,6 @@
 basis.require('basis.app');
 basis.require('basis.ui');
-basis.require('app.type');
+basis.require('app.service');
 basis.require('app.state');
 
 module.exports = basis.app.create({
@@ -16,7 +16,7 @@ module.exports = basis.app.create({
         });
 
         return new basis.ui.Node({
-            delegate: app.type.Context,
+            delegate: app.service.context,
 
             template: resource('app/template/layout.tmpl'),
             binding: {

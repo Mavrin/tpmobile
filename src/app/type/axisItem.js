@@ -1,5 +1,5 @@
 basis.require('basis.entity');
-basis.require('basis.net.action');
+basis.require('app.service');
 
 var AxisItem = basis.entity.createType('AxisItem', {
     id: String,
@@ -13,13 +13,9 @@ AxisItem.byBoard = (function(){
     var Axis = basis.entity.createSetType('Axis', AxisItem);
 
     Axis.extend({
-        syncAction: basis.net.action.create({
+        syncAction: app.service.createAction({
             method: 'POST',
-            contentType: 'application/json',
             url: '/slice/v1/matrix/:axis',
-            poolHashGetter: function(reqData){
-                return reqData.origin.basisObjectId;
-            },
             request: function(){
                 return {
                     routerParams: {
