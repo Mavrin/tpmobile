@@ -1,0 +1,7 @@
+.board-grid__axis_y {
+    width: 32px;
+    display: flex;
+    border-top: 0;
+    float: left;
+    height: 100%;
+}

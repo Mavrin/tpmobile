@@ -1,0 +1,4 @@
+.board-grid__cell {
+    float: left;
+    height: 100%;
+}

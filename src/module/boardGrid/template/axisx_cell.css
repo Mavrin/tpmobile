@@ -1,0 +1,8 @@
+.board-grid__axisx-cell {
+    overflow: hidden;
+    display: inline-block;
+}
+.board-grid__axisx-cell:nth-child(2),
+.board-grid__axisx-cell:nth-child(3) {
+    display: none;
+}

@@ -31,24 +31,24 @@ var Axis = basis.ui.Node.subclass({
 
 var axisX = new Axis({
     axisKey: 'x',
-    template: resource('axisx.tmpl'),
+    template: resource('template/axisx.tmpl'),
     childClass: {
-        template: '<span class="board-grid__axis-text">{name}</span>',
+        template: resource('template/axisx_cell.tmpl')
     }
 });
 
 var axisY = new Axis({
     axisKey: 'y',
-    template: resource('axisy.tmpl'),
+    template: resource('template/axisy.tmpl'),
     childClass: {
-        template: '<span class="board-grid__rotated-text"><span class="board-grid__rotated-text-inner">{name}</span></span>'
+        template: resource('template/axisy_cell.tmpl')
     }
 });
 
 //сейчас забираю три карточки, в будущем хочу сделать по пралистыванию, чтобы догружались остальные карточки, тоже пока не вопрос,скорее делали что-то подобное?
 var cell = new basis.ui.Node({
     active: true,
-    template: resource('cell.tmpl'),
+    template: resource('template/cell.tmpl'),
     handler: {
         update: function(sender, delta){
             if ('items' in delta)
@@ -67,13 +67,14 @@ var cell = new basis.ui.Node({
             }));
         }
     },
-    childClass: resource('../card/index.js').fetch()
+    childClass: resource('../card/index.js').fetch()  // классы надо объявлять либо в рамках модуля,
+                                                      // либо в рамках всего приложения, но не как модуль
 });
 
 var view = new basis.ui.Node({
     active: true,
 
-    template: resource('board-grid.tmpl'),
+    template: resource('template/grid.tmpl'),
     binding: {
         axisY: axisY,
         axisX: axisX,
