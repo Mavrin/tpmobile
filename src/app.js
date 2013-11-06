@@ -1,19 +1,14 @@
 basis.require('basis.app');
 basis.require('basis.ui');
+basis.require('basis.router');
 basis.require('app.service');
 basis.require('app.state');
 
 module.exports = basis.app.create({
     title: 'My app',
     init: function () {
-        var boardList = resource('module/boardList/index.js').fetch();
-        var boardGrid = resource('module/boardGrid/index.js').fetch();
-
-        boardList.selection.addHandler({
-            itemsChanged: function(){
-                boardGrid.setDelegate(this.pick());
-            }
-        });
+        // включаем отслеживание изменения URL
+        basis.router.start();
 
         return new basis.ui.Node({
             delegate: app.service.context,
@@ -22,8 +17,8 @@ module.exports = basis.app.create({
             binding: {
                 toggleMenu: resource('module/toggleMenu/index.js').fetch(),
                 loggedUser: resource('module/user/index.js').fetch(),
-                boardList: boardList,
-                boardGrid: boardGrid,
+                boardList: resource('module/boardList/index.js').fetch(),
+                boardGrid: resource('module/boardGrid/index.js').fetch(),
                 expand: app.state.isMenuExpanded
             }
         });

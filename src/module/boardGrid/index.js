@@ -1,4 +1,5 @@
 basis.require('basis.ui');
+basis.require('basis.router');
 basis.require('app.type');
 
 
@@ -90,6 +91,10 @@ var view = new basis.ui.Node({
         axisX: axisX,
         cell: cell
     }
+});
+
+basis.router.add('/board/:id', function(id){
+    view.setDelegate(app.type.Board(id));
 });
 
 // временное решение, дальше мы это переделаем
