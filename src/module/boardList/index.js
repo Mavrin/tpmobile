@@ -8,12 +8,12 @@ var selectedBoard = new basis.data.Value();
 
 basis.router.add('/board/:id', selectedBoard.set, selectedBoard);
 
-
 var listBoard = new basis.ui.Node({
     autoDelegate: true,
     active: true,
 
     template: resource('template/list.tmpl'),
+
     handler: {
         update: function () {
             this.setDataSource(app.type.Board.byOwner(this.data.LoggedUser.Id));
@@ -35,62 +35,100 @@ var listBoard = new basis.ui.Node({
         }
     }
 });
-// TODO temporary solution(move to class and make more generic)
-function setDrag() {
-    var drag = new basis.dragdrop.DragDropElement({
-        element: listBoard.element,
-        /* emit_debug: function(e){
-         console.log(e.type, arguments);
-         },*/
-        handler: {
-            start: function () {
-                console.log('drag');
-                this.parentNode = this.element.parentNode;
-                this.pullRefreshBlock = this.parentNode.firstChild;
-                this.pullRefreshBlockLabel = this.pullRefreshBlock.children[1];
-            },
-            drag: function (evt, cords) {
-                if (cords.deltaY < 0) {
-                    return;
-                }
-                basis.cssom.setStyleProperty(this.parentNode, '-webkit-transform', 'translate(0px, ' + (-51 + cords.deltaY) + 'px) scale(1) translateZ(0px)');
-                if (cords.deltaY > 51) {
-                    this.pullRefreshBlock.classList.add('flip');
-                    this.pullRefreshBlockLabel.innerHTML = "Release to refresh...";
-                } else {
-                    this.pullRefreshBlock.classList.remove('flip');
-                    this.pullRefreshBlockLabel.innerHTML = "Pull down to refresh...";
-                }
-            },
-            over: function (d, cords) {
-                if (cords.deltaY > 51) {
-                    this.pullRefreshBlock.classList.add('loading');
-                    this.pullRefreshBlockLabel.innerHTML = "Loading...";
-                    basis.cssom.setStyleProperty(this.parentNode, '-webkit-transform', 'translate(0px, ' + (0) + 'px) scale(1) translateZ(0px)');
-                    listBoard.dataSource.addHandler({
-                        stateChanged:function(data, state) {
-                            if(state == basis.data.STATE.READY) {
-                                this.pullRefreshBlock.classList.remove('flip');
-                                this.pullRefreshBlock.classList.remove('loading');
-                                this.pullRefreshBlockLabel.innerHTML = "Pull down to refresh...";
-                                basis.cssom.setStyleProperty(this.parentNode, '-webkit-transform', 'translate(0px, ' + (-51) + 'px) scale(1) translateZ(0px)');
-                            }
-                        }.bind(this)
-                    });
-                    listBoard.dataSource.setState(basis.data.STATE.DEPRECATED);
-                                     //   debugger
 
-                } else {
-                    this.pullRefreshBlock.classList.remove('flip');
-                    this.pullRefreshBlockLabel.innerHTML = "Pull down to refresh...";
-                    basis.cssom.setStyleProperty(this.parentNode, '-webkit-transform', 'translate(0px, ' + (-51) + 'px) scale(1) translateZ(0px)')
-                }
+var UpdatableList = basis.ui.Node.subclass({
+    autoDelegate: true,
+
+    offsetY: 0,
+    emit_offsetYChanged: basis.event.create('offsetYChanged'),
+
+    template: resource('template/updatableList.tmpl'),
+    binding: {
+        caption: {
+            events: 'offsetYChanged stateChanged',
+            getter: function(node){
+                if (node.state == basis.data.STATE.PROCESSING)
+                    return 'Loading...';
+
+                return node.offsetY > 51
+                    ? 'Release to refresh...'
+                    : 'Pull down to refresh...';
+            }
+        },
+        flip: {
+            events: 'offsetYChanged',
+            getter: function(node){
+                return node.offsetY > 51;
+            }
+        },
+        offsetY: {
+            events: 'offsetYChanged',
+            getter: function(node){
+                return -51 + node.offsetY;
             }
         }
-    });
-}
-setDrag();
+    },
+
+    handler: {
+        stateChanged: function(){
+            this.dde.stop();
+            this.setOffsetY(this.state == basis.data.STATE.PROCESSING ? 51 : 0);
+        }
+    },
+
+    init: function(){
+        basis.ui.Node.prototype.init.call(this);
+
+        this.dde = new basis.dragdrop.DragDropElement({
+            handler: {
+                context: this,
+                callbacks: {
+                    start: function () {
+                        if (this.state == basis.data.STATE.PROCESSING)
+                            this.stop();
+                    },
+                    drag: function (config, event) {
+                        this.setOffsetY(event.deltaY);
+                    },
+                    over: function (config, event) {
+                        if (event.deltaY > 51) {
+                            this.setOffsetY(51);
+                            this.deprecate();
+                        } else {
+                            this.setOffsetY(0);
+                        }
+                    }
+                }
+            }
+        });
+    },
+
+    templateSync: function(){
+        basis.ui.Node.prototype.templateSync.call(this);
+        this.dde.setElement((this.tmpl && this.tmpl.dragElement) || this.element);
+    },
+
+    setOffsetY: function(y){
+        y = Math.max(0, Number(y));
+        if (this.offsetY != y)
+        {
+            this.offsetY = y;
+            this.emit_offsetYChanged();
+        }
+    },
+
+    destroy: function(){
+        this.dde.destroy();
+        this.dde = null;
+
+        basis.ui.Node.destroy.call(this);
+    }
+});
 
 
 // список Board
-module.exports = listBoard;
+module.exports = new UpdatableList({
+    binding: {
+        list: listBoard
+    }
+});
