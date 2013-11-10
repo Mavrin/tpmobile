@@ -1,3 +1,7 @@
 <b:style src="list.css"/>
 
-<ul class="board-list"/>
+<b:include src="app.ui.UpdatableNode" class="board-list__wrap">
+    <b:replace ref="content">
+        <ul{childNodesElement} class="board-list"/>
+    </b:replace>
+</b:include>

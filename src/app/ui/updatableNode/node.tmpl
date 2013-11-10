@@ -1,0 +1,11 @@
+<b:style src="node.css"/>
+<b:define name="flip" type="bool"/>
+<b:define name="childNodesState" type="enum" values="processing"/>
+
+<div style="-webkit-transform: translate(0px, {offsetY}px) scale(1) translateZ(0px);">
+    <div class="app-list__pullDown">
+        <span class="app-list__pullDownIcon app-list__pullDownIcon_{flip} app-list__pullDownIcon_{childNodesState}"></span>
+        <span class="app-list__pullDownLabel">{caption}</span>
+    </div>
+    <!--{content}-->
+</div>
