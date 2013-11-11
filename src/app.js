@@ -14,6 +14,11 @@ module.exports = basis.app.create({
             delegate: app.service.context,
 
             template: resource('app/template/layout.tmpl'),
+            action:{
+                toggle:function() {
+                    app.state.isMenuExpanded.set(false);
+                }
+            },
             binding: {
                 toggleMenu: resource('module/toggleMenu/index.js').fetch(),
                 loggedUser: resource('module/user/index.js').fetch(),
