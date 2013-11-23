@@ -1,4 +1,34 @@
+.tau-board {
+    background: #E9ECF0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 44px;
+    border-left: 1px solid #C0C7CE;
+    overflow: hidden;
+}
+
 .board-grid {
-    position: relative;
+    width: 100%;
     height: 100%;
+    position: relative;
+    overflow: auto;
+}
+
+.board-grid .y-row {
+    display: none;
+}
+
+.board-grid .x-rows-wrap {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }

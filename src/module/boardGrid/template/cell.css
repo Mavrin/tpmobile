@@ -1,4 +1,22 @@
-.board-grid__cell {
-    float: left;
-    height: 100%;
+.cells-rows-wrap {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.board-grid-2-axis .cells-rows-wrap {
+    left: 33px;
+    top:33px;
+}
+.cells-rows-wrap .x-row {
+    border-right: 1px solid #C7CCD2;
+    overflow: hidden;
+    flex-grow: 1;
+    position: relative;
 }

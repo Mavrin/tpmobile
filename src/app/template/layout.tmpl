@@ -1,13 +1,21 @@
 <b:style src="layout.css" />
+<b:style src="entity-colors.css" />
 
 <div class="view view_{expand}">
-    <div class="menu">
-        <div class="context">place for context</div>
+    <div class="board-selector">
+        <div class="context-filter">
+            <div class="dark-panel">
+                <div class="selected-teams">Any Team</div>
+                <div class="selected-projects">TP3</div>
+            </div>
+        </div>
         <!--{boardList}-->
         <!--{loggedUser}-->
     </div>
     <div class="page" event-click="toggle">
-        <div class="bar-header"><!--{toggleMenu}--></div>
+        <div class="header">
+            <!--{toggleMenu}-->
+        </div>
         <!--{boardGrid}-->
     </div>
 </div>

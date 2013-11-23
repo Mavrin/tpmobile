@@ -2,7 +2,9 @@ basis.require('basis.entity');
 
 var CellItem = basis.entity.createType('CellItem', {
     id: basis.entity.StringId,
-    type: String,
+    type: function(value){
+        return value && value.toLowerCase() || '';
+    },
     name: String,
     orderingValue: Number
 });
