@@ -1,0 +1,44 @@
+.board-list__item {
+    background-color: rgba(245, 247, 248, 0.5);
+    border-bottom: 1px solid #C7CCD2;
+    border-top: 1px solid #FFFFFF;
+    font-weight: 600;
+    text-shadow: 0 1px #fff;
+}
+
+.board-list__item_selected {
+    background-color: #f8f8f8;
+    border-bottom-color: #C0C7CE;
+}
+
+.board-list__item-link{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    color: #606C7B;
+    display: block;
+    line-height: 19px;
+    padding: 7px 0 7px 37px;
+    position: relative;
+    text-decoration: none;
+}
+
+.board-list__item-link:before {
+    background: url(/src/app/template/images/icons-general.svg) -10px -59px;
+    content: "";
+    display: block;
+    height: 13px;
+    left: 14px;
+    position: absolute;
+    top: 10px;
+    width: 14px;
+}
+
+.board-list__item-link span {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

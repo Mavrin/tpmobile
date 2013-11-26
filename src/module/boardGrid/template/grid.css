@@ -14,21 +14,11 @@
     height: 100%;
     position: relative;
     overflow: auto;
-}
-
-.board-grid .y-row {
-    display: none;
-}
-
-.board-grid .x-rows-wrap {
-    display: -webkit-flex;
     display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
 }
+.wrap-cell-and-x {
+    display:flex;
+    flex-grow: 1;
+    flex-direction:column;
+}
+

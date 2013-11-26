@@ -1,4 +1,9 @@
 .x-rows-wrap {
     height: 33px;
     text-align: center;
+    display: flex;
+    flex-direction: row;
 }
+
+
+
