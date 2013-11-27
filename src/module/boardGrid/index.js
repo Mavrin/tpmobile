@@ -1,25 +1,38 @@
+basis.require('basis.data.dataset');
 basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
 
 
 var cards = resource('cards.js').fetch();
+var Multiple = resource('multiple.js').fetch();
 
-/*ось показыват только одно значение во viewport(сейчас три),
- но я могу жестом свайпнуть и изменить ось, и после этого забрать данные для ячейки(cell),
- наверное это пока не вопрос? Скорее это не сложно будет реализовать или может я сразу нитуда иду.
-  */
+// делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
+// можно в последствии смещать viewport меняя offset у срезов
+var viewportCols = new basis.data.dataset.Slice({
+    active: true,
+    limit: 1
+});
+var viewportRows = new basis.data.dataset.Slice({
+    active: true,
+    limit: 1
+});
+
+
+// класс для оси
 var Axis = basis.ui.Node.subclass({
     autoDelegate: true,
     active: true,
 
     handler: {
         targetChanged: function(){
-            this.setDataSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+            // назначаем источник не самому узлу, а его dataSource - это будет один из срезов
+            if (this.dataSource)
+                this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
         },
         update: function(sender, delta){
-            if (this.axisKey in delta)
-                this.setActive(this.data[this.axisKey]);
+            if (this.dataSource && this.axisKey in delta)
+                this.dataSource.setActive(!!this.data[this.axisKey]);
         }
     },
 
@@ -34,7 +47,9 @@ var Axis = basis.ui.Node.subclass({
 });
 
 var axisX = new Axis({
+    dataSource: viewportCols,
     axisKey: 'x',
+
     template: resource('template/axisx.tmpl'),
     childClass: {
         template: resource('template/axisx_cell.tmpl')
@@ -42,34 +57,28 @@ var axisX = new Axis({
 });
 
 var axisY = new Axis({
+    dataSource: viewportRows,
     axisKey: 'y',
+
     template: resource('template/axisy.tmpl'),
     childClass: {
         template: resource('template/axisy_cell.tmpl')
     }
 });
 
-//сейчас забираю три карточки, в будущем хочу сделать по пралистыванию, чтобы догружались остальные карточки, тоже пока не вопрос,скорее делали что-то подобное?
-var cell = new basis.ui.Node({
+// создаем класс для ячейки
+var Cell = new basis.ui.Node.subclass({
     active: true,
     template: resource('template/cell.tmpl'),
     handler: {
         update: function(sender, delta){
-            if ('items' in delta)
-                this.setDataSource(this.data.items);
+            this.setDataSource(this.data.items);
         }
     },
-    setXY: function(x, y){ // этот метод тоже временное решение
-        this.x = x;
-        this.y = y;
-        if (this.x && this.y && view.data.key)
-        {
-            this.setDelegate(app.type.Cell({
-                boardId: view.data.key,
-                x: this.x,
-                y: this.y
-            }));
-        }
+
+    init: function(){
+        basis.ui.Node.prototype.init.call(this);
+        this.setDataSource(this.data.items);
     },
 
     childClass: cards.BaseCard,
@@ -82,32 +91,60 @@ var cell = new basis.ui.Node({
     }
 });
 
+// создаем кастомное перемножение, с задаными rule
+var CellMultiple = new Multiple.subclass({
+    map: function(col, row){
+        // col - одна из моделей из op_a (тут будет viewportCols)
+        // row - одна из моделей из op_b (тут будет viewportRows)
+
+        // возвращаем модель по смешанным данным
+        return app.type.Cell({
+            boardId: this.boardId,
+            x: col.data.id,
+            y: row.data.id
+        });
+    }
+});
+
 var view = new basis.ui.Node({
     active: true,
+    handler: {
+        update: function(sender, delta){
+            if ('key' in delta)
+            {
+                // NOTE: пересоздаем Multiple при смене board.key, так как класс еще не доделан
+
+                if (this.dataSource)
+                    // уничтожаем старый набор, это сбросит dataSource в null
+                    this.dataSource.destroy();
+
+                // если не обнулить то в новом Multiple будет пересечение по старым осям
+                // это пока проблема, которая будет решаться
+                viewportCols.setSource();
+                viewportRows.setSource();
+
+                if (this.data.key)
+                    // создаем новое перемножение, с заданым boardId
+                    this.setDataSource(new CellMultiple({
+                        boardId: this.data.key,
+                        op_a: viewportCols,
+                        op_b: viewportRows
+                    }));
+            }
+        }
+    },
 
     template: resource('template/grid.tmpl'),
     binding: {
         axisY: axisY,
-        axisX: axisX,
-        cell: cell
-    }
+        axisX: axisX
+    },
+
+    childClass: Cell   // класс ячейки
 });
 
 basis.router.add('/board/:id', function(id){
     view.setDelegate(app.type.Board(id));
-});
-
-// временное решение, дальше мы это переделаем
-axisX.addHandler({
-    childNodesModified: function(){
-        cell.setXY(this.firstChild ? this.firstChild.data.id : null, cell.y);
-    }
-});
-
-axisY.addHandler({
-    childNodesModified: function(){
-        cell.setXY(cell.x, this.firstChild ? this.firstChild.data.id : null);
-    }
 });
 
 module.exports = view;
