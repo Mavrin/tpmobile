@@ -3,13 +3,12 @@ basis.require('app.service');
 
 
 function CellSettings(value, oldValue){
-    if (typeof value == 'string')
+    if (value && !value.items)
     {
-        value = JSON.parse(value);
         value.id = value.types[0];
         value.items = value.types.map(function(type){
             return { id: type, filter: null }
-        });  
+        });
     }
 
     return typeof value == 'object' ? value : oldValue || null;
@@ -30,7 +29,7 @@ var Board = basis.entity.createType('Board', {
 // учим Board синхронизироваться
 Board.extend({
     syncAction: app.service.createAction({
-        url: 'storage/v1/boards/:id',
+        url: 'api/board/v1/:id',
         request: function() {
             return {
                 routerParams: {
@@ -40,7 +39,7 @@ Board.extend({
         },
         success: function(data){
             // пока из данных берем только x, y, cells
-            this.update(basis.object.slice(data.publicData, ['cells', 'x', 'y']));
+            this.update(basis.object.slice(data , ['cells', 'x', 'y']));
         }
     })
 });
@@ -52,22 +51,19 @@ var splitByOwner = new basis.entity.Grouping({
     wrapper: Board,
     subsetClass: {
         syncAction: app.service.createAction({ // каждая группа 
-            url: 'storage/v1/boards',
+            url: 'api/boards/v1/visibleForUser/:id',
             request: function(){
                 return {
-                    params: { // id из контекста, в id хранится значение по которому "группируются" Board
-                              // this - это набор Board для определенного значения ownerId
-                       where: '(ownerId == ' + this.ruleValue + ')',
-                       select: 'new(key,ownerId,publicData.name,publicData.isShared,publicData.customSharedData,publicData.createdAt,userData.menuIsVisible AS userMenuIsVisible,userData.menuNumericPriority AS userMenuNumericPriority,publicData.menuIsVisible,publicData.menuNumericPriority,publicData.viewMode,publicData.acid,userData.viewMode AS userViewMode)'
+                    routerParams: {
+                        id: this.ruleValue
                     }
                 };
             },
             success: function (data) {
                 this.sync(data.items.map(function(data){
-                    data.name = data.name.substr(1, data.name.length - 2);
-                    data.isShared = data.isShared === 'false' ? false : true;
+                    data.ownerId = this.ruleValue;
                     return Board.reader(data);
-                }));
+                }.bind(this)));
             }
         })
     }
