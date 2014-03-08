@@ -1,10 +1,10 @@
 basis.require('basis.entity');
 
 module.exports = {
-    Board: resource('type/board.js').fetch(),
-    AxisItem: resource('type/axisItem.js').fetch(),
-    Cell: resource('type/cell.js').fetch(),
-    CellItem: resource('type/cellItem.js').fetch()
+    Board: require('./type/board.js'),
+    AxisItem: require('./type/axisItem.js'),
+    Cell: require('./type/cell.js'),
+    CellItem: require('./type/cellItem.js')
 };
 
 // проверка, что все типы, на которые ссылаются другие типы, объявлены

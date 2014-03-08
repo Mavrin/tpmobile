@@ -5,15 +5,13 @@
     width: 32px;
     line-height: 32px;
 }
-.board-grid__axisy-cell:nth-child(2),
-.board-grid__axisy-cell:nth-child(3) {
-    display: none;
-}
 .board-grid__axisy-cell-inner {
     display: inline-block;
     white-space: nowrap;
     -webkit-transform: translate(0,100%) rotate(-90deg);
     -webkit-transform-origin: 0 0;
+    transform: translate(0,100%) rotate(-90deg);
+    transform-origin: 0 0;
 }
 .board-grid__axisy-cell-inner:after {
     content: "";

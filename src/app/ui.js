@@ -1,3 +1,3 @@
 module.exports = {
-  UpdatableNode: resource('ui/updatableNode.js').fetch().Node
+    UpdatableNode: require('./ui/updatableNode.js').Node
 };

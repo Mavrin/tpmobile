@@ -10,7 +10,7 @@ var defaultService = new basis.net.service.Service({
 });
 
 defaultService.context = new basis.data.Object({
-    isTarget: true,
+    target: true,
     syncAction: defaultService.createAction({
         url: 'api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
         success: function (data) {

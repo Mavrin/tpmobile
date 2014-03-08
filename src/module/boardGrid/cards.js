@@ -2,7 +2,7 @@ basis.require('basis.ui');
 
 var BaseCard = basis.ui.Node.subclass({
     className: 'BaseCard',
-    template: resource('template/card/base.tmpl'),
+    template: resource('./template/card/base.tmpl'),
     binding: {
         id: 'data:',
         name: 'data:',
@@ -11,11 +11,13 @@ var BaseCard = basis.ui.Node.subclass({
 });
 
 var UserStory = BaseCard.subclass({
-    template: resource('template/card/userStory.tmpl')
+    className: 'UserStory',
+    template: resource('./template/card/userStory.tmpl')
 });
 
 var Task = BaseCard.subclass({
-    template: resource('template/card/task.tmpl')
+    className: 'Task',
+    template: resource('./template/card/task.tmpl')
 });
 
 module.exports = {

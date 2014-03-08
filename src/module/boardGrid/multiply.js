@@ -1,35 +1,36 @@
 basis.require('basis.data');
 
+var namespace = this.path;
 var AbstractDataset = basis.data.AbstractDataset;
 
- /**
-  * Returns delta object
-  * @param {Array.<basis.data.Object>} inserted
-  * @param {Array.<basis.data.Object>} deleted
-  * @return {object|boolean}
-  */
-  function getDelta(inserted, deleted){
-    var delta = {};
-    var result;
+/**
+* Returns delta object
+* @param {Array.<basis.data.Object>} inserted
+* @param {Array.<basis.data.Object>} deleted
+* @return {object|boolean}
+*/
+function getDelta(inserted, deleted){
+  var delta = {};
+  var result;
 
-    if (inserted && inserted.length)
-      result = delta.inserted = inserted;
+  if (inserted && inserted.length)
+    result = delta.inserted = inserted;
 
-    if (deleted && deleted.length)
-      result = delta.deleted = deleted;
+  if (deleted && deleted.length)
+    result = delta.deleted = deleted;
 
-    if (result)
-      return delta;
-  }
+  if (result)
+    return delta;
+}
 
 //
-// Multiple
+// Multiply dataset
 //
 
-var SUBTRACTDATASET_OPA_HANDLER = {
+var MULTIPLY_COLS_HANDLER = {
   itemsChanged: function(dataset, delta){
     var members = this.members_;
-    var op_b_items = this.op_b && this.op_b.itemCount ? this.op_b.getItems() : null;
+    var rowsItems = this.rows && this.rows.itemCount ? this.rows.getItems() : null;
     var inserted = [];
     var deleted = [];
     var array;
@@ -38,11 +39,11 @@ var SUBTRACTDATASET_OPA_HANDLER = {
       for (var i = 0, item; item = array[i]; i++)
       {
         var map = this.map_[item.basisObjectId] = {};
-        if (op_b_items)
+        if (rowsItems)
         {
-          for (var j = 0, op_b_item; op_b_item = op_b_items[j]; j++)
+          for (var j = 0, rowsItem; rowsItem = rowsItems[j]; j++)
           {
-            var newMember = this.map(item, op_b_item);
+            var newMember = this.map(item, rowsItem);
             if (newMember && newMember instanceof basis.data.Object)
             {
               var memberInfo = members[newMember.basisObjectId];
@@ -53,8 +54,8 @@ var SUBTRACTDATASET_OPA_HANDLER = {
                   product: []
                 };
 
-              map[op_b_item.basisObjectId] = memberInfo;
-              memberInfo.product.push([item, op_b_item]);
+              map[rowsItem.basisObjectId] = memberInfo;
+              memberInfo.product.push([item, rowsItem]);
               inserted.push(newMember);
             }
           }
@@ -65,16 +66,16 @@ var SUBTRACTDATASET_OPA_HANDLER = {
       for (var i = 0, item; item = array[i]; i++)
       {
         var map = this.map_[item.basisObjectId];
-        if (op_b_items)
+        if (rowsItems)
         {
-          for (var j = 0, op_b_item; op_b_item = op_b_items[j]; j++)
+          for (var j = 0, rowsItem; rowsItem = rowsItems[j]; j++)
           {
-            var memberInfo = map[op_b_item.basisObjectId];
+            var memberInfo = map[rowsItem.basisObjectId];
 
             if (memberInfo)
             {
               for (var k = 0; k < memberInfo.product.length; k++)
-                if (memberInfo.product[k][0] === item && memberInfo.product[k][1] === op_b_item)
+                if (memberInfo.product[k][0] === item && memberInfo.product[k][1] === rowsItem)
                 {
                   memberInfo.product.splice(k, 1);
                   break;
@@ -96,13 +97,13 @@ var SUBTRACTDATASET_OPA_HANDLER = {
       this.emit_itemsChanged(newDelta);
   },
   destroy: function(){
-    this.setOperands(null, this.op_b);
+    this.setOperands(null, this.rows);
   }
 };
 
-var SUBTRACTDATASET_OPB_HANDLER = {
+var MULTIPLY_ROWS_HANDLER = {
   itemsChanged: function(dataset, delta){
-    if (!this.op_a || !this.op_a.itemCount)
+    if (!this.cols || !this.cols.itemCount)
       return;
 
     var members = this.members_;
@@ -111,12 +112,12 @@ var SUBTRACTDATASET_OPB_HANDLER = {
     var array;
 
     if (array = delta.inserted)
-      for (var i = 0, item, op_a_items = this.op_a.getItems(); item = array[i]; i++)
+      for (var i = 0, item, colsItems = this.cols.getItems(); item = array[i]; i++)
       {
-        for (var j = 0, op_a_item; op_a_item = op_a_items[j]; j++)
+        for (var j = 0, colsItem; colsItem = colsItems[j]; j++)
         {
-          var map = this.map_[op_a_item.basisObjectId];
-          var newMember = this.map(op_a_item, item);
+          var map = this.map_[colsItem.basisObjectId];
+          var newMember = this.map(colsItem, item);
           if (newMember && newMember instanceof basis.data.Object)
           {
             var memberInfo = members[newMember.basisObjectId];
@@ -128,24 +129,24 @@ var SUBTRACTDATASET_OPB_HANDLER = {
               };
 
             map[item.basisObjectId] = memberInfo;
-            memberInfo.product.push([op_a_item, item]);
+            memberInfo.product.push([colsItem, item]);
             inserted.push(newMember);
           }
         }
       }
 
     if (array = delta.deleted)
-      for (var i = 0, item, op_a_items = this.op_a.getItems(); item = array[i]; i++)
+      for (var i = 0, item, colsItems = this.cols.getItems(); item = array[i]; i++)
       {
-        for (var j = 0, op_a_item; op_a_item = op_a_items[j]; j++)
+        for (var j = 0, colsItem; colsItem = colsItems[j]; j++)
         {
-          var map = this.map_[op_a_item.basisObjectId];
+          var map = this.map_[colsItem.basisObjectId];
           var memberInfo = map[item.basisObjectId];
 
           if (memberInfo)
           {
             for (var k = 0; k < memberInfo.product.length; k++)
-              if (memberInfo.product[k][0] === op_a_item && memberInfo.product[k][1] === item)
+              if (memberInfo.product[k][0] === colsItem && memberInfo.product[k][1] === item)
               {
                 memberInfo.product.splice(k, 1);
                 break;
@@ -165,7 +166,7 @@ var SUBTRACTDATASET_OPB_HANDLER = {
       this.emit_itemsChanged(newDelta);
   },
   destroy: function(){
-    this.setOperands(this.op_a, null);
+    this.setOperands(this.cols, null);
   }
 };
 
@@ -173,18 +174,18 @@ var SUBTRACTDATASET_OPB_HANDLER = {
 /**
 * @class
 */
-var Multiple = AbstractDataset.subclass({
-  className: 'Multiple',
-
- /**
-  * @type {basis.data.AbstractDataset}
-  */ 
-  op_a: null,
+var Multiply = AbstractDataset.subclass({
+  className: namespace + '.Multiply',
 
  /**
   * @type {basis.data.AbstractDataset}
   */
-  op_b: null,
+  cols: null,
+
+ /**
+  * @type {basis.data.AbstractDataset}
+  */
+  rows: null,
 
   map: basis.fn.$undef,
 
@@ -192,8 +193,8 @@ var Multiple = AbstractDataset.subclass({
   * @inheritDoc
   */
   listen: {
-    op_a: SUBTRACTDATASET_OPA_HANDLER,
-    op_b: SUBTRACTDATASET_OPB_HANDLER
+    cols: MULTIPLY_COLS_HANDLER,
+    rows: MULTIPLY_ROWS_HANDLER
   },
 
  /**
@@ -204,79 +205,79 @@ var Multiple = AbstractDataset.subclass({
     AbstractDataset.prototype.init.call(this);
 
     // init part
-    var op_a = this.op_a;
-    var op_b = this.op_b;
+    var cols = this.cols;
+    var rows = this.rows;
 
-    this.op_a = null;
-    this.op_b = null;
+    this.cols = null;
+    this.rows = null;
     this.map_ = {};
 
-    if (op_a || op_b)
-      this.setOperands(op_a, op_b);
+    if (cols || rows)
+      this.setOperands(cols, rows);
   },
 
  /**
-  * Set new op_a & op_b.
-  * @param {basis.data.AbstractDataset=} op_a
-  * @param {basis.data.AbstractDataset=} op_b
+  * Set new cols & rows.
+  * @param {basis.data.AbstractDataset=} cols
+  * @param {basis.data.AbstractDataset=} rows
   * @return {object|boolean} Delta if changes happend
   */
-  setOperands: function(op_a, op_b){
+  setOperands: function(cols, rows){
     var delta;
     var operandsChanged = false;
 
-    if (op_a instanceof AbstractDataset == false)
-      op_a = null;
+    if (cols instanceof AbstractDataset == false)
+      cols = null;
 
-    if (op_b instanceof AbstractDataset == false)
-      op_b = null;
+    if (rows instanceof AbstractDataset == false)
+      rows = null;
 
-    var old_op_a = this.op_a;
-    var old_op_b = this.op_b;
+    var oldCols = this.cols;
+    var oldRows = this.rows;
 
-    // set new op_a if changed
-    if (old_op_a !== op_a)
+    // set new cols if changed
+    if (oldCols !== cols)
     {
       operandsChanged = true;
-      this.op_a = op_a;
+      this.cols = cols;
 
-      var listenHandler = this.listen.op_a;
+      var listenHandler = this.listen.cols;
       if (listenHandler)
       {
-        if (old_op_a)
-          old_op_a.removeHandler(listenHandler, this);
+        if (oldCols)
+          oldCols.removeHandler(listenHandler, this);
 
-        if (op_a)
-          op_a.addHandler(listenHandler, this);
+        if (cols)
+          cols.addHandler(listenHandler, this);
       }
 
-      //this.emit_op_aChanged(old_op_a);
+      //this.emit_colsChanged(oldCols);
     }
 
-    // set new op_b if changed
-    if (old_op_b !== op_b)
+    // set new rows if changed
+    if (oldRows !== rows)
     {
       operandsChanged = true;
-      this.op_b = op_b;
+      this.rows = rows;
 
-      var listenHandler = this.listen.op_b;
+      var listenHandler = this.listen.rows;
       if (listenHandler)
       {
-        if (old_op_b)
-          old_op_b.removeHandler(listenHandler, this);
+        if (oldRows)
+          oldRows.removeHandler(listenHandler, this);
 
-        if (op_b)
-          op_b.addHandler(listenHandler, this);
+        if (rows)
+          rows.addHandler(listenHandler, this);
       }
 
-      //this.emit_op_bChanged(old_op_b);
+      //this.emit_rowsChanged(oldRows);
     }
 
     if (!operandsChanged)
       return false;
 
     // apply changes
-    if (!op_a || !op_b)
+    if (!cols || !rows)
     {
       if (this.itemCount)
         this.emit_itemsChanged(delta = {
@@ -290,8 +291,8 @@ var Multiple = AbstractDataset.subclass({
       var inserted = [];
       var members = this.members_;
 
-      var aItems = this.op_a.getItems();
-      var bItems = this.op_b.getItems();
+      var aItems = this.cols.getItems();
+      var bItems = this.rows.getItems();
 
       for (var i = 0, itemA; itemA = aItems[i]; i++)
       {
@@ -324,19 +325,19 @@ var Multiple = AbstractDataset.subclass({
   },
 
  /**
-  * @param {basis.data.AbstractDataset} op_a
+  * @param {basis.data.AbstractDataset} cols
   * @return {Object} Delta if changes happend
   */
-  setA: function(op_a){
-    return this.setOperands(op_a, this.op_b);
+  setCols: function(cols){
+    return this.setOperands(cols, this.rows);
   },
 
  /**
-  * @param {basis.data.AbstractDataset} op_b
+  * @param {basis.data.AbstractDataset} rows
   * @return {Object} Delta if changes happend
   */
-  setB: function(op_b){
-    return this.setOperands(this.op_a, op_b);
+  setRows: function(rows){
+    return this.setOperands(this.cols, rows);
   },
 
  /**
@@ -347,4 +348,4 @@ var Multiple = AbstractDataset.subclass({
   }
 });
 
-module.exports = Multiple;
+module.exports = Multiply;

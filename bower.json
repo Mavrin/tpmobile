@@ -2,6 +2,6 @@
   "name": "solution",
   "version": "1.0.0",
   "devDependencies": {
-    "basisjs": "1.0.0-rc3"
+    "basisjs": "1.2.0"
   }
 }

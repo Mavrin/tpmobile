@@ -2,32 +2,41 @@ basis.require('basis.router');
 basis.require('app.type');
 basis.require('app.ui')
 
+// выбранный Board
 var selectedBoard = new basis.data.Value();
 
-basis.router.add('/board/:id', selectedBoard.set, selectedBoard);
-
-// список Board
-module.exports = new app.ui.UpdatableNode({
+// основное представление
+var view = new app.ui.UpdatableNode({
     autoDelegate: true,
-    active: true,
 
-    template: resource('template/list.tmpl'),
+    dataSource: basis.data.Value.factory('update', function(node){
+        return app.type.Board.byOwner(node.data.LoggedUser && node.data.LoggedUser.Id);
+    }),
 
-    handler: {
-        update: function () {
-            this.setDataSource(app.type.Board.byOwner(this.data.LoggedUser.Id));
-        }
-    },
+    template: resource('./template/list.tmpl'),
 
     sorting: 'data.key',
     childClass: {
-        template: resource('template/item.tmpl'),
+        template: resource('./template/item.tmpl'),
         binding: {
             id: 'data:key',
             name: 'data:',
-            selected: selectedBoard.compute('update', function (node, value) {
+            selected: selectedBoard.compute('update', function(node, value){
                 return node.data.key == value;
             })
         }
     }
 });
+
+// делаем список активным только когда меню открыто
+// active = true тригирует загрузку dataSource (срабатывает его syncAction)
+app.state.isMenuExpanded.link(view, function(value){
+    this.setActive(value);
+});
+
+// подписываемся на смену url'а
+// синхронизируем selectedBoard
+basis.router.add('/board/:id', selectedBoard.set, selectedBoard);
+
+// экспортируем view
+module.exports = view;

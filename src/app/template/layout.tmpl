@@ -1,13 +1,15 @@
-<b:style src="layout.css" />
+<b:style src="./layout.css" />
 
-<div class="view view_{expand}">
-    <div class="menu">
+<div class="view">
+    <div class="menu menu_{menuExpanded}">
         <div class="context">place for context</div>
         <!--{boardList}-->
         <!--{loggedUser}-->
     </div>
-    <div class="page" event-click="toggle">
-        <div class="bar-header"><!--{toggleMenu}--></div>
+    <div class="page page_{menuExpanded}" event-click="hideMenu">
+        <div class="bar-header">
+            <b:include src="./toggle-menu-button.tmpl"/>
+        </div>
         <!--{boardGrid}-->
     </div>
 </div>

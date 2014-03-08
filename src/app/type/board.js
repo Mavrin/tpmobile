@@ -63,7 +63,7 @@ var splitByOwner = new basis.entity.Grouping({
                 this.sync(data.items.map(function(data){
                     data.ownerId = this.ruleValue;
                     return Board.reader(data);
-                }.bind(this)));
+                }, this));
             }
         })
     }

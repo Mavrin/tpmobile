@@ -41,7 +41,7 @@ var Node = basis.ui.Node.subclass({
         this.setOffsetY(this.childNodesState == basis.data.STATE.PROCESSING ? 51 : 0);
     },
 
-    template: basis.template.define('app.ui.UpdatableNode', resource('updatableNode/node.tmpl')),
+    template: basis.template.define('app.ui.UpdatableNode', resource('./updatableNode/node.tmpl')),
     binding: {
         caption: {
             events: 'offsetYChanged childNodesStateChanged',

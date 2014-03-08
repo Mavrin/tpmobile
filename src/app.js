@@ -3,6 +3,7 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.service');
 basis.require('app.state');
+/** @cut */ require('basis.devpanel');
 
 module.exports = basis.app.create({
     title: 'My app',
@@ -13,18 +14,22 @@ module.exports = basis.app.create({
         return new basis.ui.Node({
             delegate: app.service.context,
 
-            template: resource('app/template/layout.tmpl'),
+            template: resource('./app/template/layout.tmpl'),
             action:{
-                toggle:function() {
+                hideMenu: function(){
                     app.state.isMenuExpanded.set(false);
+                },
+                toggleMenu: function(){
+                    app.state.isMenuExpanded.set(!app.state.isMenuExpanded.value);
                 }
             },
             binding: {
-                toggleMenu: resource('module/toggleMenu/index.js').fetch(),
-                loggedUser: resource('module/user/index.js').fetch(),
-                boardList: resource('module/boardList/index.js').fetch(),
-                boardGrid: resource('module/boardGrid/index.js').fetch(),
-                expand: app.state.isMenuExpanded
+                menuExpanded: app.state.isMenuExpanded,
+
+                // subviews
+                loggedUser: require('./module/user/index.js'),
+                boardList: require('./module/boardList/index.js'),
+                boardGrid: require('./module/boardGrid/index.js')
             }
         });
     }
