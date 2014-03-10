@@ -1,0 +1,1025 @@
+/*****************************************************************************************************
+
+    Styles for v.2-cards
+
+    Contents:
+        - Animations
+        - Abstract card
+        - Cards with color marker
+        - Cards with equal width
+        - 'Test Case' card
+        - 'Test Plan' card
+        - 'Build' card
+        - 'Release' card
+        - 'Iteration' card
+        - 'Team Iteration' card
+        - 'Impediment' card
+        - 'Team' card
+        - 'Project' card
+
+*****************************************************************************************************/
+
+/* Animations
+----------------------------------------------------------------------------------------------------*/
+
+@-webkit-keyframes leftsidegradient {
+
+    0% {
+        background-position: 0 0;
+    }
+    25% {
+        background-position: 0 25px;
+    }
+    50% {
+        background-position: 0 50px;
+    }
+    75% {
+        background-position: 0 75px;
+    }
+    100% {
+        background-position: 0 100px;
+    }
+
+}
+
+@-ms-keyframes leftsidegradient {
+
+    0% {
+        background-position: 0 0;
+    }
+    25% {
+        background-position: 0 25px;
+    }
+    50% {
+        background-position: 0 50px;
+    }
+    75% {
+        background-position: 0 75px;
+    }
+    100% {
+        background-position: 0 100px;
+    }
+
+}
+
+@-moz-keyframes leftsidegradient {
+
+    0% {
+        background-position: 0 0;
+    }
+    25% {
+        background-position: 0 25px;
+    }
+    50% {
+        background-position: 0 50px;
+    }
+    75% {
+        background-position: 0 75px;
+    }
+    100% {
+        background-position: 0 100px;
+    }
+
+}
+
+@keyframes leftsidegradient {
+
+    0% {
+        background-position: 0 0;
+    }
+    25% {
+        background-position: 0 25px;
+    }
+    50% {
+        background-position: 0 50px;
+    }
+    75% {
+        background-position: 0 75px;
+    }
+    100% {
+        background-position: 0 100px;
+    }
+
+}
+
+/* Abstract card
+----------------------------------------------------------------------------------------------------*/
+
+.tau-card-v2 {
+
+    position: relative;
+
+    display: inline-block;
+    vertical-align: top;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+    width: 300px;
+
+    padding: 4px 0;
+
+    background: #fff;
+
+}
+
+.tau-board-lazy-animation .tau-collapsed .tau-card-v2:before,
+.tau-board-lazy-animation  .tau-card-v2.tau-card-v2_type_project:before,
+.tau-board-lazy-animation  .tau-card-v2.tau-card-v2_type_team:before{
+    background-image: none;
+    -webkit-animation: none;
+    -moz-animation: none;
+    animation: none;
+}
+
+.tau-board-lazy-animation_unit .tau-board-unit{
+   display: none;
+}
+.tau-board-lazy-animation .tau-card-v2:before {
+
+    background-image: url(../images/grad.png);
+    background-repeat: repeat-y;
+
+    -webkit-animation: leftsidegradient 1s linear infinite;
+    -moz-animation: leftsidegradient 1s linear infinite;
+    animation: leftsidegradient 1s linear infinite;
+
+}
+
+
+.tau-card-v2:after {
+
+    content: '';
+
+    display: block;
+    clear: both;
+
+}
+
+/* >> sizes */
+
+.tau-ui-size-min .tau-card-v2 {
+
+    box-shadow: none;
+
+    width: 16px;
+
+    height: 16px;
+
+    padding: 0;
+
+}
+
+.tau-ui-size-xs .tau-card-v2 {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2 {
+
+    width: 150px;
+
+}
+
+.tau-ui-size-m .tau-card-v2 {
+
+    width: 250px;
+
+}
+
+.tau-ui-size-l .tau-card-v2 {
+
+    width: 350px;
+
+}
+
+.tau-ui-size-xl .tau-card-v2 {
+
+    display: block;
+
+    margin-top: 0;
+    margin-bottom: 1px;
+
+    width: auto;
+    min-width: 370px;
+
+}
+
+.tau-ui-size-xl .tau-card-v2.tau-board-layout-compositor__subject {
+
+    max-width: 370px;
+
+}
+
+.tau-ui-size-xl .tau-card-v2.tau-card-v2_dnd_helper {
+
+    width: 370px;
+
+}
+
+/* << sizes */
+
+.tau-card-v2.tau-board-layout-compositor__subject {
+
+    padding: 2px 3px 3px 2px;
+
+    min-height: 0 !important;
+
+}
+
+.tau-collapsed .tau-card-v2 {
+
+    box-shadow: none;
+
+    width: 8px !important;
+
+    height: 8px !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+
+    padding: 0;
+
+    display: inline-block;
+}
+
+.tau-board-grid-view .tau-collapsed .tau-card-v2:before {
+    width: 100%;
+}
+
+.tau-card-v2.tau-card-v2_final-state {
+
+    background: #dae0e8;
+
+}
+
+.tau-collapsed .tau-card-v2.tau-card-v2_final-state,
+.tau-ui-size-min .tau-card-v2.tau-card-v2_final-state {
+
+    background: #c4ced7;
+
+}
+
+.tau-card-v2.tau-selected {
+
+    background: #F8E06F !important;
+
+}
+
+.tau-card-v2.i-role-permanent-context-menu-action-activated,
+.tau-card-v2.tau-context-menu-selected {
+
+    background: #fff6cb !important;
+
+}
+
+.tau-card-v2.tau-is-selected-duplicate:not(.tau-selected):not(.tau-context-menu-selected):not(.i-role-permanent-context-menu-action-activated) {
+
+    background: #F8E06F !important;
+    background: linear-gradient(45deg, rgb(247, 235, 181) 25%, #F8E06F 25%, #F8E06F 50%, rgb(247, 235, 181) 50%, rgb(247, 235, 181) 75%, #F8E06F 75%) 0 0 / 40px 40px !important;
+
+}
+
+.tau-card-v2.tau-card-v2_dnd_helper {
+
+    opacity: 0.8;
+
+    -webkit-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+
+}
+
+.tau-card-v2.tau-card-v2_dnd_proxy {
+
+    box-shadow: none;
+
+    border: 1px dashed;
+
+}
+
+.tau-board-view .tau-card-v2 {
+
+    cursor: move;
+
+    -webkit-transition-duration: .5s, 0.2s;
+    -moz-transition-duration: .5s, 0.2s;
+    -ms-transition-duration: .5s, 0.2s;
+    transition-duration: .5s, 0.2s;
+
+    -webkit-transition-property: -webkit-transform, box-shadow;
+    -moz-transition-property: -moz-transform, box-shadow;
+    -ms-transition-property: -ms-transform, box-shadow;
+    transition-property: transform box-shadow;
+
+}
+
+.tau-board-grid-view.tau-board-table-view .tau-card-v2,
+.tau-board-timeline-view .tau-backlog .tau-card-v2 {
+
+    margin: 4px;
+
+}
+
+.tau-board-grid-view.tau-ui-size-xl .tau-card-v2 {
+
+    margin: 0 0 1px 0;
+
+}
+
+.tau-board-grid-view .tau-collapsed .tau-card-v2,
+.tau-board-timeline-view .tau-backlog .tau-collapsed .tau-card-v2 {
+
+    margin: 2px;
+
+}
+
+.tau-board-composite-view .tau-card-v2 {
+
+    display: block;
+
+    margin: 0 0 1px 0;
+
+    width: auto !important;
+
+}
+
+.tau-board-timeline-view:not(.tau-ui-size-xl) .tau-timeline .tau-timeline-track .tau-card-v2 {
+
+    min-width: 100%;
+
+}
+
+.tau-board-timeline-view .tau-timeline .tau-collapsed .tau-timeline-track .tau-card-v2 {
+
+    display: block;
+
+    margin: 0;
+
+    width: 100% !important;
+
+}
+
+.tau-card-v2__section {
+
+    float: left;
+
+    width: 100%;
+
+    min-height: 24px;
+
+}
+
+.tau-card-v2_dnd_proxy .tau-card-v2__section {
+
+    visibility: hidden;
+
+}
+
+.tau-board-layout-compositor__subject .tau-card-v2__section {
+    min-height: 30px;
+}
+
+.tau-collapsed .tau-card-v2__section,
+.tau-ui-size-min .tau-card-v2__section {
+
+    display: none;
+
+}
+.tau-card-v2__section.tau-card-v2__section_triple + .tau-card-v2__section,
+.tau-card-v2__section.tau-card-v2__section_double + .tau-card-v2__section {
+
+    display: none;
+
+}
+
+.tau-card-v2__section.tau-card-v2__section_triple + .tau-card-v2__section + .tau-card-v2__section {
+
+    display: none;
+
+}
+
+.tau-board-layout-compositor__subject .tau-card-v2__section_remover {
+
+    min-height: 28px;
+    line-height: 26px;
+
+}
+
+.tau-card-v2__section_remover {
+
+    border: 1px dashed #A0AEBA;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.tau-card-v2__section_remover:after {
+
+    color: #A0AEBA;
+    display: inline-block;
+    padding-left: 3px;
+    font-size: 11px;
+    content: "Click to remove";
+
+}
+
+.tau-card-v2__section_remover:before {
+
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: url(../images/icons-general.svg) -1067px -109px no-repeat;
+
+}
+
+/* Cards with color marker
+----------------------------------------------------------------------------------------------------*/
+
+.tau-card-v2_type_feature,
+.tau-card-v2_type_userstory,
+.tau-card-v2_type_task,
+.tau-card-v2_type_bug,
+.tau-card-v2_type_request,
+.tau-card-v2_type_testcase,
+.tau-card-v2_type_testplan,
+.tau-card-v2_type_testplanrun,
+.tau-card-v2_type_release,
+.tau-card-v2_type_iteration,
+.tau-card-v2_type_teamiteration,
+.tau-card-v2_type_impediment,
+.tau-card-v2_type_build,
+.tau-card-v2_type_projectmember {
+
+    padding-left: 3px;
+
+}
+
+.tau-card-v2_type_feature.tau-board-layout-compositor__subject,
+.tau-card-v2_type_userstory.tau-board-layout-compositor__subject,
+.tau-card-v2_type_task.tau-board-layout-compositor__subject,
+.tau-card-v2_type_bug.tau-board-layout-compositor__subject,
+.tau-card-v2_type_request.tau-board-layout-compositor__subject,
+.tau-card-v2_type_testcase.tau-board-layout-compositor__subject,
+.tau-card-v2_type_testplan.tau-board-layout-compositor__subject,
+.tau-card-v2_type_testplanrun.tau-board-layout-compositor__subject,
+.tau-card-v2_type_release.tau-board-layout-compositor__subject,
+.tau-card-v2_type_iteration.tau-board-layout-compositor__subject,
+.tau-card-v2_type_teamiteration.tau-board-layout-compositor__subject,
+.tau-card-v2_type_impediment.tau-board-layout-compositor__subject,
+.tau-card-v2_type_build.tau-board-layout-compositor__subject
+.tau-card-v2_type_projectmember.tau-board-layout-compositor__subject {
+
+    padding-left: 5px;
+
+}
+
+.tau-card-v2_type_feature:before,
+.tau-card-v2_type_userstory:before,
+.tau-card-v2_type_task:before,
+.tau-card-v2_type_bug:before,
+.tau-card-v2_type_request:before,
+.tau-card-v2_type_testcase:before,
+.tau-card-v2_type_testplan:before,
+.tau-card-v2_type_testplanrun:before,
+.tau-card-v2_type_release:before,
+.tau-card-v2_type_iteration:before,
+.tau-card-v2_type_teamiteration:before,
+.tau-card-v2_type_impediment:before,
+.tau-card-v2_type_build:before,
+.tau-card-v2_type_projectmember:before {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    content: '';
+
+    width: 3px;
+
+    height: 100%;
+
+}
+
+.tau-collapsed .tau-card-v2_type_feature:before,
+.tau-ui-size-min .tau-card-v2_type_feature:before,
+.tau-collapsed .tau-card-v2_type_userstory:before,
+.tau-ui-size-min .tau-card-v2_type_userstory:before,
+.tau-collapsed .tau-card-v2_type_task:before,
+.tau-ui-size-min .tau-card-v2_type_task:before,
+.tau-collapsed .tau-card-v2_type_bug:before,
+.tau-ui-size-min .tau-card-v2_type_bug:before,
+.tau-collapsed .tau-card-v2_type_request:before,
+.tau-ui-size-min .tau-card-v2_type_request:before,
+.tau-collapsed .tau-card-v2_type_testcase:before,
+.tau-ui-size-min .tau-card-v2_type_testcase:before,
+.tau-collapsed .tau-card-v2_type_testplan:before,
+.tau-ui-size-min .tau-card-v2_type_testplan:before,
+.tau-collapsed .tau-card-v2_type_testplanrun:before,
+.tau-ui-size-min .tau-card-v2_type_testplanrun:before,
+.tau-collapsed .tau-card-v2_type_release:before,
+.tau-ui-size-min .tau-card-v2_type_release:before,
+.tau-collapsed .tau-card-v2_type_iteration:before,
+.tau-ui-size-min .tau-card-v2_type_iteration:before,
+.tau-collapsed .tau-card-v2_type_teamiteration:before,
+.tau-ui-size-min .tau-card-v2_type_teamiteration:before,
+.tau-collapsed .tau-card-v2_type_impediment:before,
+.tau-ui-size-min .tau-card-v2_type_impediment:before,
+.tau-collapsed .tau-card-v2_type_build:before,
+.tau-ui-size-min .tau-card-v2_type_build:before,
+.tau-collapsed .tau-card-v2_type_projectmember:before,
+.tau-ui-size-min .tau-card-v2_type_projectmember:before {
+
+    width: 100%;
+
+}
+
+.tau-collapsed .tau-card-v2_type_feature.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_feature.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_feature.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_feature.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_feature.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_feature.tau-context-menu-selected:before,
+.tau-card-v2_type_feature.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_feature.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_feature.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_userstory.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_userstory.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_userstory.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_userstory.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_userstory.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_userstory.tau-context-menu-selected:before,
+.tau-card-v2_type_userstory.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_userstory.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_userstory.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_task.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_task.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_task.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_task.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_task.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_task.tau-context-menu-selected:before,
+.tau-card-v2_type_task.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_task.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_task.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_bug.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_bug.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_bug.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_bug.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_bug.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_bug.tau-context-menu-selected:before,
+.tau-card-v2_type_bug.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_bug.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_bug.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_request.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_request.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_request.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_request.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_request.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_request.tau-context-menu-selected:before,
+.tau-card-v2_type_request.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_request.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_request.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_testcase.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testcase.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_testcase.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_testcase.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_testcase.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testcase.tau-context-menu-selected:before,
+.tau-card-v2_type_testcase.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_testcase.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_testcase.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_testplan.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testplan.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_testplan.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_testplan.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_testplan.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testplan.tau-context-menu-selected:before,
+.tau-card-v2_type_testplan.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_testplan.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_testplan.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_testplanrun.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testplanrun.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_testplanrun.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_testplanrun.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_testplanrun.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_testplanrun.tau-context-menu-selected:before,
+.tau-card-v2_type_testplanrun.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_testplanrun.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_testplanrun.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_release.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_release.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_release.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_release.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_release.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_release.tau-context-menu-selected:before,
+.tau-card-v2_type_release.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_release.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_release.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_iteration.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_iteration.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_iteration.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_iteration.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_iteration.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_iteration.tau-context-menu-selected:before,
+.tau-card-v2_type_iteration.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_iteration.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_iteration.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_teamiteration.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_teamiteration.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_teamiteration.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_teamiteration.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_teamiteration.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_teamiteration.tau-context-menu-selected:before,
+.tau-card-v2_type_teamiteration.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_teamiteration.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_teamiteration.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_impediment.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_impediment.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_impediment.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_impediment.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_impediment.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_impediment.tau-context-menu-selected:before,
+.tau-card-v2_type_impediment.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_impediment.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_impediment.tau-card-v2_final-state:before,
+.tau-collapsed .tau-card-v2_type_build.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_build.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_build.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_build.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_build.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_build.tau-context-menu-selected:before,
+.tau-collapsed .tau-card-v2_type_projectmember.tau-selected:before,
+.tau-ui-size-min .tau-card-v2_type_projectmember.tau-selected:before,
+.tau-collapsed .tau-card-v2_type_projectmember.tau-is-selected-duplicate:before,
+.tau-ui-size-min .tau-card-v2_type_projectmember.tau-is-selected-duplicate:before,
+.tau-collapsed .tau-card-v2_type_projectmember.tau-context-menu-selected:before,
+.tau-ui-size-min .tau-card-v2_type_projectmember.tau-context-menu-selected:before,
+.tau-card-v2_type_build.tau-card-v2_dnd_proxy:before,
+.tau-collapsed .tau-card-v2_type_build.tau-card-v2_final-state:before,
+.tau-ui-size-min .tau-card-v2_type_build.tau-card-v2_final-state:before {
+
+    display: none;
+
+}
+
+/* Cards with equal width
+----------------------------------------------------------------------------------------------------*/
+
+.tau-ui-size-xs .tau-card-v2_type_feature,
+.tau-ui-size-xs .tau-card-v2_type_userstory,
+.tau-ui-size-xs .tau-card-v2_type_task,
+.tau-ui-size-xs .tau-card-v2_type_bug,
+.tau-ui-size-xs .tau-card-v2_type_request,
+.tau-ui-size-xs .tau-card-v2_type_testplanrun {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-xs .tau-card-v2_type_user,
+.tau-ui-size-xs .tau-card-v2_type_projectmember {
+
+    width: 30px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_feature,
+.tau-ui-size-s .tau-card-v2_type_userstory,
+.tau-ui-size-s .tau-card-v2_type_task,
+.tau-ui-size-s .tau-card-v2_type_bug,
+.tau-ui-size-s .tau-card-v2_type_request,
+.tau-ui-size-s .tau-card-v2_type_testplanrun {
+
+    width: 122px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_user,
+.tau-ui-size-s .tau-card-v2_type_projectmember {
+
+    width: 224px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_feature,
+.tau-ui-size-m .tau-card-v2_type_userstory,
+.tau-ui-size-m .tau-card-v2_type_task,
+.tau-ui-size-m .tau-card-v2_type_bug,
+.tau-ui-size-m .tau-card-v2_type_request,
+.tau-ui-size-m .tau-card-v2_type_testplanrun {
+
+    width: 192px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_user,
+.tau-ui-size-m .tau-card-v2_type_projectmember {
+
+    width: 224px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_feature,
+.tau-ui-size-l .tau-card-v2_type_userstory,
+.tau-ui-size-l .tau-card-v2_type_task,
+.tau-ui-size-l .tau-card-v2_type_bug,
+.tau-ui-size-l .tau-card-v2_type_request,
+.tau-ui-size-l .tau-card-v2_type_testplanrun {
+
+    width: 278px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_user,
+.tau-ui-size-l .tau-card-v2_type_projectmember {
+
+    width: 300px;
+
+}
+
+/* 'Test Case' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_testcase {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_testcase {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_testcase {
+
+    width: 160px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_testcase {
+
+    width: 285px;
+
+}
+
+/* << sizes */
+
+/* 'Test Plan' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_testplan {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_testplan {
+
+    width: 118px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_testplan {
+
+    width: 254px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_testplan {
+
+    width: 261px;
+
+}
+
+/* << sizes */
+
+/* 'Build' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_build {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_build {
+
+    width: 123px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_build {
+
+    width: 196px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_build {
+
+    width: 286px;
+
+}
+
+/* << sizes */
+
+/* 'Release' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_release {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_release {
+
+    width: 145px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_release {
+
+    width: 231px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_release {
+
+    width: 385px;
+
+}
+
+/* << sizes */
+
+/* 'Iteration' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_iteration {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_iteration {
+
+    width: 145px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_iteration {
+
+    width: 196px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_iteration {
+
+    width: 308px;
+
+}
+
+/* << sizes */
+
+/* 'Team Iteration' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_teamiteration {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_teamiteration {
+
+    width: 145px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_teamiteration {
+
+    width: 196px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_teamiteration {
+
+    width: 308px;
+
+}
+
+/* << sizes */
+
+/* 'Impediment' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_impediment {
+
+    width: 100px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_impediment {
+
+    width: 104px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_impediment {
+
+    width: 199px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_impediment {
+
+    width: 291px;
+
+}
+
+/* << sizes */
+
+/* 'Team' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_team {
+
+    width: 199px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_team {
+
+    width: 199px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_team {
+
+    width: 309px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_team {
+
+    width: 309px;
+
+}
+
+/* << sizes */
+
+/* 'Project' card
+----------------------------------------------------------------------------------------------------*/
+
+/* >> sizes */
+
+.tau-ui-size-xs .tau-card-v2_type_project {
+
+    width: 217px;
+
+}
+
+.tau-ui-size-s .tau-card-v2_type_project {
+
+    width: 217px;
+
+}
+
+.tau-ui-size-m .tau-card-v2_type_project {
+
+    width: 297px;
+
+}
+
+.tau-ui-size-l .tau-card-v2_type_project {
+
+    width: 297px;
+
+}
+
+/* << sizes */
+
+/* Integration with context menu card elements highlighting
+----------------------------------------------------------------------------------------------------*/
+
+.tau-collapsed   .tau-card-v2.i-role-permanent-context-menu-action-activated:before,
+.tau-ui-size-min .tau-card-v2.i-role-permanent-context-menu-action-activated:before {
+    display: none;
+}
