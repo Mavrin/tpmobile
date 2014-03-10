@@ -1,12 +1,12 @@
-<b:style src="./layout.css" />
+<b:style src="./layout.css"/>
 
 <div class="view">
-    <div class="menu menu_{menuExpanded}">
-        <div class="context">place for context</div>
+    <div class="board-selector board-selector_{expanded}">
+        <b:include src="./context-filter.tmpl"/>
         <!--{boardList}-->
-        <!--{loggedUser}-->
+        <!--loggedUser-->
     </div>
-    <div class="page page_{menuExpanded}" event-click="hideMenu">
+    <div class="page page_{expanded}" event-click="hideMenu">
         <div class="bar-header">
             <b:include src="./toggle-menu-button.tmpl"/>
         </div>

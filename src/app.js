@@ -24,7 +24,7 @@ module.exports = basis.app.create({
                 }
             },
             binding: {
-                menuExpanded: app.state.isMenuExpanded,
+                expanded: app.state.isMenuExpanded,
 
                 // subviews
                 loggedUser: require('./module/user/index.js'),

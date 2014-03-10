@@ -1,3 +1,13 @@
+.board-list-panel {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 100%;
+    overflow-y: auto;
+
+}
 .board-list {
     margin:0;
     list-style-type:none;

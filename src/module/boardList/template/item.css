@@ -1,27 +1,45 @@
-.board-list__item
-{
-    list-style: none;
-    display: block;
-    font-size: .750em;
-    font-weight: 600;
-    text-shadow: 0 1px #FFF;
-    border-top: 1px solid #FFF;
-    border-bottom: 1px solid #C7CCD2;
+.board-list__item {
     background-color: rgba(245, 247, 248, 0.5);
-    position: relative;
-    z-index: 1;
+    border-bottom: 1px solid #C7CCD2;
+    border-top: 1px solid #FFFFFF;
+    font-weight: 600;
+    text-shadow: 0 1px #fff;
 }
 
-.board-list__item-link
-{
-    text-decoration: none;
-    display: block;
-    overflow: hidden;
-    font-size: 16px;
-    padding: 7px 0 7px 7px;
-    color: #606C7B;
+.board-list__item_selected {
+    background-color: #f8f8f8;
+    border-bottom-color: #C0C7CE;
 }
-.board-list__item-link_selected {
-    color: #16343B;
-    background: #F8F8F8;
+
+.board-list__item-link{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    color: #606C7B;
+    display: block;
+    line-height: 19px;
+    padding: 7px 0 7px 37px;
+    position: relative;
+    text-decoration: none;
+}
+
+.board-list__item-link:before {
+    background: url(./images/icons-general.svg) -10px -59px;
+    content: "";
+    display: block;
+    height: 13px;
+    left: 14px;
+    position: absolute;
+    top: 10px;
+    width: 14px;
+}
+
+.board-list__item-link span {
+    display: block;
+    font-size: 13px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

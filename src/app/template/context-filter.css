@@ -46,7 +46,7 @@
 	left: 0;
 	height: 12px;
 	width: 15px;
-	background-image:url(../images/icons-general.png);
+	background-image:url(./images/icons-general.svg);
 } 
 
 .context-filter .selected-teams:before {
