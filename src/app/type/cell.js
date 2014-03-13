@@ -22,7 +22,7 @@ Cell.extend({
     },
     syncAction: app.service.createAction({
         method: 'POST',
-        url: 'slice/v1/matrix/cells',
+        url: '/slice/v1/matrix/cells',
         request: function(){
             return {
                 postBody: JSON.stringify({

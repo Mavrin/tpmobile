@@ -29,7 +29,7 @@ var Board = basis.entity.createType('Board', {
 // учим Board синхронизироваться
 Board.extend({
     syncAction: app.service.createAction({
-        url: 'api/board/v1/:id',
+        url: '/api/board/v1/:id',
         request: function() {
             return {
                 routerParams: {
@@ -51,7 +51,7 @@ var splitByOwner = new basis.entity.Grouping({
     wrapper: Board,
     subsetClass: {
         syncAction: app.service.createAction({ // каждая группа 
-            url: 'api/boards/v1/visibleForUser/:id',
+            url: '/api/boards/v1/visibleForUser/:id',
             request: function(){
                 return {
                     routerParams: {
