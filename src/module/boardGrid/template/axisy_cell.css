@@ -1,20 +1,16 @@
-.board-grid__axisy-cell {
-    display: inline-block;
-    margin: auto;
-    overflow: hidden;
-    width: 32px;
-    line-height: 32px;
+
+.board-grid-2-axis .y-row .board-grid__caption {
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+    position: absolute;
+    top: 50%;
+    left: 0;
 }
-.board-grid__axisy-cell-inner {
-    display: inline-block;
-    white-space: nowrap;
-    -webkit-transform: translate(0,100%) rotate(-90deg);
-    -webkit-transform-origin: 0 0;
-    transform: translate(0,100%) rotate(-90deg);
-    transform-origin: 0 0;
-}
-.board-grid__axisy-cell-inner:after {
-    content: "";
-    float: left;
-    margin-top: 100%;
+
+.board-grid-2-axis .y-row .board-grid__caption .title {
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

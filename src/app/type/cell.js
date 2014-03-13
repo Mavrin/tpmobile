@@ -39,7 +39,7 @@ Cell.extend({
                 items: items.map(function(item){
                     return {
                         id: item.id,
-                        type: item.type,
+                        type: item.type.toLowerCase(),
                         name: item.data.name,
                         orderingValue: item.orderingValue
                     };

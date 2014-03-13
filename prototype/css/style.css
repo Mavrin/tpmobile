@@ -5,7 +5,7 @@
 	Board List
 
 */
-/* >>> Global reset ------------------------------------------------*/
+/* region >>> Global reset ------------------------------------------------*/
 html, body, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -54,10 +54,10 @@ a, input, button, textarea, select, :-moz-any-link:focus {
 a img {
 	border: 0 none;
 }
-/* <<< ----*/
+/* endregion <<< ----*/
 
 
-/* >>> Skeleton ----------------------------------------------------*/
+/* region >>> Skeleton ----------------------------------------------------*/
 .view {
 	height: 100%;
 	position: relative;
@@ -211,19 +211,19 @@ a img {
 	width: 100%;
 	height: 100%;
 	position: relative;
-	overflow: auto; 
+	overflow: auto;
 }
 
 .board-grid .y-row {
-	display: none;	
+	display: none;
 }
 
 .board-grid .x-rows-wrap {
 	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: row; 
+	-webkit-flex-direction: row;
     flex-direction: row;
-	
+
 	left: 0;
     position: absolute;
     right: 0;
@@ -232,10 +232,10 @@ a img {
 }
 
 
-/* <<< ----*/
+/* endregion <<<  ----*/
 
 
-/* >>> Context Filter, Board List ----------------------------------*/
+/* region Context Filter, Board List ----------------------------------*/
 .context-filter {
 	padding: 6px 8px;
 	line-height: 0;
@@ -344,9 +344,9 @@ a img {
 .profile {
 	padding: 20px 10px;
 }
-/* <<< ----*/
+/* endregion <<< ----*/
 
-/* >>> Board -------------------------------------------------------*/
+/* region >>> Board -------------------------------------------------------*/
 .board-grid-2-axis .y-row {
 	display: block;
 	width: 32px;
@@ -361,7 +361,7 @@ a img {
 	-moz-transform: rotate(-90deg);
 	-webkit-transform: rotate(-90deg);
 	transform: rotate(-90deg);
-	
+
 	position: absolute;
 	top: 50%;
 	left: 0;
@@ -415,5 +415,5 @@ a img {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
 }
-/* <<< ----*/
+/* endregion <<< ----*/
 

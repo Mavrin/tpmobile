@@ -1,4 +1,15 @@
 .board-grid__cell {
-    float: left;
-    height: 100%;
+    position: absolute;
+    top: 33px;
+    left: 33px;
+    right: 0;
+    bottom: 0;
+
+    padding: 10px;
+
+    overflow: auto;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }

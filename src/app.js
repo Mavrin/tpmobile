@@ -15,11 +15,11 @@ module.exports = basis.app.create({
             delegate: app.service.context,
 
             template: resource('./app/template/layout.tmpl'),
-            action:{
-                hideMenu: function(){
+            action: {
+                hideMenu: function () {
                     app.state.isMenuExpanded.set(false);
                 },
-                toggleMenu: function(){
+                toggleMenu: function () {
                     app.state.isMenuExpanded.set(!app.state.isMenuExpanded.value);
                 }
             },

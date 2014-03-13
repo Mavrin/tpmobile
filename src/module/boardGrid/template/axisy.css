@@ -1,7 +1,9 @@
-.board-grid__axis_y {
+.board-grid-2-axis .y-row {
+    display: block;
     width: 32px;
-    display: flex;
-    border-top: 0;
-    float: left;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    border-right: 1px solid #C7CCD2;
 }

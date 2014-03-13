@@ -1,4 +1,3 @@
-.board-grid__axis_x {
-    height: 32px;
-    text-align: center;
+.board-grid-2-axis .x-rows-wrap {
+    left: 33px;
 }
