@@ -80,7 +80,7 @@ var Cell = new basis.ui.Node.subclass({
 
 // создаем кастомное перемножение, с задаными rule
 var CellMultiply = new Multiply.subclass({
-    map: function(col, row){
+    map: function(col, row) {
         // col - модель из cols (viewportCols)
         // row - модель из rows (viewportRows)
 
@@ -110,13 +110,18 @@ var view = new basis.ui.Node({
                 viewportCols.setSource();
                 viewportRows.setSource();
 
-                if (this.data.key)
+                if (this.data.key) {
+                    console.log(this.data.x&&viewportCols);
                     // создаем новое перемножение, с заданым boardId
                     this.setDataSource(new CellMultiply({
                         boardId: this.data.key,
                         cols: viewportCols,
-                        rows: viewportRows
+                        rows: viewportRows,
+                        colsIsEmpty:!this.data.x,
+                        rowsIsEmpty:!this.data.y
                     }));
+                }
+
             }
         }
     },

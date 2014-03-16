@@ -1,7 +1,8 @@
 {
-  "name": "solution",
-  "version": "1.0.0",
-  "devDependencies": {
-    "basisjs": "1.2.0"
-  }
+    "name": "solution",
+    "version": "1.0.0",
+    "devDependencies": {
+        "basisjs": "1.2.0",
+        "q": "1.0.0"
+    }
 }
