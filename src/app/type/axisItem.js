@@ -8,7 +8,7 @@ var AxisItem = basis.entity.createType('AxisItem', {
     orderingValue: Number
 });
 
-AxisItem.byBoard = (function(){
+AxisItem.byBoard = (function () {
     var cache = {};
     var Axis = basis.entity.createSetType('Axis', AxisItem);
 
@@ -16,22 +16,21 @@ AxisItem.byBoard = (function(){
         syncAction: app.service.createAction({
             method: 'POST',
             url: '/slice/v1/matrix/:axis',
-            request: function(){
+            request: function () {
                 return {
                     routerParams: {
                         axis: this.axis
                     },
                     postBody: JSON.stringify({
-                        base64: true,
                         definition: this.board.data,
                         take: 3
                     })
                 };
             },
-            success: function(data){
+            success: function (data) {
                 var items = (data && data.items) || [];
 
-                this.set(items.map(function(item){
+                this.set(items.map(function (item) {
                     var rawData = item.dynamic.items[0];
                     rawData.name = rawData.data.name;
                     return AxisItem.reader(rawData);
@@ -40,11 +39,10 @@ AxisItem.byBoard = (function(){
         })
     });
 
-    return function(board, axis){
+    return function (board, axis) {
         var id = board.getId() + '-' + axis;
 
-        if (id in cache == false)
-        {
+        if (id in cache == false) {
             var dataset = cache[id] = Axis([]);
             dataset.board = board;
             dataset.axis = axis;

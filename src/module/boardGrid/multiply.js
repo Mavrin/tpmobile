@@ -7,20 +7,80 @@ var AbstractDataset = basis.data.AbstractDataset;
 * Returns delta object
 * @param {Array.<basis.data.Object>} inserted
 * @param {Array.<basis.data.Object>} deleted
-* @return {object|boolean}
-*/
+ * @return {object}
+ */
+function isExistDelta(delta) {
+    return delta.inserted || delta.deleted;
+}
 function getDelta(inserted, deleted){
   var delta = {};
   var result;
 
-  if (inserted && inserted.length)
-    result = delta.inserted = inserted;
+    if (inserted && inserted.length) {
+        delta.inserted = inserted;
+    }
 
-  if (deleted && deleted.length)
-    result = delta.deleted = deleted;
 
-  if (result)
+    if (deleted && deleted.length) {
+        delta.deleted = deleted;
+    }
+
     return delta;
+}
+
+function updateInserted(insertItems, members, items) {
+    var changed = [];
+    if (insertItems) {
+        for (var i = 0, item, colsItems = items.getItems(); item = insertItems[i]; i++)
+        {
+            for (var j = 0, colsItem; colsItem = colsItems[j]; j++)
+            {
+                var map = this.map_[colsItem.basisObjectId] || {};
+                var newMember = this.map(colsItem, item);
+                if (newMember && newMember instanceof basis.data.Object) {
+                    var memberInfo = members[newMember.basisObjectId];
+
+                    if (!memberInfo)
+                        memberInfo = members[newMember.basisObjectId] = {
+                            object: newMember,
+                            product: []
+                        };
+
+                    map[item.basisObjectId] = memberInfo;
+                    memberInfo.product.push([colsItem, item]);
+                    changed.push(newMember);
+                }
+            }
+        }
+    }
+    return changed;
+}
+
+function updateDeleted(deletedItems, members, items) {
+    var changed = [];
+    if (deletedItems) {
+        for (var i = 0, item, colsItems = items.getItems(); item = deletedItems[i]; i++) {
+            for (var j = 0, colsItem; colsItem = colsItems[j]; j++) {
+                var map = this.map_[colsItem.basisObjectId];
+                var memberInfo = map[item.basisObjectId] || {};
+
+                if (memberInfo && memberInfo instanceof basis.data.Object) {
+                    for (var k = 0; k < memberInfo.product.length; k++)
+                        if (memberInfo.product[k][0] === colsItem && memberInfo.product[k][1] === item) {
+                            memberInfo.product.splice(k, 1);
+                            break;
+                        }
+
+                    if (!memberInfo.product.length) {
+                        delete members[memberInfo.object.basisObjectId];
+                        changed.push(memberInfo.object);
+                    }
+                }
+            }
+        }
+    }
+    return changed
+
 }
 
 //
@@ -28,142 +88,28 @@ function getDelta(inserted, deleted){
 //
 
 var MULTIPLY_COLS_HANDLER = {
-  itemsChanged: function(dataset, delta){
-    var members = this.members_;
-    var rowsItems = this.rows && this.rows.itemCount ? this.rows.getItems() : null;
-    var inserted = [];
-    var deleted = [];
-    var array;
+    itemsChanged: function (dataset, delta) {
+        if (!this.rows)
+            return;
+        var inserted = updateInserted.bind(this)(delta.inserted, this.members_, this.rows);
+        var deleted = updateDeleted.bind(this)(delta.deleted, this.members_, this.rows);
 
-    if (array = delta.inserted)
-      for (var i = 0, item; item = array[i]; i++)
-      {
-        var map = this.map_[item.basisObjectId] = {};
-        if (rowsItems)
-        {
-          for (var j = 0, rowsItem; rowsItem = rowsItems[j]; j++)
-          {
-            var newMember = this.map(item, rowsItem);
-            if (newMember && newMember instanceof basis.data.Object)
-            {
-              var memberInfo = members[newMember.basisObjectId];
+        this.emmitNoEmptyChange(inserted, deleted);
 
-              if (!memberInfo)
-                memberInfo = members[newMember.basisObjectId] = {
-                  object: newMember,
-                  product: []
-                };
-
-              map[rowsItem.basisObjectId] = memberInfo;
-              memberInfo.product.push([item, rowsItem]);
-              inserted.push(newMember);
-            }
-          }
-        }
-      }
-
-    if (array = delta.deleted)
-      for (var i = 0, item; item = array[i]; i++)
-      {
-        var map = this.map_[item.basisObjectId];
-        if (rowsItems)
-        {
-          for (var j = 0, rowsItem; rowsItem = rowsItems[j]; j++)
-          {
-            var memberInfo = map[rowsItem.basisObjectId];
-
-            if (memberInfo)
-            {
-              for (var k = 0; k < memberInfo.product.length; k++)
-                if (memberInfo.product[k][0] === item && memberInfo.product[k][1] === rowsItem)
-                {
-                  memberInfo.product.splice(k, 1);
-                  break;
-                }
-
-              if (!memberInfo.product.length)
-              {
-                delete members[memberInfo.object.basisObjectId];
-                deleted.push(memberInfo.object);
-              }
-            }
-          }
-        }
-        delete this.map_[item.basisObjectId];
-      }
-
-    var newDelta = getDelta(inserted, deleted);
-    if (newDelta)
-      this.emit_itemsChanged(newDelta);
   },
   destroy: function(){
     this.setOperands(null, this.rows);
   }
 };
 
+
 var MULTIPLY_ROWS_HANDLER = {
   itemsChanged: function(dataset, delta){
-    if (!this.cols || !this.cols.itemCount)
+      if (!this.cols)
       return;
-
-    var members = this.members_;
-    var inserted = [];
-    var deleted = [];
-    var array;
-
-    if (array = delta.inserted)
-      for (var i = 0, item, colsItems = this.cols.getItems(); item = array[i]; i++)
-      {
-        for (var j = 0, colsItem; colsItem = colsItems[j]; j++)
-        {
-          var map = this.map_[colsItem.basisObjectId];
-          var newMember = this.map(colsItem, item);
-          if (newMember && newMember instanceof basis.data.Object)
-          {
-            var memberInfo = members[newMember.basisObjectId];
-
-            if (!memberInfo)
-              memberInfo = members[newMember.basisObjectId] = {
-                object: newMember,
-                product: []
-              };
-
-            map[item.basisObjectId] = memberInfo;
-            memberInfo.product.push([colsItem, item]);
-            inserted.push(newMember);
-          }
-        }
-      }
-
-    if (array = delta.deleted)
-      for (var i = 0, item, colsItems = this.cols.getItems(); item = array[i]; i++)
-      {
-        for (var j = 0, colsItem; colsItem = colsItems[j]; j++)
-        {
-          var map = this.map_[colsItem.basisObjectId];
-          var memberInfo = map[item.basisObjectId];
-
-          if (memberInfo)
-          {
-            for (var k = 0; k < memberInfo.product.length; k++)
-              if (memberInfo.product[k][0] === colsItem && memberInfo.product[k][1] === item)
-              {
-                memberInfo.product.splice(k, 1);
-                break;
-              }
-
-            if (!memberInfo.product.length)
-            {
-              delete members[memberInfo.object.basisObjectId];
-              deleted.push(memberInfo.object);
-            }
-          }
-        }
-      }
-
-    var newDelta = getDelta(inserted, deleted);
-    if (newDelta)
-      this.emit_itemsChanged(newDelta);
+      var inserted = updateInserted.bind(this)(delta.inserted, this.members_, this.cols);
+      var deleted = updateDeleted.bind(this)(delta.deleted, this.members_, this.cols);
+      this.emmitNoEmptyChange(inserted, deleted);
   },
   destroy: function(){
     this.setOperands(this.cols, null);
@@ -196,7 +142,12 @@ var Multiply = AbstractDataset.subclass({
     cols: MULTIPLY_COLS_HANDLER,
     rows: MULTIPLY_ROWS_HANDLER
   },
-
+    emmitNoEmptyChange: function (inserted, deleted) {
+        var newDelta = getDelta(inserted, deleted);
+        if (isExistDelta(newDelta)) {
+            this.emit_itemsChanged(newDelta);
+        }
+    },
  /**
   * @constructor
   */
@@ -211,7 +162,6 @@ var Multiply = AbstractDataset.subclass({
     this.cols = null;
     this.rows = null;
     this.map_ = {};
-
     if (cols || rows)
       this.setOperands(cols, rows);
   },
@@ -317,8 +267,8 @@ var Multiply = AbstractDataset.subclass({
         }
       }
 
-      if (delta = getDelta(inserted, deleted))
-        this.emit_itemsChanged(delta);
+
+        this.emmitNoEmptyChange(inserted, deleted);
     }
 
     return delta;

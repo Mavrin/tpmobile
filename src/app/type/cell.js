@@ -16,7 +16,7 @@ Cell.extend({
         update: true
     },
     isSyncRequired: function(){
-        return this.subscriberCount > 0 && 
+        return this.subscriberCount > 0 &&
                (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) &&
                this.getId();
     },
@@ -24,11 +24,17 @@ Cell.extend({
         method: 'POST',
         url: '/slice/v1/matrix/cells',
         request: function(){
+            var where = [];
+            if (this.data.x) {
+                where.push('(x in ["' + this.data.x + '"])');
+            }
+            if (this.data.y) {
+                where.push('(y in ["' + this.data.y + '"])');
+            }
             return {
                 postBody: JSON.stringify({
-                    base64: true,
                     definition: app.type.Board(this.data.boardId).data,
-                    where: '((x in ["' + this.data.x + '"])and(y in ["' + this.data.y + '"]))',
+                    where: '(' + where.join('and') + ')',
                     take: 3
                 })
             };
