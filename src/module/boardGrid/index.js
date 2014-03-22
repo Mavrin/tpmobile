@@ -2,6 +2,7 @@ basis.require('basis.data.dataset');
 basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
+var Q = basis.require('lib.q.q');
 
 var cards = require('./cards.js');
 var Multiply = require('./multiply.js');
@@ -83,7 +84,6 @@ var CellMultiply = new Multiply.subclass({
     map: function(col, row) {
         // col - модель из cols (viewportCols)
         // row - модель из rows (viewportRows)
-
         // возвращаем модель по смешанным данным
         return app.type.Cell({
             boardId: this.boardId,
@@ -100,7 +100,6 @@ var view = new basis.ui.Node({
             if ('key' in delta)
             {
                 // NOTE: пересоздаем Multiply при смене board.key, так как класс еще не доделан
-
                 if (this.dataSource)
                     // уничтожаем старый набор, это сбросит dataSource в null
                     this.dataSource.destroy();
@@ -111,14 +110,12 @@ var view = new basis.ui.Node({
                 viewportRows.setSource();
 
                 if (this.data.key) {
-                    console.log(this.data.x&&viewportCols);
-                    // создаем новое перемножение, с заданым boardId
                     this.setDataSource(new CellMultiply({
                         boardId: this.data.key,
                         cols: viewportCols,
                         rows: viewportRows,
-                        colsIsEmpty:!this.data.x,
-                        rowsIsEmpty:!this.data.y
+                        colsIsEmpty:!(this.data.x&&this.data.x.id),
+                        rowsIsEmpty:!(this.data.y&&this.data.y.id)
                     }));
                 }
 
@@ -136,7 +133,26 @@ var view = new basis.ui.Node({
 });
 
 basis.router.add('/board/:id', function(id){
-    view.setDelegate(app.type.Board(id));
+    var deferred = Q.defer();
+
+    var currentBoard = app.type.Board(id);
+
+    deferred.promise.done(function(currentBoard){
+        view.setDelegate(currentBoard);
+    });
+
+    if(currentBoard.state == basis.data.STATE.READY) {
+        deferred.resolve(currentBoard);
+    } else {
+        currentBoard.addHandler({
+            update:function(){
+                deferred.resolve(this);
+            }
+        });
+    }
+    if(currentBoard.state == basis.data.STATE.UNDEFINED) {
+        currentBoard.setActive(true);
+    }
 });
 
 module.exports = view;

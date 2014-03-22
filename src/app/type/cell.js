@@ -31,12 +31,15 @@ Cell.extend({
             if (this.data.y) {
                 where.push('(y in ["' + this.data.y + '"])');
             }
+            var postBody = {
+                definition: app.type.Board(this.data.boardId).data,
+                take: 3
+            };
+            if(where.length) {
+                postBody.where = '(' + where.join('and') + ')';
+            }
             return {
-                postBody: JSON.stringify({
-                    definition: app.type.Board(this.data.boardId).data,
-                    where: '(' + where.join('and') + ')',
-                    take: 3
-                })
+                postBody: JSON.stringify(postBody)
             };
         },
         success: function(data){
@@ -53,6 +56,6 @@ Cell.extend({
             });
         }
     })
-})
+});
 
 module.exports = Cell;

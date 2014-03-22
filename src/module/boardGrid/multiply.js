@@ -64,7 +64,7 @@ var Multiply = AbstractDataset.subclass({
     },
     getAxisData: function (axis,empty, title) {
         var deferred = Q.defer();
-        if(empty || !axis) {
+        if(empty) {
             deferred.resolve({inserted:[{data:{id:''}}]});
         } else if(axis) {
             axis.addHandler({
