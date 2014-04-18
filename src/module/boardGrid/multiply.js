@@ -88,9 +88,13 @@ var Multiply = AbstractDataset.subclass({
             this.getAxisData(rows, this.rowsIsEmpty,'y')
         ])
             .spread(function (deltaCols, deltaRows) {
-                this.emmitNoEmptyChange(deltaCols.inserted.map(function (item) {
-                    return this.map(item, deltaRows.inserted[0]);
-                }, this));
+                var inserted = [];
+                deltaCols.inserted.forEach(function (x) {
+                   deltaRows.inserted.forEach(function(y){
+                       inserted.push(this.map(x, y));
+                    },this);
+                }, this);
+                this.emmitNoEmptyChange(inserted);
             }.bind(this));
     },
     /**

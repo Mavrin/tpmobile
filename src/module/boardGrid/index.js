@@ -10,10 +10,10 @@ var Multiply = require('./multiply.js');
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
-    limit: 1
+    limit: 3
 });
 var viewportRows = new basis.data.dataset.Slice({
-    limit: 1
+    limit: 3
 });
 
 // класс для оси
