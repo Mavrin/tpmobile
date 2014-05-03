@@ -1,15 +1,14 @@
 .x-rows-wrap .x-row {
-    border-right: 1px solid #C7CCD2;
+    border-right: 1px solid #C7CCD2;    
     overflow: hidden;
     flex-grow: 1;
-    position: relative;
+    position: absolute;
+    width: 100%; 
 }
 
-.x-rows-wrap .x-row .board-grid__caption {
-    position: absolute;
+.x-rows-wrap .x-row .board-grid__caption {    
     height: 32px;
     right: 0;
-
     border-bottom: 1px solid #C7CCD2;
     width: 100%;
 }

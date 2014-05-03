@@ -3,7 +3,7 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.service');
 basis.require('app.state');
-/** @cut */ require('basis.devpanel');
+///** @cut */ require('basis.devpanel');
 
 module.exports = basis.app.create({
     title: 'My app',

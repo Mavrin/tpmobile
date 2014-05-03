@@ -23,7 +23,7 @@ AxisItem.byBoard = (function () {
                     },
                     postBody: JSON.stringify({
                         definition: this.board.data,
-                        take: 3
+                        take: 1000
                     })
                 };
             },

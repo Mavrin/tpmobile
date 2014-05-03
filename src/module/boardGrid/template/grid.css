@@ -13,14 +13,10 @@
     width: 100%;
     height: 100%;
     position: relative;
-    overflow: auto;
 }
 
 .board-grid .x-rows-wrap {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
+    display:block;
     text-align: center;
     position: absolute;
     right: 0;

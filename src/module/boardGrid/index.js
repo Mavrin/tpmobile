@@ -2,7 +2,9 @@ basis.require('basis.data.dataset');
 basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
+basis.require('basis.ui.pageslider');
 var Q = basis.require('lib.q.q');
+var PageSlider = basis.ui.pageslider.PageSlider;
 
 var cards = require('./cards.js');
 var Multiply = require('./multiply.js');
@@ -10,12 +12,30 @@ var Multiply = require('./multiply.js');
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
-    limit: 3
+    limit: 1000
 });
 var viewportRows = new basis.data.dataset.Slice({
-    limit: 3
+    limit: 1000
 });
 
+// создаем класс для ячейки
+var Cell = new basis.ui.Node.subclass({
+    dataSource: basis.data.Value.factory('update', 'data.items'),
+    active: true,
+
+    template: resource('./template/cell.tmpl'),
+
+    sorting: function(item){
+        return item.data.orderingValue || item.basisObjectId;
+    },
+    childClass: cards.BaseCard,
+    childFactory: function(config){
+        var CardClass = cards[config.delegate && config.delegate.data.type] || cards.BaseCard;
+        return new CardClass(config);
+    }
+});
+
+var cell = new Cell();
 // класс для оси
 var Axis = basis.ui.Node.subclass({
     autoDelegate: true,
@@ -42,7 +62,49 @@ var Axis = basis.ui.Node.subclass({
     }
 });
 
-var axisX = new Axis({
+var axisX = new PageSlider({
+    autoDelegate: true,
+    active: true,
+
+    handler: {
+        update: function(sender, delta){
+            if (this.dataSource)
+            {
+                this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+                if (this.axisKey in delta)
+                    this.dataSource.setActive(!!this.data[this.axisKey]);
+            }
+        }
+    },
+    listen: {
+        selection: {
+            itemsChanged: function (s,data) {
+                var dataSource = app.type.Cell({
+                    boardId: this.data.key,
+                    x: data.inserted[0].data.id,
+                    y:null
+                });
+                cell.setDelegate(dataSource);
+                dataSource.setActive(true);
+            }
+        }
+    },
+    sorting: function(item){
+        return item.data.orderingValue || item.basisObjectId;
+    },
+    dataSource: viewportCols,
+    axisKey: 'x',
+
+    template: resource('./template/axisx.tmpl'),
+    childClass: {
+        binding: {
+            name: 'data:'
+        },
+        template: resource('./template/axisx_cell.tmpl')
+    }
+});
+
+/*var axisX = new Axis({
     dataSource: viewportCols,
     axisKey: 'x',
 
@@ -50,7 +112,7 @@ var axisX = new Axis({
     childClass: {
         template: resource('./template/axisx_cell.tmpl')
     }
-});
+});*/
 
 var axisY = new Axis({
     dataSource: viewportRows,
@@ -62,22 +124,6 @@ var axisY = new Axis({
     }
 });
 
-// создаем класс для ячейки
-var Cell = new basis.ui.Node.subclass({
-    dataSource: basis.data.Value.factory('update', 'data.items'),
-    active: true,
-
-    template: resource('./template/cell.tmpl'),
-
-    sorting: function(item){
-        return item.data.orderingValue || item.basisObjectId;
-    },
-    childClass: cards.BaseCard,
-    childFactory: function(config){
-        var CardClass = cards[config.delegate && config.delegate.data.type] || cards.BaseCard;
-        return new CardClass(config);
-    }
-});
 
 // создаем кастомное перемножение, с задаными rule
 var CellMultiply = new Multiply.subclass({
@@ -126,10 +172,9 @@ var view = new basis.ui.Node({
     template: resource('./template/grid.tmpl'),
     binding: {
         axisY: axisY,
-        axisX: axisX
-    },
-
-    childClass: Cell   // класс ячейки
+        axisX: axisX,
+        cell:cell
+    }
 });
 
 basis.router.add('/board/:id', function(id){

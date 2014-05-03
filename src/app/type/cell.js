@@ -17,8 +17,8 @@ Cell.extend({
     },
     isSyncRequired: function(){
         return this.subscriberCount > 0 &&
-               (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) &&
-               this.getId();
+               (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) /*&&
+               this.getId();*/
     },
     syncAction: app.service.createAction({
         method: 'POST',
