@@ -33,7 +33,7 @@ Cell.extend({
             }
             var postBody = {
                 definition: app.type.Board(this.data.boardId).data,
-                take: 3
+                take: 1000
             };
             if(where.length) {
                 postBody.where = '(' + where.join('and') + ')';

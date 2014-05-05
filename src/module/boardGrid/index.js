@@ -3,12 +3,15 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
 basis.require('basis.ui.pageslider');
+basis.require('app.ui.verticalpageslider');
 var Q = basis.require('lib.q.q');
 var PageSlider = basis.ui.pageslider.PageSlider;
+var VerticalPageSlider = app.ui.verticalpageslider.PageSlider;
 
 var cards = require('./cards.js');
 var Multiply = require('./multiply.js');
-
+var lastX = Q.defer();
+var lastY = Q.defer();
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
@@ -70,7 +73,7 @@ var axisX = new PageSlider({
         update: function(sender, delta){
             if (this.dataSource)
             {
-                this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+	            this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
                 if (this.axisKey in delta)
                     this.dataSource.setActive(!!this.data[this.axisKey]);
             }
@@ -78,14 +81,16 @@ var axisX = new PageSlider({
     },
     listen: {
         selection: {
-            itemsChanged: function (s,data) {
-                var dataSource = app.type.Cell({
-                    boardId: this.data.key,
-                    x: data.inserted[0].data.id,
-                    y:null
-                });
-                cell.setDelegate(dataSource);
-                dataSource.setActive(true);
+            itemsChanged: function (s, data) {
+	            if(data.inserted && data.inserted[0].data) {
+		            var dataSource = app.type.Cell({
+			            boardId: this.data.key,
+			            x: data.inserted[0].data.id,
+			            y:null
+		            });
+		            cell.setDelegate(dataSource);
+		            dataSource.setActive(true);
+	            }
             }
         }
     },
@@ -114,7 +119,7 @@ var axisX = new PageSlider({
     }
 });*/
 
-var axisY = new Axis({
+/*var axisY = new Axis({
     dataSource: viewportRows,
     axisKey: 'y',
 
@@ -122,10 +127,55 @@ var axisY = new Axis({
     childClass: {
         template: resource('./template/axisy_cell.tmpl')
     }
+});*/
+
+var axisY = new VerticalPageSlider({
+	autoDelegate: true,
+	active: true,
+
+	handler: {
+		update: function(sender, delta){
+			if (this.dataSource)
+			{
+				this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+				if (this.axisKey in delta)
+					this.dataSource.setActive(!!this.data[this.axisKey]);
+			}
+		}
+	},
+	listen: {
+		selection: {
+			itemsChanged: function (s, data) {
+				console.log(data)
+				/*if(data.inserted && data.inserted[0].data) {
+					*//*var dataSource = app.type.Cell({
+						boardId: this.data.key,
+						x: data.inserted[0].data.id,
+						y:null
+					});
+					cell.setDelegate(dataSource);
+					dataSource.setActive(true);*//*
+				}*/
+			}
+		}
+	},
+	sorting: function(item){
+		return item.data.orderingValue || item.basisObjectId;
+	},
+	dataSource: viewportRows,
+	axisKey: 'y',
+
+	template: resource('./template/axisy.tmpl'),
+	childClass: {
+		binding: {
+			name: 'data:'
+		},
+		template: resource('./template/axisy_cell.tmpl')
+	}
 });
 
 
-// создаем кастомное перемножение, с задаными rule
+/*// создаем кастомное перемножение, с задаными rule
 var CellMultiply = new Multiply.subclass({
     map: function(col, row) {
         // col - модель из cols (viewportCols)
@@ -137,7 +187,7 @@ var CellMultiply = new Multiply.subclass({
             y: row.data.id
         });
     }
-});
+});*/
 
 var view = new basis.ui.Node({
     active: true,
@@ -145,7 +195,17 @@ var view = new basis.ui.Node({
         update: function(sender, delta){
             if ('key' in delta)
             {
-                // NOTE: пересоздаем Multiply при смене board.key, так как класс еще не доделан
+               // debugger
+	            // if board doesn't have axis
+	            if(!(this.data.x&&this.data.x.id)&& !(this.data.y && this.data.y.id)) {
+		            var dataSource = app.type.Cell({
+			            boardId: this.data.key,
+			            x: null,
+			            y: null
+		            });
+		            cell.setDelegate(dataSource);
+	            }
+                /*// NOTE: пересоздаем Multiply при смене board.key, так как класс еще не доделан
                 if (this.dataSource)
                     // уничтожаем старый набор, это сбросит dataSource в null
                     this.dataSource.destroy();
@@ -163,7 +223,7 @@ var view = new basis.ui.Node({
                         colsIsEmpty:!(this.data.x&&this.data.x.id),
                         rowsIsEmpty:!(this.data.y&&this.data.y.id)
                     }));
-                }
+                }*/
 
             }
         }
@@ -181,7 +241,6 @@ basis.router.add('/board/:id', function(id){
     var deferred = Q.defer();
 
     var currentBoard = app.type.Board(id);
-
     deferred.promise.done(function(currentBoard){
         view.setDelegate(currentBoard);
     });

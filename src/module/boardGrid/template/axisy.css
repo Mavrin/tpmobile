@@ -1,8 +1,15 @@
+.y-row-wrap {
+    height: 2313px;
+    top: 0;
+    position: absolute;
+    width: 32px
+}
 .board-grid-2-axis .y-row {
     display: block;
     width: 32px;
     position: absolute;
     top: 0;
+    height: 100%;
     left: 0;
     bottom: 0;
     border-right: 1px solid #C7CCD2;
