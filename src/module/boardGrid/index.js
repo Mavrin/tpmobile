@@ -10,13 +10,15 @@ var VerticalPageSlider = app.ui.verticalpageslider.PageSlider;
 
 var cards = require('./cards.js');
 var Multiply = require('./multiply.js');
-var lastX = Q.defer();
-var lastY = Q.defer();
+var lastX = new basis.data.Object();
+var lastY = new basis.data.Object();
+var key = null;
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
     limit: 1000
 });
+
 var viewportRows = new basis.data.dataset.Slice({
     limit: 1000
 });
@@ -39,6 +41,32 @@ var Cell = new basis.ui.Node.subclass({
 });
 
 var cell = new Cell();
+lastX.addHandler({
+	update: function(sender, delta){
+		if(lastY.data.id && this.data) {
+			var dataSource = app.type.Cell({
+				boardId: key,
+				x: this.data.id,
+				y: lastY.data.id
+			});
+			cell.setDelegate(dataSource);
+			dataSource.setActive(true);
+		}
+	}
+});
+lastY.addHandler({
+	update: function(sender, delta){
+		if(lastX.data.id && this.data) {
+			var dataSource = app.type.Cell({
+				boardId: key,
+				x: lastX.data.id,
+				y: this.data.id
+			});
+			cell.setDelegate(dataSource);
+			dataSource.setActive(true);
+		}
+	}
+});
 // класс для оси
 var Axis = basis.ui.Node.subclass({
     autoDelegate: true,
@@ -81,17 +109,23 @@ var axisX = new PageSlider({
     },
     listen: {
         selection: {
-            itemsChanged: function (s, data) {
-	            if(data.inserted && data.inserted[0].data) {
-		            var dataSource = app.type.Cell({
-			            boardId: this.data.key,
-			            x: data.inserted[0].data.id,
-			            y:null
-		            });
-		            cell.setDelegate(dataSource);
-		            dataSource.setActive(true);
-	            }
-            }
+	        itemsChanged: function (s, data) {
+		        if (data.inserted && data.inserted[0].data) {
+			        lastX.update(data.inserted[0].data);
+			        if (this.data.y&&this.data.y.id) {
+
+			        } else {
+				        var dataSource = app.type.Cell({
+					        boardId: this.data.key,
+					        x: data.inserted[0].data.id,
+					        y: null
+				        });
+				        cell.setDelegate(dataSource);
+				        dataSource.setActive(true);
+			        }
+		        }
+	        }
+
         }
     },
     sorting: function(item){
@@ -146,16 +180,20 @@ var axisY = new VerticalPageSlider({
 	listen: {
 		selection: {
 			itemsChanged: function (s, data) {
-				console.log(data)
-				/*if(data.inserted && data.inserted[0].data) {
-					*//*var dataSource = app.type.Cell({
-						boardId: this.data.key,
-						x: data.inserted[0].data.id,
-						y:null
-					});
-					cell.setDelegate(dataSource);
-					dataSource.setActive(true);*//*
-				}*/
+				if(data.inserted && data.inserted[0].data) {
+					if(this.data.x && this.data.x.id) {
+						lastY.update(data.inserted[0].data);
+					} else {
+						var dataSource = app.type.Cell({
+							boardId: this.data.key,
+							x: data.inserted[0].data.id,
+							y:null
+						});
+						cell.setDelegate(dataSource);
+						dataSource.setActive(true);
+					}
+
+				}
 			}
 		}
 	},
@@ -239,10 +277,12 @@ var view = new basis.ui.Node({
 
 basis.router.add('/board/:id', function(id){
     var deferred = Q.defer();
-
+	lastX.update(null);
+	lastY.update(null);
     var currentBoard = app.type.Board(id);
     deferred.promise.done(function(currentBoard){
         view.setDelegate(currentBoard);
+	    key = id;
     });
 
     if(currentBoard.state == basis.data.STATE.READY) {

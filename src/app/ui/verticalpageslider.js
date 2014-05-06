@@ -139,7 +139,7 @@
         page.select();
 
         if (page.element.offsetHeight > 0)
-          this.scroller.setPositionY(page.element.offsetHeight, !noSmooth);
+          this.scroller.setPositionY(page.element.offsetTop, !noSmooth);
       }
     },
 
