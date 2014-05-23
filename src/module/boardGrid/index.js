@@ -96,7 +96,15 @@ var Axis = basis.ui.Node.subclass({
 var axisX = new PageSlider({
     autoDelegate: true,
     active: true,
-
+    binding:{
+      hide:['update',function(node){
+         if(node.data.x && node.data.x.id) {
+           return false;
+         } else {
+           return true;
+         }
+      }]
+    },
     handler: {
         update: function(sender, delta){
             if (this.dataSource)
@@ -166,7 +174,15 @@ var axisX = new PageSlider({
 var axisY = new VerticalPageSlider({
 	autoDelegate: true,
 	active: true,
-
+  binding:{
+    hide:['update',function(node){
+      if(node.data.y && node.data.y.id) {
+        return false;
+      } else {
+        return true;
+      }
+    }]
+  },
 	handler: {
 		update: function(sender, delta){
 			if (this.dataSource)
