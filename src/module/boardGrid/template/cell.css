@@ -1,11 +1,6 @@
 .board-grid__cell {
-    position: absolute;
-    top: 33px;
-    left: 33px;
-    right: 0;
-    bottom: 0;
-
     padding: 10px;
+	flex-basis: 100%;
 
     overflow: auto;
 

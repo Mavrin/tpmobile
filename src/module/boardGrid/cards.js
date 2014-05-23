@@ -3,6 +3,11 @@ basis.require('basis.ui');
 var BaseCard = basis.ui.Node.subclass({
     className: 'BaseCard',
     template: resource('./template/card/base.tmpl'),
+    action: {
+      openView:function() {
+          app.state.isOpenView.set(!app.state.isOpenView.value);
+      }
+    },
     binding: {
         id: 'data:',
         name: 'data:',

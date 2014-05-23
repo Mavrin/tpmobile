@@ -1,4 +1,10 @@
-.board-grid__axis {
-    border: 1px solid #C7CCD2;
-    line-height: 32px;
+.board-grid__caption > .title {
+	padding: 0 20px;
+	line-height: 32px;
+	display: inline-block;
+	white-space: nowrap;
+
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;;
 }

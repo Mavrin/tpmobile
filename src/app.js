@@ -3,7 +3,7 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.service');
 basis.require('app.state');
-///** @cut */ require('basis.devpanel');
+/** @cut */ require('basis.devpanel');
 
 module.exports = basis.app.create({
     title: 'My app',
@@ -25,7 +25,7 @@ module.exports = basis.app.create({
             },
             binding: {
                 expanded: app.state.isMenuExpanded,
-
+                open:app.state.isOpenView,
                 // subviews
                 loggedUser: require('./module/user/index.js'),
                 boardList: require('./module/boardList/index.js'),
