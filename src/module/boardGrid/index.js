@@ -3,13 +3,12 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
 basis.require('basis.ui.pageslider');
-basis.require('app.ui.verticalpageslider');
 var Q = basis.require('lib.q.q');
 var PageSlider = basis.ui.pageslider.PageSlider;
-var VerticalPageSlider = app.ui.verticalpageslider.PageSlider;
+var DIRECTIONS = basis.ui.pageslider.DIRECTIONS;
 
 var cards = require('./cards.js');
-var Multiply = require('./multiply.js');
+var Axis = require('./axis.js').Axis;
 var lastX = new basis.data.Object();
 var lastY = new basis.data.Object();
 var key = null;
@@ -67,61 +66,16 @@ lastY.addHandler({
 		}
 	}
 });
-// класс для оси
-var Axis = basis.ui.Node.subclass({
-    autoDelegate: true,
-    active: true,
 
-    handler: {
-        update: function(sender, delta){
-            if (this.dataSource)
-            {
-                this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
-                if (this.axisKey in delta)
-                   this.dataSource.setActive(!!this.data[this.axisKey]);
-            }
-        }
-    },
 
-    sorting: function(item){
-        return item.data.orderingValue || item.basisObjectId;
-    },
-    childClass: {
-        binding: {
-            name: 'data:'
-        }
-    }
-});
 
-var axisX = new PageSlider({
-    autoDelegate: true,
-    active: true,
-    binding:{
-      hide:['update',function(node){
-         if(node.data.x && node.data.x.id) {
-           return false;
-         } else {
-           return true;
-         }
-      }]
-    },
-    handler: {
-        update: function(sender, delta){
-            if (this.dataSource)
-            {
-	            this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
-                if (this.axisKey in delta)
-                    this.dataSource.setActive(!!this.data[this.axisKey]);
-            }
-        }
-    },
+var axisX = new Axis({
     listen: {
         selection: {
 	        itemsChanged: function (s, data) {
 		        if (data.inserted && data.inserted[0].data) {
-			        lastX.update(data.inserted[0].data);
 			        if (this.data.y&&this.data.y.id) {
-
+                lastX.update(data.inserted[0].data);
 			        } else {
 				        var dataSource = app.type.Cell({
 					        boardId: this.data.key,
@@ -136,63 +90,16 @@ var axisX = new PageSlider({
 
         }
     },
-    sorting: function(item){
-        return item.data.orderingValue || item.basisObjectId;
-    },
     dataSource: viewportCols,
     axisKey: 'x',
-
     template: resource('./template/axisx.tmpl'),
     childClass: {
-        binding: {
-            name: 'data:'
-        },
         template: resource('./template/axisx_cell.tmpl')
     }
 });
 
-/*var axisX = new Axis({
-    dataSource: viewportCols,
-    axisKey: 'x',
-
-    template: resource('./template/axisx.tmpl'),
-    childClass: {
-        template: resource('./template/axisx_cell.tmpl')
-    }
-});*/
-
-/*var axisY = new Axis({
-    dataSource: viewportRows,
-    axisKey: 'y',
-
-    template: resource('./template/axisy.tmpl'),
-    childClass: {
-        template: resource('./template/axisy_cell.tmpl')
-    }
-});*/
-
-var axisY = new VerticalPageSlider({
-	autoDelegate: true,
-	active: true,
-  binding:{
-    hide:['update',function(node){
-      if(node.data.y && node.data.y.id) {
-        return false;
-      } else {
-        return true;
-      }
-    }]
-  },
-	handler: {
-		update: function(sender, delta){
-			if (this.dataSource)
-			{
-				this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
-				if (this.axisKey in delta)
-					this.dataSource.setActive(!!this.data[this.axisKey]);
-			}
-		}
-	},
+var axisY = new Axis({
+  direction:DIRECTIONS.VERTICAL,
 	listen: {
 		selection: {
 			itemsChanged: function (s, data) {
@@ -213,35 +120,14 @@ var axisY = new VerticalPageSlider({
 			}
 		}
 	},
-	sorting: function(item){
-		return item.data.orderingValue || item.basisObjectId;
-	},
 	dataSource: viewportRows,
 	axisKey: 'y',
-
 	template: resource('./template/axisy.tmpl'),
 	childClass: {
-		binding: {
-			name: 'data:'
-		},
 		template: resource('./template/axisy_cell.tmpl')
 	}
 });
 
-
-/*// создаем кастомное перемножение, с задаными rule
-var CellMultiply = new Multiply.subclass({
-    map: function(col, row) {
-        // col - модель из cols (viewportCols)
-        // row - модель из rows (viewportRows)
-        // возвращаем модель по смешанным данным
-        return app.type.Cell({
-            boardId: this.boardId,
-            x: col.data.id,
-            y: row.data.id
-        });
-    }
-});*/
 
 var view = new basis.ui.Node({
     active: true,
@@ -259,26 +145,6 @@ var view = new basis.ui.Node({
 		            });
 		            cell.setDelegate(dataSource);
 	            }
-                /*// NOTE: пересоздаем Multiply при смене board.key, так как класс еще не доделан
-                if (this.dataSource)
-                    // уничтожаем старый набор, это сбросит dataSource в null
-                    this.dataSource.destroy();
-
-                // если не обнулить то в новом Multiply будет пересечение по старым осям
-                // это пока проблема, которая будет решаться
-                viewportCols.setSource();
-                viewportRows.setSource();
-
-                if (this.data.key) {
-                    this.setDataSource(new CellMultiply({
-                        boardId: this.data.key,
-                        cols: viewportCols,
-                        rows: viewportRows,
-                        colsIsEmpty:!(this.data.x&&this.data.x.id),
-                        rowsIsEmpty:!(this.data.y&&this.data.y.id)
-                    }));
-                }*/
-
             }
         }
     },
