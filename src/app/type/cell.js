@@ -2,7 +2,9 @@ basis.require('basis.entity');
 basis.require('app.service');
 
 var Cell = basis.entity.createType('Cell', {
-    boardId: basis.entity.StringId,  // \
+    definition: function(data){
+        return data;
+    },  // \
     x: basis.entity.StringId,        //  } это составной ключ 
     y: basis.entity.StringId,        // /
 
@@ -30,9 +32,9 @@ Cell.extend({
             }
             if (this.data.y) {
                 where.push('(y in ["' + this.data.y + '"])');
-            }
+            }           
             var postBody = {
-                definition: app.type.Board(this.data.boardId).data,
+                definition: this.data.definition,
                 take: 1000
             };
             if(where.length) {

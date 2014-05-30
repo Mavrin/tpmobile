@@ -39,7 +39,7 @@ Board.extend({
         },
         success: function(data){
             // пока из данных берем только x, y, cells
-            this.update(basis.object.slice(data , ['cells', 'x', 'y']));
+            this.update(basis.object.slice(data , ['cells', 'x', 'y', 'name']));
         }
     })
 });

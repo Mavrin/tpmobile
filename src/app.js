@@ -6,11 +6,11 @@ basis.require('app.state');
 /** @cut */ require('basis.devpanel');
 
 module.exports = basis.app.create({
-    title: 'My app',
+    title: app.state.title,
     init: function () {
         // включаем отслеживание изменения URL
         basis.router.start();
-
+        app.state.title.set('tp3');
         return new basis.ui.Node({
             delegate: app.service.context,
 

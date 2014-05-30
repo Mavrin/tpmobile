@@ -3,7 +3,7 @@ var definition = function (data) {
   var key, definition = {};
   for (key in data)
   {
-    if (data.hasOwnProperty(key) && (key === 'cells' || key === 'y' || key === 'x') && data[key].items.length)
+    if (data.hasOwnProperty(key)  && (key === 'cells' || key === 'y' || key === 'x') && data[key] && data[key].items.length)
     {
       definition[key] = data[key];
     }

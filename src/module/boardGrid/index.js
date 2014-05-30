@@ -6,12 +6,13 @@ basis.require('basis.ui.pageslider');
 var Q = basis.require('lib.q.q');
 var PageSlider = basis.ui.pageslider.PageSlider;
 var DIRECTIONS = basis.ui.pageslider.DIRECTIONS;
-
+var definitionFactory = basis.require('app.type.definition');
 var cards = require('./cards.js');
 var Axis = require('./axis.js').Axis;
 var lastX = new basis.data.Object();
 var lastY = new basis.data.Object();
 var key = null;
+var definition = null
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
@@ -44,7 +45,7 @@ lastX.addHandler({
 	update: function(sender, delta){
 		if(lastY.data.id && this.data) {
 			var dataSource = app.type.Cell({
-				boardId: key,
+				definition: definition,
 				x: this.data.id,
 				y: lastY.data.id
 			});
@@ -57,7 +58,7 @@ lastY.addHandler({
 	update: function(sender, delta){
 		if(lastX.data.id && this.data) {
 			var dataSource = app.type.Cell({
-				boardId: key,
+				definition: definition,
 				x: lastX.data.id,
 				y: this.data.id
 			});
@@ -75,12 +76,11 @@ var axisX = new Axis({
 	        itemsChanged: function (s, data) {
 		        if (data.inserted && data.inserted[0].data) {
 			        if (this.data.y&&this.data.y.id) {
-                lastX.update(data.inserted[0].data);
-			        } else {
+                        lastX.update(data.inserted[0].data);
+			        } else {			        	
 				        var dataSource = app.type.Cell({
-					        boardId: this.data.key,
-					        x: data.inserted[0].data.id,
-					        y: null
+					        definition: this.data,
+					        x: data.inserted[0].data.id					        
 				        });
 				        cell.setDelegate(dataSource);
 				        dataSource.setActive(true);
@@ -106,11 +106,10 @@ var axisY = new Axis({
 				if(data.inserted && data.inserted[0].data) {
 					if(this.data.x && this.data.x.id) {
 						lastY.update(data.inserted[0].data);
-					} else {
+					} else {						
 						var dataSource = app.type.Cell({
-							boardId: this.data.key,
-							x: data.inserted[0].data.id,
-							y:null
+							definition: this.data,							
+							y: data.inserted[0].data.id,
 						});
 						cell.setDelegate(dataSource);
 						dataSource.setActive(true);
@@ -132,20 +131,14 @@ var axisY = new Axis({
 var view = new basis.ui.Node({
     active: true,
     handler: {
-        update: function(sender, delta){
-            if ('key' in delta)
-            {
-               // debugger
-	            // if board doesn't have axis
-	            if(!(this.data.x&&this.data.x.id)&& !(this.data.y && this.data.y.id)) {
+        update: function(sender, delta){            
+	            if(!(this.data.x)&& !(this.data.y)) {
+		            debugger
 		            var dataSource = app.type.Cell({
-			            boardId: this.data.key,
-			            x: null,
-			            y: null
+			            definition: this.data			            
 		            });
 		            cell.setDelegate(dataSource);
 	            }
-            }
         }
     },
 
@@ -162,8 +155,11 @@ basis.router.add('/board/:id', function(id){
 	lastX.update(null);
 	lastY.update(null);
     var currentBoard = app.type.Board(id);
-    deferred.promise.done(function(currentBoard){
-        view.setDelegate(currentBoard);
+    deferred.promise.done(function(currentBoard) {   
+        var definitionObject = definitionFactory(currentBoard.data);
+    	definition = definitionObject.data;
+    	app.state.title.set(currentBoard.data.name);
+        view.setDelegate(definitionObject);
 	    key = id;
     });
 

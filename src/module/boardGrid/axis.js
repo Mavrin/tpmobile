@@ -16,9 +16,9 @@ var Axis = PageSlider.subclass({
   },
   handler: {
     update: function(sender, delta){
-      if (this.dataSource)
-      {
-        this.dataSource.setSource(app.type.AxisItem.byBoard(this.target, this.axisKey + 'axis'));
+      if (this.dataSource && this.data[this.axisKey])
+      {      
+        this.dataSource.setSource(app.type.AxisItem.byBoard(this.data, this.axisKey + 'axis'));
         if (this.axisKey in delta)
           this.dataSource.setActive(!!this.data[this.axisKey]);
       }

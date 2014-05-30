@@ -16,13 +16,13 @@ AxisItem.byBoard = (function () {
         syncAction: app.service.createAction({
             method: 'POST',
             url: '/slice/v1/matrix/:axis',
-            request: function () {
+            request: function () {             
                 return {
                     routerParams: {
                         axis: this.axis
                     },
                     postBody: JSON.stringify({
-                        definition: this.board.data,
+                        definition: this.definition,
                         take: 1000
                     })
                 };
@@ -40,15 +40,10 @@ AxisItem.byBoard = (function () {
     });
 
     return function (board, axis) {
-        var id = board.getId() + '-' + axis;
-
-        if (id in cache == false) {
-            var dataset = cache[id] = Axis([]);
-            dataset.board = board;
-            dataset.axis = axis;
-        }
-
-        return cache[id];
+        var dataSet = Axis([]);
+        dataSet.definition  = board;
+        dataSet.axis = axis;        
+        return dataSet;
     }
 })();
 
