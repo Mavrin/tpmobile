@@ -1,59 +1,77 @@
 .context-filter {
-	padding: 6px 8px;
+	padding: 6px 0 6px 8px;
 	line-height: 0;
-	white-space:nowrap;
-}
-
-.context-filter .dark-panel {
-	height: 20px;
-}
-
-.context-filter .selected-teams, 
-.context-filter .selected-projects {
-	display: inline-block;
-	vertical-align: top;
-	max-width: 105px;
-	
-	-webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-	position: relative;
-	
 	white-space: nowrap;
+}
+
+.context-filter__item {
+	max-width: 50%;
+	padding-right: 25px;
+	position: relative;
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.context-filter__teams,
+.context-filter__projects {
+	vertical-align: top;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	line-height: normal;	
+	width: 100%;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	white-space: nowrap;
+	line-height: 30px;
 	font-weight: 600;
-	line-height: 20px;	
 }
 
-.context-filter .selected-teams {
-	padding-left: 33px;
-	margin-right: 8px;
-	margin-left: 2px;
-}
-
-.context-filter .selected-projects {
-	padding-left: 20px;
-}
-
-.context-filter .selected-teams:before, 
-.context-filter .selected-projects:before {
+.context-filter__teams:before,
+.context-filter__projects:before {
 	content: '';
-	display: block;
-	position: absolute;
-	top: 4px;
-	left: 0;
+	display: inline-block;
+	position: relative;
+	top: 1px;
 	height: 12px;
 	width: 15px;
-	background-image:url(./images/icons-general.svg);
-} 
-
-.context-filter .selected-teams:before {
-	background-position: -362px -211px;
-    width: 27px;
+	background-image: url(./images/icons-general.svg);
+	margin-right: 5px;
 }
 
-.context-filter .selected-projects:before {
+.context-filter__teams:before {
+	background-position: -362px -211px;
+	width: 27px;
+}
+
+.context-filter__projects:before {
 	background-position: -318px -211px;
+}
+
+.context-filter__name:not(:first-child):before {
+	display: inline-block;
+	content: ',';
+	margin-right: 5px;
+
+}
+
+.context-filter__count {
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	line-height: 20px;
+	min-width: 20px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0 5px;
+	text-align: center;
+	font-size: 11px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding-left: 5px;
+	padding-right: 5px;
 }

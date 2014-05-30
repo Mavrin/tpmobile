@@ -6,14 +6,13 @@
 .app-list__pullDown,
 .app-list__pullUp {
     z-index: -1;
-    background:#fff;
+    background:rgba(255,255,255,0.5);
     height:40px;
     line-height:40px;
     padding:5px 10px;
-    border-bottom:1px solid #ccc;
     font-weight:bold;
     font-size:14px;
-    color:#888;
+    color:#fff;
 }
 .app-list__pullDownIcon,
 .app-list__pullUpIcon {
