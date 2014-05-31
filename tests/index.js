@@ -1,8 +1,8 @@
 // example test suite
 module.exports = {
-  name: 'Example test suite',
+  name: 'test suite',
   html: __dirname + 'env.html', // base env
   test: [
-    require('./spec/context.js');
+    require('./spec/context.js')
   ]
 };
