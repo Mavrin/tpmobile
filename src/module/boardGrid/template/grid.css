@@ -28,6 +28,7 @@
 	-ms-flex-align: stretch;
 	-webkit-align-items: stretch;
 	align-items: stretch;
+	background: #f0f2f5;
 
 }
 .board-grid_wrap{

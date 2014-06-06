@@ -7,4 +7,8 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+	background: #e7eaef;
+}
+.board-grid__cell > .tau-card-v2{
+	display: block;
 }

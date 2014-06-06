@@ -1,0 +1,113 @@
+.ui-type-icon {
+    font-family: Helvetica, Arial, sans-serif;
+    display: inline-block;
+    border-radius: 3px;
+
+    color: #fff;
+    letter-spacing: 0px;
+    background: #000;
+    font-size: 11px;
+    /*font-size: 0.750em;*/
+    padding: 2px 4px;
+    text-transform: uppercase;
+	font-style: normal;
+	font-weight: bold;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2) inset;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.ui-type-icon-id {
+
+    margin: 0px 0px 0px 0px;
+    border-radius: 3px;
+    padding: 1px 2px 2px 2px;
+    color: #fff;
+    text-decoration: underline;
+    text-shadow: 0 0px 0 rgba(0, 0, 0, 0.4);
+}
+
+.tau-property-team .tau-icon,
+.tau-property-project .tau-icon {
+    vertical-align: middle;
+}
+
+.ui-type-icon-feature {
+    background: #1c8300 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3c9225), color-stop(100%, #1c8300)) !important;
+}
+
+.ui-type-icon-release {
+    background: #888888 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #999999), color-stop(100%, #888888)) !important;
+}
+
+.ui-type-icon-iteration,
+.ui-type-icon-teamiteration {
+    background: #66aff0 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8ac0f0), color-stop(100%, #66aff0)) !important;
+}
+
+.ui-type-icon-userstory {
+    background: #507cb6 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6893cc), color-stop(100%, #507cb6)) !important;
+}
+
+.ui-type-icon-bug {
+    background: #cc060d !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e03339), color-stop(100%, #cc060d)) !important;
+}
+
+.ui-type-icon-task {
+    background: #051f42 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #0e2f5a), color-stop(100%, #051f42)) !important;
+}
+
+.ui-type-icon-request {
+    background: #ffc600 !important;
+    color: #000 !important;
+    text-shadow: 0 1px 0 #f8d55b !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8d55b), color-stop(100%, #ffc600)) !important;
+}
+
+.ui-type-icon-impediment {
+    background: #8a2125 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #99262b), color-stop(100%, #8a2125)) !important;
+}
+
+.ui-type-icon-testplan {
+    background: #c7a503 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dbb704), color-stop(100%,#c7a503)) !important;
+}
+
+.ui-type-icon-testplanrun,
+.ui-type-icon-testcaserun,
+.ui-type-icon-testrun {
+    background: #a7743e !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #af8151), color-stop(100%, #a7743e)) !important;
+}
+
+
+.ui-type-icon-testcase {
+    background: #dd7709 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e39643), color-stop(100%, #dd7709)) !important;
+}
+
+
+.ui-type-icon-build {
+    background: #336e6d !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#449190), color-stop(100%,#336e6d)) !important;
+}
+
+.ui-type-icon-program,
+.ui-type-icon-project,
+.ui-type-icon-team {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow:  inset 0 0 0 1px #000 !important;
+    text-shadow: none !important;
+}
+
+.ui-type-icon-project.tau-icon {
+    margin-right: 5px;
+    top: 1px
+}
