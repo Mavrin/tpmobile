@@ -1,3 +1,6 @@
+.board-grid__caption{
+	height: 32px;
+}
 .board-grid__caption > .title {
 	padding: 0 20px;
 	line-height: 32px;

@@ -36,6 +36,9 @@ body {
     left:0;
     width: 256px;
 }
+.board-selector .l-header{
+	height: auto;
+}
 
 /*.board-selector:after {*/
     /*position: absolute;*/
@@ -89,6 +92,5 @@ body {
     /*background-image:linear-gradient(to bottom,#2c2f37,#292b33);*/
     /*box-shadow:1px 0 rgba(255,255,255,.05);*/
 /*}*/
-
 
 

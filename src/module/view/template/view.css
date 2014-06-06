@@ -1,0 +1,35 @@
+.view{background: #fff;}
+.view__header{
+	padding: 5px 0;
+}.view .ui-type-icon{
+	margin-right: 5px;
+}
+.view__entity-number{
+	margin: 0 0 10px 0;
+	color: #8C97A6;
+	font-size: 12px;
+}
+.view__rows{
+	 margin: 10px 0;}
+.view__tags{
+	border-radius: 10px;
+	border: 1px solid #d4dae2;
+	line-height: 20px;
+	color: #8C97A6;
+	font-size: 11px;
+	display: inline-block;
+	margin: 0 5px 0 0;
+	padding: 0 10px;
+
+}
+
+.view__tags-link{
+	font-size: 11px;
+	display: inline-block;
+padding: 0 10px;}
+.view__state{
+}
+.view__state__txt{
+	line-height: 26px;
+	color: #8C97A6;
+}

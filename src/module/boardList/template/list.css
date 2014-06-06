@@ -1,12 +1,14 @@
 .board-list-panel {
 	background: #383f4a;
     position: absolute;
-    top: 44px;
+    top: 72px;
     left: 0;
     right: 0;
     bottom: 0;
     max-height: 100%;
     overflow-y: auto;
+	-webkit-transform: none!important;
+	transform: none!important;
 
 }
 .board-list {

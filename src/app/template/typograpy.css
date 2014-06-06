@@ -1,0 +1,23 @@
+a {
+	color: #3D94E1;
+	text-decoration: none;
+}
+
+a:hover {
+
+	text-decoration: underline;
+}
+
+.header-h1,
+.header-h2,
+.header-h3,
+.header-h4,
+.header-h5,
+.header-h6 {
+
+}
+
+.header-h1 {
+	font-size: 18px;
+	font-weight: normal;
+}

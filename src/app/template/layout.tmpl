@@ -1,8 +1,14 @@
+<b:style src="./fonts.css"/>
+<b:style src="./typograpy.css"/>
+<b:style src="./forms.css"/>
 <b:style src="./layout.css"/>
 
 <div class="l-view l-view_{open}">
     <div class="board-selector board-selector_{expanded}">
-        <b:include src="./context-filter.tmpl"/>
+        <div class="l-header">
+            <b:include src="./context-filter.tmpl"/>
+            <b:include src="./search.tmpl"/>
+        </div>
         <!--{boardList}-->
         <!--loggedUser-->
     </div>
@@ -12,9 +18,10 @@
         </div>
         <!--{boardGrid}-->
     </div>
-    <!--<div class="view_wrap">-->
-            <!--<b:include src="./../../module/view/template/view.tmpl"/>-->
-    <!--</div>-->
+
+        <!--<div class="view_wrap view_wrap_{expanded}">-->
+                <!--<b:include src="./../../module/view/template/view.tmpl"/>-->
+        <!--</div>-->
 
 
 </div>
