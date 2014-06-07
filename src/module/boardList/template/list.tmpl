@@ -1,7 +1,16 @@
 <b:style src="./list.css"/>
 
+
+<div>
+    <b:include src="./search.tmpl"/>
+    <div class="board-list-panel">
+    <ul{childNodesElement} class="board-list"/>
+    </div>
+</div>
+<!--
 <b:include src="app.ui.UpdatableNode" class="board-list-panel">
     <b:replace ref="content">
         <ul{childNodesElement} class="board-list"/>
     </b:replace>
 </b:include>
+-->

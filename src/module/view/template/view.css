@@ -1,4 +1,22 @@
-.view{background: #fff;}
+.view_wrap {
+    display: none;
+}
+.l-view_open .view_wrap {
+    height: 100%;
+    display: block;
+    /*transfor*/
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+.view
+{
+    background: #fff;
+    width: 256px;
+    padding: 10px;
+    height: 100%;
+}
 .view__header{
 	padding: 5px 0;
 }.view .ui-type-icon{

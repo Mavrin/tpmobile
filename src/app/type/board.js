@@ -74,4 +74,11 @@ Board.byOwner = function(id){
     return id != null ? splitByOwner.getSubset(id, true) : null;
 };
 
+Board.byFilter = function(filter){
+    return new basis.data.dataset.Filter({
+        source: Board.all,
+        rule: filter
+    });
+};
+
 module.exports = Board;

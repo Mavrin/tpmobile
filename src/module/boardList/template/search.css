@@ -1,0 +1,14 @@
+.search {
+	padding: 0 5px 5px 5px;
+    position: absolute;
+    top: 42px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #383f4a;
+    height:28px;
+    z-index:1;
+}
+.form-control_search {
+
+}
