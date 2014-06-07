@@ -130,19 +130,6 @@
     animation: none;
 }
 
-.tau-board-lazy-animation_unit .tau-board-unit{
-   display: none;
-}
-.tau-board-lazy-animation .tau-card-v2:before {
-
-    background-image: url(../images/grad.png);
-    background-repeat: repeat-y;
-
-    -webkit-animation: leftsidegradient 1s linear infinite;
-    -moz-animation: leftsidegradient 1s linear infinite;
-    animation: leftsidegradient 1s linear infinite;
-
-}
 
 
 .tau-card-v2:after {
@@ -200,7 +187,6 @@
     margin-bottom: 1px;
 
     width: auto;
-  //  min-width: 370px;
 
 }
 
@@ -428,7 +414,7 @@
     display: inline-block;
     width: 8px;
     height: 8px;
-    background: url(../images/icons-general.svg) -1067px -109px no-repeat;
+    /*background: url(../images/icons-general.svg) -1067px -109px no-repeat;*/
 
 }
 
@@ -1011,14 +997,4 @@
 
     width: 297px;
 
-}
-
-/* << sizes */
-
-/* Integration with context menu card elements highlighting
-----------------------------------------------------------------------------------------------------*/
-
-.tau-collapsed   .tau-card-v2.i-role-permanent-context-menu-action-activated:before,
-.tau-ui-size-min .tau-card-v2.i-role-permanent-context-menu-action-activated:before {
-    display: none;
 }
