@@ -109,7 +109,7 @@ var axisY = new Axis({
 					} else {						
 						var dataSource = app.type.Cell({
 							definition: this.data,							
-							y: data.inserted[0].data.id,
+							y: data.inserted[0].data.id
 						});
 						cell.setDelegate(dataSource);
 						dataSource.setActive(true);
@@ -133,7 +133,6 @@ var view = new basis.ui.Node({
     handler: {
         update: function(sender, delta){            
 	            if(!(this.data.x)&& !(this.data.y)) {
-		            debugger
 		            var dataSource = app.type.Cell({
 			            definition: this.data			            
 		            });

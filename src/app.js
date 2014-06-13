@@ -28,6 +28,7 @@ module.exports = basis.app.create({
                 open:app.state.isOpenView,
                 // subviews
                 loggedUser: require('./module/user/index.js'),
+                contextSelector: require('./module/contextSelector/index.js'),
                 boardList: require('./module/boardList/index.js'),
                 boardGrid: require('./module/boardGrid/index.js')
             }

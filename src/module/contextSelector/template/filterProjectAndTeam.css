@@ -1,0 +1,6 @@
+.temp {
+    position: absolute;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
