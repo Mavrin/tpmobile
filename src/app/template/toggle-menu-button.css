@@ -3,22 +3,12 @@
     cursor: pointer;
     width: 38px;
     height: 32px;
-    margin: 6px 0 0 10px;
-
+    margin: 7px 0 0 3px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
-    border-radius: 5px;
-    border: solid 1px #17191e;
-    background-color: #32353b;
-    box-shadow: 0 1px 0 0 #323439;
-
-    background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,.06), rgba(255,255,255,.06));
-    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,.06), rgba(255,255,255,.06));
-    background-image: -o-linear-gradient(bottom, rgba(0,0,0,.06), rgba(255,255,255,.06));
-    background-image: linear-gradient(to top, rgba(0,0,0,.06), rgba(255,255,255,.06));
-
+    border: none;
+    background:none;
     position: relative;
 }
 

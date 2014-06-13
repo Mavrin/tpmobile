@@ -1,39 +1,37 @@
 .board-list__item {
-    font-weight: 600;
+	font-weight: 600;
 }
 
+.board-list__item-link {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 
-.board-list__item-link{
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-
-    color: rgba(255, 255, 255, 0.8);
-    display: block;
-    padding: 10px 10px 6px 10px;
-    position: relative;
-    text-decoration: none;
+	color: rgba(255, 255, 255, 0.8);
+	display: block;
+	padding: 10px 10px 6px 10px;
+	position: relative;
+	text-decoration: none;
 	white-space: nowrap;
 }
 
-.board-list__item-link:hover,
-.board-list__item.active .board-list__item-link{background: #535c67;}
-.board-list__item-link:before {
-    background: url(./images/icons-general.svg) -10px -59px;
-    content: "";
-    height: 13px;
-    position: relative;
+.board-list__item-link .icon-svg {
+	position: relative;
 	display: inline-block;
-    top: -4px;
-    width: 14px;
+	top: -4px;
 	margin-right: 7px;
 }
 
+.board-list__item-link:hover,
+.board-list__item.selected .board-list__item-link {
+	background: #535c67;
+}
+
 .board-list__item-link span {
-    display: inline-block;
-    font-size: 13px;
+	display: inline-block;
+	font-size: 13px;
 	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	line-height: 19px;
 }

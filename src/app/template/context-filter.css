@@ -1,12 +1,22 @@
 .context-filter {
 	padding: 6px 0 6px 8px;
+	margin-right: 20px;
 	line-height: 0;
 	white-space: nowrap;
+	position: relative;
+	cursor: pointer;
+}
+
+.context-filter > .icon-svg {
+	position: relative;
+	display: inline-block;
+	margin-right: -20px;
+	top: -8px;
 }
 
 .context-filter__item {
 	max-width: 50%;
-	padding-right: 25px;
+	padding-right: 29px;
 	position: relative;
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -30,32 +40,15 @@
 	font-weight: 600;
 }
 
-.context-filter__teams:before,
-.context-filter__projects:before {
-	content: '';
+.context-filter__item .icon-svg {
 	display: inline-block;
 	position: relative;
-	top: 1px;
-	height: 12px;
-	width: 15px;
-	background-image: url(./images/icons-general.svg);
+	top: 2px;
 	margin-right: 5px;
 }
 
-.context-filter__teams:before {
-	background-position: -362px -211px;
-	width: 27px;
-}
-
-.context-filter__projects:before {
-	background-position: -318px -211px;
-}
-
-.context-filter__name:not(:first-child):before {
-	display: inline-block;
-	content: ',';
-	margin-right: 5px;
-
+.context-filter__item .icon-team {
+	top: 3px;
 }
 
 .context-filter__count {

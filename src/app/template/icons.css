@@ -1,0 +1,162 @@
+.icon-team {
+	background: url(./images/icons/team.svg) no-repeat 0 0;
+	width: 28px;
+	height: 16px;
+}
+
+.icon-project {
+	background: url(./images/icons/project.svg) no-repeat 0 0;
+	width: 17px;
+	height: 16px;
+}
+
+.icon-add {
+	background: url(./images/icons/add.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-close {
+	background: url(./images/icons/close.svg) no-repeat 0 0;
+	width: 15px;
+	height: 15px;
+}
+
+.icon-search {
+	background: url(./images/icons/search.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.icon-search-black {
+	background: url(./images/icons/search-black.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-arrow-collapse {
+	background: url(./images/icons/arrow-collapse.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-arrow-open {
+	background: url(./images/icons/arrow-open.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-checkbox-checked-gray {
+	background: url(./images/icons/checkbox-checked-gray.svg) no-repeat 0 0;
+	width: 22px;
+	height: 22px;
+}
+
+.icon-checkbox-checked-green {
+	background: url(./images/icons/checkbox-checked-green.svg) no-repeat 0 0;
+	width: 22px;
+	height: 22px;
+}
+
+.icon-checkbox-unchecked {
+	background: url(./images/icons/checkbox-unchecked.svg) no-repeat 0 0;
+	width: 22px;
+	height: 22px;
+}
+
+.icon-board {
+	background: url(./images/icons/board.svg) no-repeat 0 0;
+	width: 14px;
+	height: 12px;
+}
+
+.icon-board-white {
+	background: url(./images/icons/board-white.svg) no-repeat 0 0;
+	width: 14px;
+	height: 12px;
+}
+
+.icon-board-private {
+	background: url(./images/icons/board-private.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-board-private-white {
+	background: url(./images/icons/board-private-white.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-list {
+	background: url(./images/icons/list.svg) no-repeat 0 0;
+	width: 14px;
+	height: 12px;
+}
+
+.icon-list-white {
+	background: url(./images/icons/list-white.svg) no-repeat 0 0;
+	width: 14px;
+	height: 12px;
+}
+
+.icon-list-private {
+	background: url(./images/icons/list-private.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-list-private-white {
+	background: url(./images/icons/team.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-timeline {
+	background: url(./images/icons/timeline.svg) no-repeat 0 0;
+	width: 14px;
+	height: 14px;
+}
+
+.timeline-white {
+	background: url(./images/icons/timeline-white.svg) no-repeat 0 0;
+	width: 14px;
+	height: 14px;
+}
+
+.icon-timeline-private {
+	background: url(./images/icons/timeline-private.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-timeline-private-white {
+	background: url(./images/icons/timeline-private-white.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-view {
+	background: url(./images/icons/view.svg) no-repeat 0 0;
+	width: 14px;
+	height: 13px;
+}
+
+.icon-view-white {
+	background: url(./images/icons/view-white.svg) no-repeat 0 0;
+	width: 14px;
+	height: 13px;
+}
+
+.icon-view-private {
+	background: url(./images/icons/view-private.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.icon-view-private-white {
+	background: url(./images/icons/view-private-white.svg) no-repeat 0 0;
+	width: 16px;
+	height: 16px;
+}
