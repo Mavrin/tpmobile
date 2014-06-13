@@ -1,0 +1,48 @@
+.popup-bubble{
+	position: absolute;
+	z-index: 999;
+}
+
+
+.popup-bubble__body {
+	min-width: 150px; /*should be equal height of arrow, this case sqrt(9^2 / 2)*/
+	background: #fff;
+	overflow: auto;
+	border-radius: 3px;
+	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3), 0 0px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.popup-bubble__arrow{
+	position: absolute;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	border: 8px solid transparent;
+}
+
+.popup-bubble_top .popup-bubble__arrow{
+	border-top-color: #fff;
+	bottom: -16px;
+	left: 20px;
+}
+
+.popup-bubble_bottom .popup-bubble__arrow {
+	border-bottom-color: #fff;
+	top: -16px;
+	left: 20px;
+}
+.tau-bubble_left:before {
+	border-left-color: #fff;
+
+	right: -16px;
+	top: 20px;
+}
+
+.tau-bubble_right .popup-bubble__arrow {
+	border-right-color: #fff;
+
+	left: -16px;
+	top:20px;
+}
+
+

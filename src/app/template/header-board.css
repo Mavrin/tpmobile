@@ -1,0 +1,12 @@
+.header-board {
+	padding: 8px 30px 0 45px;
+}
+
+.header-board .header-h1 {
+}
+
+.header-board .icon-search {
+	position: absolute;
+	top: 13px;
+	right: 10px;
+}

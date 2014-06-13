@@ -1,6 +1,23 @@
-.temp {
-    position: absolute;
-    background-color: #FFF;
-    border: 1px solid #CCC;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+.popup-filterProjectAndTeam {
+	margin: 0 10px;
+	width: calc(100% - 20px);
+}
+
+.filterProjectAndTeam{
+
+ }
+.filterProjectAndTeam > .search{
+	padding: 5px;
+	position: static;
+	background: #f0f2f5;
+}
+.filterProjectAndTeam > .search > .icon-search {
+	position: absolute;
+	display: block;
+	top: 11px;
+	left: 10px;
+}
+.filterProjectAndTeam > .search > .form-control {
+	padding-left: 30px;
+	width: 100%;
 }

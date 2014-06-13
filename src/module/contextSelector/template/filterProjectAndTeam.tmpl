@@ -1,6 +1,20 @@
 <b:style src="./filterProjectAndTeam.css" />
-<div class="temp">
-Ius reque idque dolore ad, appetere perfecto nec ad. Inimicus patrioque hendrerit est cu, his no accumsan nominavi, dico ipsum adipiscing cum eu. \
-Nec ex meis noluisse percipitur, vix omnes noluisse posidonium ut. \
-Duo et deseruisse honestatis, nemore aliquip ad pri. Cum quem porro delicata te.'
+<b:style src="./popup-bubble.css" />
+    <div class="popup-bubble popup-bubble_bottom popup-filterProjectAndTeam">
+        <div class="popup-bubble__arrow" style="left:calc(50% - 8px);"></div>
+        <div class="popup-bubble__body">
+        <div class="filterProjectAndTeam">
+
+            <!-- template  src\module\boardList\template\search.tmpl-->
+            <b:style src="./search.css" />
+            <div class="search">
+                <input type="search" event-input="search" class="form-control" placeholder="Search"/>
+                <span class="icon-svg icon-search"></span>
+            </div>
+            <!-- end template  src\module\boardList\template\search.tmpl-->
+
+            <b:include src="./list-project-team.tmpl"/>
+
+        </div>
+        </div>
 </div>
