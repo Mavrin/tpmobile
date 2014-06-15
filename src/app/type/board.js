@@ -19,6 +19,9 @@ var Board = basis.entity.createType('Board', {
     key: basis.entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
     ownerId: Number,
     name: String,
+    acid:function(data){
+        return data || null;
+    },
     isShared: Boolean,
 
     cells: CellSettings,
@@ -39,7 +42,7 @@ Board.extend({
         },
         success: function(data){
             // пока из данных берем только x, y, cells
-            this.update(basis.object.slice(data , ['cells', 'x', 'y', 'name']));
+            this.update(basis.object.slice(data , ['cells', 'x', 'y', 'name','acid']));
         }
     })
 });

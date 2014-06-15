@@ -2,6 +2,7 @@ basis.require('basis.data.dataset');
 basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.type');
+basis.require('app.service');
 basis.require('basis.ui.pageslider');
 var Q = basis.require('lib.q.q');
 var PageSlider = basis.ui.pageslider.PageSlider;
@@ -30,11 +31,11 @@ var Cell = new basis.ui.Node.subclass({
 
     template: resource('./template/cell.tmpl'),
 
-    sorting: function(item){
+    sorting: function (item) {
         return item.data.orderingValue || item.basisObjectId;
     },
     childClass: cards.BaseCard,
-    childFactory: function(config){
+    childFactory: function (config) {
         var CardClass = cards[config.delegate && config.delegate.data.type] || cards.BaseCard;
         return new CardClass(config);
     }
@@ -42,51 +43,50 @@ var Cell = new basis.ui.Node.subclass({
 
 var cell = new Cell();
 lastX.addHandler({
-	update: function(sender, delta){
-		if(lastY.data.id && this.data) {
-			var dataSource = app.type.Cell({
-				definition: definition,
-				x: this.data.id,
-				y: lastY.data.id
-			});
-			cell.setDelegate(dataSource);
-			dataSource.setActive(true);
-		}
-	}
+    update: function (sender, delta) {
+        if (lastY.data.id && this.data) {
+            var dataSource = app.type.Cell({
+                definition: definition,
+                x: this.data.id,
+                y: lastY.data.id
+            });
+            cell.setDelegate(dataSource);
+            dataSource.setActive(true);
+        }
+    }
 });
 lastY.addHandler({
-	update: function(sender, delta){
-		if(lastX.data.id && this.data) {
-			var dataSource = app.type.Cell({
-				definition: definition,
-				x: lastX.data.id,
-				y: this.data.id
-			});
-			cell.setDelegate(dataSource);
-			dataSource.setActive(true);
-		}
-	}
+    update: function (sender, delta) {
+        if (lastX.data.id && this.data) {
+            var dataSource = app.type.Cell({
+                definition: definition,
+                x: lastX.data.id,
+                y: this.data.id
+            });
+            cell.setDelegate(dataSource);
+            dataSource.setActive(true);
+        }
+    }
 });
-
 
 
 var axisX = new Axis({
     listen: {
         selection: {
-	        itemsChanged: function (s, data) {
-		        if (data.inserted && data.inserted[0].data) {
-			        if (this.data.y&&this.data.y.id) {
+            itemsChanged: function (s, data) {
+                if (data.inserted && data.inserted[0].data) {
+                    if (this.data.y && this.data.y.id) {
                         lastX.update(data.inserted[0].data);
-			        } else {			        	
-				        var dataSource = app.type.Cell({
-					        definition: this.data,
-					        x: data.inserted[0].data.id					        
-				        });
-				        cell.setDelegate(dataSource);
-				        dataSource.setActive(true);
-			        }
-		        }
-	        }
+                    } else {
+                        var dataSource = app.type.Cell({
+                            definition: this.data,
+                            x: data.inserted[0].data.id
+                        });
+                        cell.setDelegate(dataSource);
+                        dataSource.setActive(true);
+                    }
+                }
+            }
 
         }
     },
@@ -99,45 +99,45 @@ var axisX = new Axis({
 });
 
 var axisY = new Axis({
-  direction:DIRECTIONS.VERTICAL,
-	listen: {
-		selection: {
-			itemsChanged: function (s, data) {
-				if(data.inserted && data.inserted[0].data) {
-					if(this.data.x && this.data.x.id) {
-						lastY.update(data.inserted[0].data);
-					} else {						
-						var dataSource = app.type.Cell({
-							definition: this.data,							
-							y: data.inserted[0].data.id
-						});
-						cell.setDelegate(dataSource);
-						dataSource.setActive(true);
-					}
+    direction: DIRECTIONS.VERTICAL,
+    listen: {
+        selection: {
+            itemsChanged: function (s, data) {
+                if (data.inserted && data.inserted[0].data) {
+                    if (this.data.x && this.data.x.id) {
+                        lastY.update(data.inserted[0].data);
+                    } else {
+                        var dataSource = app.type.Cell({
+                            definition: this.data,
+                            y: data.inserted[0].data.id
+                        });
+                        cell.setDelegate(dataSource);
+                        dataSource.setActive(true);
+                    }
 
-				}
-			}
-		}
-	},
-	dataSource: viewportRows,
-	axisKey: 'y',
-	template: resource('./template/axisy.tmpl'),
-	childClass: {
-		template: resource('./template/axisy_cell.tmpl')
-	}
+                }
+            }
+        }
+    },
+    dataSource: viewportRows,
+    axisKey: 'y',
+    template: resource('./template/axisy.tmpl'),
+    childClass: {
+        template: resource('./template/axisy_cell.tmpl')
+    }
 });
 
 
 var view = new basis.ui.Node({
     active: true,
     handler: {
-        update: function(sender, delta){            
-	            if(!(this.data.x)&& !(this.data.y)) {
-		            var dataSource = app.type.Cell({
-			            definition: this.data			            
-		            });
-		            cell.setDelegate(dataSource);
-	            }
+        update: function (sender, delta) {
+            if (!(this.data.x) && !(this.data.y)) {
+                var dataSource = app.type.Cell({
+                    definition: this.data
+                });
+                cell.setDelegate(dataSource);
+            }
         }
     },
 
@@ -145,33 +145,37 @@ var view = new basis.ui.Node({
     binding: {
         axisY: axisY,
         axisX: axisX,
-        cell:cell
+        cell: cell
     }
 });
-
-basis.router.add('/board/:id', function(id){
+/*var currentAcid = null;
+ app.service.context.addHandler({update:function(obj){
+ currentAcid = obj.data.Acid;
+ }});*/
+basis.router.add('/board/:id', function (id) {
     var deferred = Q.defer();
-	lastX.update(null);
-	lastY.update(null);
+    lastX.update(null);
+    lastY.update(null);
     var currentBoard = app.type.Board(id);
-    deferred.promise.done(function(currentBoard) {   
-        var definitionObject = definitionFactory(currentBoard.data);
-    	definition = definitionObject.data;
-    	app.state.title.set(currentBoard.data.name);
+    deferred.promise.then(function (currentBoard) {
+        return definitionFactory(currentBoard.data);
+    }).then(function (definitionObject) {
+        definition = definitionObject.data;
+        app.state.title.set(currentBoard.data.name);
         view.setDelegate(definitionObject);
-	    key = id;
+        key = id;
     });
 
-    if(currentBoard.state == basis.data.STATE.READY) {
+    if (currentBoard.state == basis.data.STATE.READY) {
         deferred.resolve(currentBoard);
     } else {
         currentBoard.addHandler({
-            update:function(){
+            update: function () {
                 deferred.resolve(this);
             }
         });
     }
-    if(currentBoard.state == basis.data.STATE.UNDEFINED) {
+    if (currentBoard.state == basis.data.STATE.UNDEFINED) {
         currentBoard.setActive(true);
     }
 });
