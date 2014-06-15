@@ -1,20 +1,10 @@
-<b:style src="./filterProjectAndTeam.css" />
-<b:style src="./popup-bubble.css" />
-    <div class="popup-bubble popup-bubble_bottom popup-filterProjectAndTeam">
-        <div class="popup-bubble__arrow" style="left:calc(50% - 8px);"></div>
-        <div class="popup-bubble__body">
-        <div class="filterProjectAndTeam">
+<b:style src="./filterProjectAndTeam.css"/>
 
-            <!-- template  src\module\boardList\template\search.tmpl-->
-            <b:style src="./search.css" />
-            <div class="search">
-                <input type="search" event-input="search" class="form-control" placeholder="Search"/>
-                <span class="icon-svg icon-search"></span>
-            </div>
-            <!-- end template  src\module\boardList\template\search.tmpl-->
+<div class="filterProjectAndTeam">
 
-            <b:include src="./list-project-team.tmpl"/>
+    <b:include src="../../../app/template/search.tmpl"/>
 
-        </div>
-        </div>
+    <b:include src="./list-project-team.tmpl"/>
+
 </div>
+
