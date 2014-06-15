@@ -3,6 +3,7 @@ basis.require('basis.ui');
 basis.require('basis.router');
 basis.require('app.service');
 basis.require('app.state');
+basis.require('app.type');
 /** @cut */ require('basis.devpanel');
 
 module.exports = basis.app.create({
@@ -10,11 +11,28 @@ module.exports = basis.app.create({
     init: function () {
         // включаем отслеживание изменения URL
         basis.router.start();
+        var lastBoard = false;
+        basis.router.add('',function(){
+            lastBoard = true;
+        });
+        app.service.context.addHandler({
+            update:function(obj){
+                if(lastBoard) {
+                    var boards = app.type.Board.byOwner(obj.data.LoggedUser && obj.data.LoggedUser.Id);
+                    boards.addHandler({itemsChanged:function(data){
+                        basis.router.navigate('/board/' + data.getItems()[0].data.key);
+                    }})
+                    boards.setActive(true);
+
+                }
+            }
+        })
         app.state.title.set('tp3');
         return new basis.ui.Node({
             delegate: app.service.context,
-
+            active:true,
             template: resource('./app/template/layout.tmpl'),
+
             action: {
                 hideMenu: function () {
                     app.state.isMenuExpanded.set(false);
@@ -24,6 +42,7 @@ module.exports = basis.app.create({
                 }
             },
             binding: {
+                title:app.state.title,
                 expanded: app.state.isMenuExpanded,
                 open:app.state.isOpenView,
                 // subviews
