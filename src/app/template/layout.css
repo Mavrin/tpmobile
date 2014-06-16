@@ -27,7 +27,8 @@ body {
 }
 
 .l-page_expanded {
-	left: calc(100% - 33px);
+	/*left: calc(100% - 33px);*/
+	left: 280px;
 }
 
 .board-selector {
@@ -37,6 +38,7 @@ body {
 	top: 0;
 	left: 0;
 	width: calc(100% - 33px);
+	max-width: 280px;
 }
 
 .board-selector .l-header {

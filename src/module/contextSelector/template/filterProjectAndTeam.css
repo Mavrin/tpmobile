@@ -1,6 +1,7 @@
 .popup-filterProjectAndTeam {
 	margin: 0 10px;
 	width: calc(100% - 20px);
+	max-width: 260px;
 }
 
 .filterProjectAndTeam{
