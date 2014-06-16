@@ -14,8 +14,27 @@ var defaultService = new basis.net.service.Service({
 
 defaultService.context = new basis.data.Object({
     target: true,
+    updateAcid:function(acid) {
+        this.acid = acid;
+        this.setState(basis.data.STATE.UNDEFINED);
+    },
+    getParams:function(){
+      if(this.acid) {
+        return {acid:this.acid}
+      }  else {
+          return {
+              teamIds:'*',
+              projectIds:'*'
+          }
+      }
+    },
     syncAction: defaultService.createAction({
-        url: '/api/v1/context.asmx?teamIds=*&projectIds=*',
+        request:function(){
+            return {
+                params:this.getParams()
+            }
+        },
+        url: '/api/v1/context.asmx',
         success: function (data) {
             this.update(data);
         }
