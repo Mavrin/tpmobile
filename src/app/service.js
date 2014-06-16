@@ -5,6 +5,9 @@ var defaultService = new basis.net.service.Service({
         contentType: 'application/json',
         poolHashGetter: function(reqData){
             return reqData.origin.basisObjectId;
+        },
+        requestHeaders: {
+            'Accept': 'application/json'
         }
     }
 });
@@ -12,7 +15,7 @@ var defaultService = new basis.net.service.Service({
 defaultService.context = new basis.data.Object({
     target: true,
     syncAction: defaultService.createAction({
-        url: '/api/v1/context.asmx?format=json&teamIds=*&projectIds=*',
+        url: '/api/v1/context.asmx?teamIds=*&projectIds=*',
         success: function (data) {
             this.update(data);
         }
