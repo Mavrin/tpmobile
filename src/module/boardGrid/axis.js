@@ -1,5 +1,5 @@
 basis.require('basis.ui.pageslider');
-var Q = basis.require('lib.q.q');
+var Q = basis.require('/lib/q/q.js');
 var PageSlider = basis.ui.pageslider.PageSlider;
 
 var Axis = PageSlider.subclass({
@@ -7,11 +7,7 @@ var Axis = PageSlider.subclass({
   active: true,
   binding:{
     hide:['update',function(node){
-      if(node.data[node.axisKey] && node.data[node.axisKey].id) {
-        return false;
-      } else {
-        return true;
-      }
+      return !(node.data[node.axisKey] && node.data[node.axisKey].id);
     }]
   },
   handler: {

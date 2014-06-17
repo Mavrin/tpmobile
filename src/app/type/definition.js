@@ -1,6 +1,6 @@
 basis.require('basis.data');
 basis.require('app.service');
-var Q = basis.require('lib.q.q');
+var Q = basis.require('/lib/q/q.js');
 var definition = function (data) {
   var key, definition = {}, defer = Q.defer();
   for (key in data)
