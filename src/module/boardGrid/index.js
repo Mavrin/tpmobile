@@ -4,7 +4,7 @@ basis.require('basis.router');
 basis.require('app.type');
 basis.require('app.service');
 basis.require('basis.ui.pageslider');
-var Q = basis.require('lib.q.q');
+var Q = basis.require('/lib/q/q.js');
 var PageSlider = basis.ui.pageslider.PageSlider;
 var DIRECTIONS = basis.ui.pageslider.DIRECTIONS;
 var definitionFactory = basis.require('app.type.definition');
@@ -13,7 +13,7 @@ var Axis = require('./axis.js').Axis;
 var lastX = new basis.data.Object();
 var lastY = new basis.data.Object();
 var key = null;
-var definition = null
+var definition = null;
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
 var viewportCols = new basis.data.dataset.Slice({
