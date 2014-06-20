@@ -1,44 +1,14 @@
-<b:style src="./list-project-team.css" />
+<b:style src="./list-project-team.css"/>
+<b:style src="./filterProjectAndTeam.css"/>
 
-<ul class="list-project-team">
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App Weather App Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-    <li class="list-project-team__item">
-        <span class="icon-svg icon-checkbox-checked-gray"></span>
-        <span class="icon-svg icon-arrow-open"></span>
-        <span class="list-project-team__text">Weather App</span>
-    </li>
-</ul>
+<div class="filterProjectAndTeam">
+	<div class="btn-switch">
+        <div class="btn btn-checked">Teams</div>
+        <div class="btn">Projects</div>
+    </div>
+    <b:include src="../../../app/template/search.tmpl"/>
+    <ul class="list-project-team">
+        <!--{childNodesHere}-->
+    </ul>
+
+</div>

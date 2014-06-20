@@ -9,7 +9,39 @@ var SelectedItems = require('./selectedItems.js');
 var Popup = app.ui.popup.Popup;
 var popupContent = new basis.ui.Node({
     active: true,
-    template: resource('./template/filterProjectAndTeam.tmpl')
+    template: resource('./template/list-project-team.tmpl'),
+    action:{
+        search: function (event) {
+            var rule = basis.fn.$true;  // по умолчанию все Board
+            var terms = event.target.value.trim().toLowerCase();
+
+            if (terms) {
+                // если ввод содержит непробельные символы
+                // делаем массив слов
+                terms = terms.split(/\s+/);
+
+                // создаем правило-фильтр (замыкание)
+                rule = function (item) {
+                    var text = (item.data.Name || '').toLowerCase();
+                    return terms.every(function (term) {
+                        return text.indexOf(term) !== -1;
+                    });
+                };
+            }
+
+            this.dataSource.setRule(rule);
+        }
+    },
+    childClass: basis.ui.Node.subclass({
+        template:resource('./template/list-item.tmpl'),
+        binding:{
+            name:{
+                getter:function(child){
+                    return child.data.Name;
+                }
+            }
+        }
+    })
 });
 var popup = new Popup({
     dir: 'left bottom left top',
@@ -22,7 +54,7 @@ var projects = new basis.data.dataset.Merge({
     active: true,
     sources: [
         app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation']),
-        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Project', Id: 'null'})]})
+        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Project', Name: 'No Project', Id: 'null'})]})
     ]
 });
 
@@ -39,7 +71,7 @@ var teams = new basis.data.dataset.Merge({
     active: true,
     sources: [
         app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation']),
-        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Team', Id: 'null'})]})
+        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Team', Name: 'No Team', Id: 'null'})]})
     ]
 });
 
@@ -65,7 +97,6 @@ var contextOutput = new basis.ui.Node({
     template: resource('./template/context-selector.tmpl'),
     handler: {
         update: function (sender) {
-            console.log(sender);
             selectedProjects.setActive(true);
             selectedProjects.setRule(selectedFilter('SelectedProjects').bind(null, sender));
             selectedTeams.setActive(true);
@@ -78,6 +109,9 @@ var contextOutput = new basis.ui.Node({
     },
     action: {
         togglePopup: function () {
+            popupContent.setDataSource(new basis.data.dataset.Filter({
+                source: projects
+            }));
             popup.toggle(this.element);
         }
     }
