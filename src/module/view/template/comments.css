@@ -1,0 +1,75 @@
+.comments {
+	padding: 10px;
+}
+
+.comment__item {
+	margin: 0 0 10px 40px;
+	border-radius: 10px;
+	background: #e6e9ed;
+	position: relative;
+	padding: 10px;
+}
+
+.comment__item:after {
+	position: absolute;
+	border: 7px solid transparent;
+	border-width: 8px 4px 0 4px;
+	border-top-color: #e6e9ed;
+	display: block;
+	content: '';
+	position: absolute;
+	bottom: -3px;
+	left: -3px;
+	width: 0;
+	height: 0;
+	transform: rotate(45deg);
+}
+
+.comment__item .icon-attachment {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	margin-right: 5px;
+}
+
+.comment__item > p:not(:first-child) {
+	margin-bottom: 10px;
+}
+
+.comment__attach-file {
+}
+
+.comment__name {
+	color: #3D94E1;
+}
+
+.comment__user {
+	margin-bottom: 20px;
+	color: #8C97A6;
+	line-height: 22px;
+	padding-left: 27px;
+	position: relative;
+}
+
+.comment__avatar {
+	border-radius: 50%;
+	width: 22px;
+	height: 22px;
+	display: block;
+	margin-right: 5px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.comment__avatar > img {
+	width: 100%;
+	height: 100%;
+}
+
+.comment__date {
+	float: right;
+	color: #bdc6d5;
+	font-size: 11px;
+}
