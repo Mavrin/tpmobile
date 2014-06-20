@@ -4,6 +4,7 @@ basis.require('basis.data.dataset');
 basis.require('app.ui.popup');
 basis.require('app.service');
 basis.require('app.type');
+var SelectedItems = require('./selectedItems.js');
 
 var Popup = app.ui.popup.Popup;
 var popupContent = new basis.ui.Node({
@@ -16,52 +17,64 @@ var popup = new Popup({
     childNodes: [popupContent]
 });
 
-var ItemsProjects = basis.ui.Node.subclass({
-    template: '<span>{name}</span>',
-    binding: {
-        name: {
-            events: 'update',
-            getter: function (node) {
-                return node.data.Abbreviation;
-            }
-        }
-    }
+
+var projects = new basis.data.dataset.Merge({
+    active: true,
+    sources: [
+        app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation']),
+        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Project', Id: 'null'})]})
+    ]
 });
-var selectedProjectsContainer = new basis.ui.Node({
-    autoDelegate: true,
-    binding: {
-        type: {
-            getter: function () {
-               return 'project';
-            }
-        },
-        types: {
-            getter: function () {
-                return 'projects';
-            }
-        }
-    },
-    template: resource('./template/projectsOutput.tmpl'),
-    childClass: ItemsProjects
-});
-var projects = app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation']);
+
+
 var selectedProjects = new basis.data.dataset.Filter({
     source: projects
 });
-selectedProjectsContainer.setDataSource(selectedProjects);
+var selectedProjectsContainer = new SelectedItems({
+    template: resource('./template/selectedProjects.tmpl'),
+    dataSource: selectedProjects
+});
+
+var teams = new basis.data.dataset.Merge({
+    active: true,
+    sources: [
+        app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation']),
+        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Team', Id: 'null'})]})
+    ]
+});
+
+var selectedTeams = new basis.data.dataset.Filter({
+    source: teams
+});
+var selectedTeamsContainer = new SelectedItems({
+    template: resource('./template/selectedTeams.tmpl'),
+    dataSource: selectedTeams
+});
+var selectedFilter = function (group) {
+    return function (sender, item) {
+        var data = sender.data;
+        var value = item.data;
+        var items = data[group].Items.filter(function (item) {
+            return item.Id == value.Id;
+        });
+        return items.length;
+    }
+};
 var contextOutput = new basis.ui.Node({
     autoDelegate: true,
     template: resource('./template/context-selector.tmpl'),
     handler: {
-        update: function (obj) {
+        update: function (sender) {
+            console.log(sender);
             selectedProjects.setActive(true);
-            selectedProjects.setRule(function () {
-                return true;
-            })
+            selectedProjects.setRule(selectedFilter('SelectedProjects').bind(null, sender));
+            selectedTeams.setActive(true);
+            selectedTeams.setRule(selectedFilter('SelectedTeams').bind(null, sender));
         }
     },
     binding: {
-        selectedProjects: selectedProjectsContainer
+        selectedProjects: selectedProjectsContainer,
+        selectedTeams: selectedTeamsContainer
     },
     action: {
         togglePopup: function () {

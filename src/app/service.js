@@ -36,6 +36,14 @@ defaultService.context = new basis.data.Object({
         },
         url: '/api/v1/context.asmx',
         success: function (data) {
+            if(data.AppContext.ProjectContext.No) {
+                var selectedProjects = data.SelectedProjects.Items;
+                data.SelectedProjects.Items = [{Id:"null"}].concat(selectedProjects);
+            }
+            if(data.AppContext.TeamContext.No) {
+                var selectedTeams = data.SelectedTeams.Items;
+                data.SelectedTeams.Items = [{Id:"null"}].concat(selectedTeams);
+            }
             this.update(data);
         }
     })
