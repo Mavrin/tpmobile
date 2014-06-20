@@ -16,7 +16,8 @@
 	background: #fff;
 	border-radius: 5px;
 }
-.form-select{
+
+.form-select {
 	font-family: OpenSans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 13px;
 	display: inline-block;
@@ -29,7 +30,9 @@
 	border: 1px solid #3e94e0;
 	padding: 0 4px;
 	width: 210px;
-	height: 24px;color: #3D94E1;
+	height: 24px;
+	color: #3D94E1;
 	background: #fff;
 	border-radius: 5px;
-text-align: center;}
+	text-align: center;
+}

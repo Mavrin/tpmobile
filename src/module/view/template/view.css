@@ -1,53 +1,72 @@
 .view_wrap {
-    display: none;
+	display: none;
 }
+
 .l-view_open .view_wrap {
-    height: 100%;
-    display: block;
-    /*transfor*/
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
+	height: 100%;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
 }
-.view
-{
-    background: #fff;
-    width: 256px;
-    padding: 10px;
-    height: 100%;
+
+.view {
+	background: #fff;
+	width: 100%;
+	/*max-width: 280px;*/
+	height: 100%;
 }
-.view__header{
+
+.view__header {
 	padding: 5px 0;
-}.view .ui-type-icon{
+}
+
+.view .ui-type-icon {
 	margin-right: 5px;
 }
-.view__entity-number{
-	margin: 0 0 10px 0;
+
+.view__entity-number {
+	padding: 10px 10px 0 10px;
 	color: #8C97A6;
 	font-size: 12px;
 }
-.view__rows{
-	 margin: 10px 0;}
-.view__tags{
+
+.view__rows {
+	margin: 10px 0;
+
+	padding: 0 10px;
+}
+
+.view__tags {
 	border-radius: 10px;
 	border: 1px solid #d4dae2;
 	line-height: 20px;
 	color: #8C97A6;
 	font-size: 11px;
 	display: inline-block;
-	margin: 0 5px 0 0;
+	margin: 0 4px 0 0;
 	padding: 0 10px;
 
 }
 
-.view__tags-link{
+.view__tags-link {
 	font-size: 11px;
 	display: inline-block;
-padding: 0 10px;}
-.view__state{
+	padding: 0 0 0 10px;
 }
-.view__state__txt{
+
+.view__state {
+}
+
+.view__state > .form-select {
+	width: 115px;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.view__state__txt {
 	line-height: 26px;
 	color: #8C97A6;
+	text-align: left;
 }
