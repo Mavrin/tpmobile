@@ -1,0 +1,74 @@
+.attachments {
+}
+
+.attachments__item {
+	border-bottom: 1px solid #e6e9ed;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	text-align: left;
+	position: relative;
+}
+
+.attachments__table {
+	display: table;
+	margin-left: 0;
+
+	-webkit-transition: margin-left 0.1s ease-in;
+	-moz-transition: margin-left 0.1s ease-in;
+	-ms-transition: margin-left 0.1s ease-in;
+	-o-transition: margin-left 0.1s ease-in;
+	transition: margin-left 0.1s ease-in;
+}
+.attachments__item:hover .attachments__table {
+	margin-left: -50px;
+}
+
+.attachments__img {
+	width: 85px;
+	display: table-cell;
+}
+
+.attachments__img > img {
+	width: 100%;
+	display: block;
+}
+
+.attachments__text {
+	padding: 10px 15px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.attachments__text-name {
+	font-size: 13px;
+
+}
+
+.attachments__text-user {
+	font-size: 11px;
+	color: #8C97A6;
+}
+
+.attachments__icon-recycle-bin {
+	position: absolute;
+	top: 0;
+	right: -100%;
+	height: 100%;
+	background: #e44745;
+	width: 50px;
+	-webkit-transition: right 0.1s ease-in;
+	-moz-transition: right 0.1s ease-in;
+	-ms-transition: right 0.1s ease-in;
+	-o-transition: right 0.1s ease-in;
+	transition: right 0.1s ease-in;
+}.attachments__item:hover .attachments__icon-recycle-bin {
+	right: 0;
+}
+
+.attachments__icon-recycle-bin .icon-recycle-bin {
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	margin: -15px 0 0 -10px;
+}
