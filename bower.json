@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "devDependencies": {
         "basisjs": "1.3.0",
-        "q": "1.0.0"
+        "q": "1.0.0",
+        "tree-format":"0.1.1"
     }
 }

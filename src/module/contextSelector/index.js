@@ -3,6 +3,7 @@ basis.require('basis.data');
 basis.require('basis.data.dataset');
 basis.require('app.ui.popup');
 basis.require('app.service');
+basis.require('app.type');
 
 var Popup = app.ui.popup.Popup;
 var popupContent = new basis.ui.Node({
@@ -16,11 +17,11 @@ var popup = new Popup({
 });
 
 var ItemsProjects = basis.ui.Node.subclass({
-    template:'<div>{name}</div>',
-    binding:{
-        name:{
+    template: '<span>{name}</span>',
+    binding: {
+        name: {
             events: 'update',
-            getter:function(node){
+            getter: function (node) {
                 return node.data.Abbreviation;
             }
         }
@@ -28,20 +29,22 @@ var ItemsProjects = basis.ui.Node.subclass({
 });
 var selectedProjectsContainer = new basis.ui.Node({
     autoDelegate: true,
-    template:'<div/>',
-    childClass:ItemsProjects
-});
-var projects = new basis.data.Dataset({
-    syncAction: app.service.createAction({
-        contentType: 'application/json',
-        url: '/api/v1/projects.asmx',
-        success: function (data) {
-            this.sync(data.Items.map(function(data){
-                return basis.data.wrapObject(data);
-            }, this));
+    binding: {
+        type: {
+            getter: function () {
+               return 'project';
+            }
+        },
+        types: {
+            getter: function () {
+                return 'projects';
+            }
         }
-    })
+    },
+    template: resource('./template/projectsOutput.tmpl'),
+    childClass: ItemsProjects
 });
+var projects = app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation']);
 var selectedProjects = new basis.data.dataset.Filter({
     source: projects
 });
@@ -52,13 +55,13 @@ var contextOutput = new basis.ui.Node({
     handler: {
         update: function (obj) {
             selectedProjects.setActive(true);
-            selectedProjects.setRule(function(){
+            selectedProjects.setRule(function () {
                 return true;
             })
         }
     },
     binding: {
-        selectedProjects:selectedProjectsContainer
+        selectedProjects: selectedProjectsContainer
     },
     action: {
         togglePopup: function () {
