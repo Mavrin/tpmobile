@@ -161,8 +161,11 @@
 	width: 16px;
 	height: 16px;
 }
-.icon-recycle-bin {
-	background: url(./images/icons/view-private-white.svg) no-repeat 0 0;
-	width: 16px;
-	height: 16px;
+.icon-remove {
+	background: url(./images/icons/remove.svg) no-repeat 0 0;
+	width: 14px;
+	height: 20px;
+}
+.icon-attachment {
+	background: url(./images/icons/attachment.svg) no-repeat 0 0; width: 17px; height: 18px;
 }
