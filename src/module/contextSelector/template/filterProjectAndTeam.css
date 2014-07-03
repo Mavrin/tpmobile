@@ -9,16 +9,22 @@
  }
 .filterProjectAndTeam > .search{
 	padding: 5px;
-	position: static;
+	position: relative;
+	top: 0;
 	background: #f0f2f5;
 }
 .filterProjectAndTeam > .search > .icon-search {
 	position: absolute;
 	display: block;
-	top: 11px;
-	left: 10px;
+	top: 9px;
+	left: 7px;
 }
 .filterProjectAndTeam > .search > .form-control {
 	padding-left: 30px;
 	width: 100%;
 }
+.filterProjectAndTeam > .btn-switch {
+	margin: 10px;
+	width: calc(100% - 20px);
+}
+
