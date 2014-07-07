@@ -7,36 +7,62 @@ basis.require('app.type');
 var SelectedItems = require('./selectedItems.js');
 
 var Popup = app.ui.popup.Popup;
+var activeProjectsTab = new basis.data.Value({value: true});
 var popupContent = new basis.ui.Node({
     active: true,
     template: resource('./template/list-project-team.tmpl'),
-    action:{
-        search: function (event) {
-            var rule = basis.fn.$true;  // по умолчанию все Board
-            var terms = event.target.value.trim().toLowerCase();
+    terms:'',
+    applySearch: function () {
+        var terms  = this.terms;
+        var rule = basis.fn.$true;  // по умолчанию все Board
+        if (terms) {
+            // если ввод содержит непробельные символы
+            // делаем массив слов
+            terms = terms.split(/\s+/);
 
-            if (terms) {
-                // если ввод содержит непробельные символы
-                // делаем массив слов
-                terms = terms.split(/\s+/);
+            // создаем правило-фильтр (замыкание)
+            rule = function (item) {
+                var text = (item.data.Name || '').toLowerCase();
+                return terms.every(function (term) {
+                    return text.indexOf(term) !== -1;
+                });
+            };
+        }
 
-                // создаем правило-фильтр (замыкание)
-                rule = function (item) {
-                    var text = (item.data.Name || '').toLowerCase();
-                    return terms.every(function (term) {
-                        return text.indexOf(term) !== -1;
-                    });
-                };
-            }
-
-            this.dataSource.setRule(rule);
+        this.dataSource.setRule(rule);
+    },
+    handler: {
+        dataSourceChanged: function () {
+            this.applySearch();
         }
     },
+    action: {
+        search: function (event) {
+            this.terms = event.target.value.trim().toLowerCase();
+            this.applySearch();
+        },
+        toggleSource: function () {
+            if (activeProjectsTab.value) {
+                activeProjectsTab.set(false);
+            } else {
+                activeProjectsTab.set(true);
+            }
+
+        }
+    },
+    binding: {
+        projectsIsActive: activeProjectsTab.as(function (value) {
+            return  value && 'checked';
+        }),
+        teamsIsActive: activeProjectsTab.as(function (value) {
+            return !value && 'checked';
+        })
+    },
     childClass: basis.ui.Node.subclass({
-        template:resource('./template/list-item.tmpl'),
-        binding:{
-            name:{
-                getter:function(child){
+        template: resource('./template/list-item.tmpl'),
+        binding: {
+            name: {
+                getter: function (child) {
                     return child.data.Name;
                 }
             }
@@ -59,9 +85,10 @@ var projects = new basis.data.dataset.Merge({
 });
 
 
-var selectedProjects = new basis.data.dataset.Filter({
+var projectsList = new basis.data.dataset.Filter({
     source: projects
 });
+var selectedProjects = projectsList;
 var selectedProjectsContainer = new SelectedItems({
     template: resource('./template/selectedProjects.tmpl'),
     dataSource: selectedProjects
@@ -73,6 +100,10 @@ var teams = new basis.data.dataset.Merge({
         app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation']),
         new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Team', Name: 'No Team', Id: 'null'})]})
     ]
+});
+
+var teamsList = new basis.data.dataset.Filter({
+    source: teams
 });
 
 var selectedTeams = new basis.data.dataset.Filter({
@@ -92,6 +123,16 @@ var selectedFilter = function (group) {
         return items.length;
     }
 };
+popupContent.setDataSource(projectsList);
+activeProjectsTab.addHandler({
+    change: function (sender) {
+        if (sender.value) {
+            popupContent.setDataSource(projectsList);
+        } else {
+            popupContent.setDataSource(teamsList);
+        }
+    }
+});
 var contextOutput = new basis.ui.Node({
     autoDelegate: true,
     template: resource('./template/context-selector.tmpl'),
@@ -109,9 +150,6 @@ var contextOutput = new basis.ui.Node({
     },
     action: {
         togglePopup: function () {
-            popupContent.setDataSource(new basis.data.dataset.Filter({
-                source: projects
-            }));
             popup.toggle(this.element);
         }
     }
