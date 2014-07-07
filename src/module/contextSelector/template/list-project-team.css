@@ -19,7 +19,7 @@
 
 }
 
-.list-project-team__item .icon-checkbox-checked-gray {
+.list-project-team__item .icon-checkbox-checked-gray, .list-project-team__item .icon-checkbox-checked-green{
 	position: relative;
 	display: inline-block;
 	top: 2px;

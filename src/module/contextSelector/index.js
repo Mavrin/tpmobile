@@ -11,9 +11,9 @@ var activeProjectsTab = new basis.data.Value({value: true});
 var popupContent = new basis.ui.Node({
     active: true,
     template: resource('./template/list-project-team.tmpl'),
-    terms:'',
+    terms: '',
     applySearch: function () {
-        var terms  = this.terms;
+        var terms = this.terms;
         var rule = basis.fn.$true;  // по умолчанию все Board
         if (terms) {
             // если ввод содержит непробельные символы
@@ -60,10 +60,24 @@ var popupContent = new basis.ui.Node({
     },
     childClass: basis.ui.Node.subclass({
         template: resource('./template/list-item.tmpl'),
+        /* debug_emit: function () {
+         console.log(arguments);
+         },*/
+        action:{
+          select:function(node){
+              console.log(this.data);
+          }
+        },
         binding: {
             name: {
                 getter: function (child) {
                     return child.data.Name;
+                }
+            },
+            isSelecteds: {
+                events: ['rootChanged','update'],
+                getter: function (node) {
+                    return node.data.isSelected ? 'green' : 'gray';
                 }
             }
         }
@@ -88,7 +102,10 @@ var projects = new basis.data.dataset.Merge({
 var projectsList = new basis.data.dataset.Filter({
     source: projects
 });
-var selectedProjects = projectsList;
+var selectedProjects = new basis.data.dataset.Filter({
+    source: projects
+});
+;
 var selectedProjectsContainer = new SelectedItems({
     template: resource('./template/selectedProjects.tmpl'),
     dataSource: selectedProjects
@@ -102,6 +119,7 @@ var teams = new basis.data.dataset.Merge({
     ]
 });
 
+
 var teamsList = new basis.data.dataset.Filter({
     source: teams
 });
@@ -109,6 +127,27 @@ var teamsList = new basis.data.dataset.Filter({
 var selectedTeams = new basis.data.dataset.Filter({
     source: teams
 });
+selectedProjects.addHandler({
+    itemsChanged: function (sender) {
+        var ids = sender.getItems().map(function (value) {
+            return value.data.Id
+        });
+        projectsList.forEach(function (item) {
+            item.update({isSelected: ids.indexOf(item.data.Id) >= 0});
+        });
+    }
+});
+selectedTeams.addHandler({
+    itemsChanged: function (sender) {
+        var ids = sender.getItems().map(function (value) {
+            return value.data.Id
+        });
+        teamsList.forEach(function (item) {
+            item.update({isSelected: ids.indexOf(item.data.Id) >= 0});
+        });
+    }
+});
+
 var selectedTeamsContainer = new SelectedItems({
     template: resource('./template/selectedTeams.tmpl'),
     dataSource: selectedTeams
