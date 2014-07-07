@@ -74,7 +74,7 @@ var popupContent = new basis.ui.Node({
                     return child.data.Name;
                 }
             },
-            isSelecteds: {
+            isSelected: {
                 events: ['rootChanged','update'],
                 getter: function (node) {
                     return node.data.isSelected ? 'green' : 'gray';
