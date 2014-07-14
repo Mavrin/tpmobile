@@ -71,7 +71,7 @@ var popupContent = new basis.ui.Node({
         binding: {
             name: {
                 getter: function (child) {
-                    return child.data.Name;
+                    return child.data.name;
                 }
             },
             isSelected: {
@@ -89,35 +89,28 @@ var popup = new Popup({
     childNodes: [popupContent]
 });
 
-
-var projects = new basis.data.dataset.Merge({
-    active: true,
-    sources: [
-        app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation']),
-        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Project', Name: 'No Project', Id: 'null'})]})
-    ]
-});
+app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation'], app.type.Entity.Project);
+app.type.Entity.Project({abbreviation: 'No Project', name: 'No Project', id: 'null'});
+var projects =  app.type.Entity.Project.all;
 
 
 var projectsList = new basis.data.dataset.Filter({
-    source: projects
+    source: projects,
+    active: true
 });
 var selectedProjects = new basis.data.dataset.Filter({
-    source: projects
+    source: projects,
+    active: true
 });
-;
+
 var selectedProjectsContainer = new SelectedItems({
     template: resource('./template/selectedProjects.tmpl'),
     dataSource: selectedProjects
 });
 
-var teams = new basis.data.dataset.Merge({
-    active: true,
-    sources: [
-        app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation']),
-        new basis.data.Dataset({items: [ basis.data.wrapObject({Abbreviation: 'No Team', Name: 'No Team', Id: 'null'})]})
-    ]
-});
+app.type.Entity.Team({abbreviation: 'No Team', name: 'No Team', id: 'null'});
+app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation'], app.type.Entity.Team);
+var teams = app.type.Entity.Team.all;
 
 
 var teamsList = new basis.data.dataset.Filter({
@@ -154,6 +147,7 @@ var selectedTeamsContainer = new SelectedItems({
 });
 var selectedFilter = function (group) {
     return function (sender, item) {
+        return true;
         var data = sender.data;
         var value = item.data;
         var items = data[group].Items.filter(function (item) {
@@ -177,6 +171,8 @@ var contextOutput = new basis.ui.Node({
     template: resource('./template/context-selector.tmpl'),
     handler: {
         update: function (sender) {
+            app
+            debugger
             selectedProjects.setActive(true);
             selectedProjects.setRule(selectedFilter('SelectedProjects').bind(null, sender));
             selectedTeams.setActive(true);
