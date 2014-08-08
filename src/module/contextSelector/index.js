@@ -5,9 +5,12 @@ basis.require('app.ui.popup');
 basis.require('app.service');
 basis.require('app.type');
 var SelectedItems = require('./selectedItems.js');
+var ListItem = require('./listItem.js');
 
 
 //types
+
+
 //projects
 app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation'], app.type.Entity.Project);
 app.type.Entity.Project({abbreviation: 'No Project', name: 'No Project', id: 'null'});
@@ -20,47 +23,51 @@ var projectsList = new basis.data.dataset.Filter({
 var selectedProjects = basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedProjects
-
     });
 
 
-//tems
+//teams
 app.type.Entity.Team({abbreviation: 'No Team', name: 'No Team', id: 'null'});
 app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation'], app.type.Entity.Team);
 var teams = app.type.Entity.Team.all;
 var teamsList = new basis.data.dataset.Filter({
     source: teams
 });
-
 var selectedTeams = basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedTeams
 
     });
 
+
+var modelToNode = new basis.data.KeyObjectMap({
+    create: function (model) {
+        return new ListItem({ delegate: model });
+    }
+});
+
 var Popup = app.ui.popup.Popup;
 var activeProjectsTab = new basis.data.Value({value: true});
 var popupContent = new basis.ui.Node({
     active: true,
+    selection: {multiple: true},
     template: resource('./template/list-project-team.tmpl'),
     terms: '',
+    dataSource: activeProjectsTab.as(function (value) {
+        return value ? projectsList : teamsList;
+    }),
     applySearch: function () {
         var terms = this.terms;
-        var rule = basis.fn.$true;  // по умолчанию все Board
+        var rule = basis.fn.$true;
         if (terms) {
-            // если ввод содержит непробельные символы
-            // делаем массив слов
             terms = terms.split(/\s+/);
-
-            // создаем правило-фильтр (замыкание)
             rule = function (item) {
-                var text = (item.data.Name || '').toLowerCase();
+                var text = (item.data.name || '').toLowerCase();
                 return terms.every(function (term) {
                     return text.indexOf(term) !== -1;
                 });
             };
         }
-
         this.dataSource.setRule(rule);
     },
     handler: {
@@ -73,13 +80,11 @@ var popupContent = new basis.ui.Node({
             this.terms = event.target.value.trim().toLowerCase();
             this.applySearch();
         },
-        toggleSource: function () {
-            if (activeProjectsTab.value) {
-                activeProjectsTab.set(false);
-            } else {
-                activeProjectsTab.set(true);
-            }
-
+        toggleProject: function () {
+            activeProjectsTab.set(true);
+        },
+        toggleTeam: function () {
+            activeProjectsTab.set(false);
         }
     },
     binding: {
@@ -90,31 +95,43 @@ var popupContent = new basis.ui.Node({
             return !value && 'checked';
         })
     },
-    childClass: basis.ui.Node.subclass({
-        template: resource('./template/list-item.tmpl'),
-        /* debug_emit: function () {
-         console.log(arguments);
-         },*/
-        action: {
-            select: function (node) {
-                console.log(this.data);
-            }
-        },
-        binding: {
-            name: {
-                getter: function (child) {
-                    return child.data.name;
-                }
-            },
-            isSelected: {
-                events: ['rootChanged', 'update'],
-                getter: function (node) {
-                    return node.data.isSelected ? 'green' : 'gray';
-                }
-            }
-        }
-    })
+    childClass:ListItem,
+    childFactory: function (config) {
+        return modelToNode.resolve(config.delegate);
+    }
 });
+
+var selectionSyncHandler = {
+    update: function (sender) {
+        this.set(sender.value.getItems());
+    }
+};
+
+
+basis.data.Value
+    .from(popupContent, 'dataSourceChanged', function (node) {
+
+
+        return node.dataSource === projectsList ? selectedProjects : selectedTeams;
+    })
+    .link(popupContent.selection, function (value, oldValue) {
+        if (oldValue) {
+            oldValue.removeHandler(selectionSyncHandler, this);
+        }
+
+
+        if (value) {
+            value.addHandler(selectionSyncHandler, this);
+            if (value.value) {
+                this.set(value.value.getItems());
+            }
+        } else {
+            this.clear();
+        }
+
+
+    });
+
 var popup = new Popup({
     dir: 'left bottom left top',
     autorotate: true,
@@ -130,18 +147,6 @@ var selectedProjectsContainer = new SelectedItems({
 var selectedTeamsContainer = new SelectedItems({
     template: resource('./template/selectedTeams.tmpl'),
     dataSource: selectedTeams
-});
-
-popupContent.setDataSource(projectsList);
-
-activeProjectsTab.addHandler({
-    change: function (sender) {
-        if (sender.value) {
-            popupContent.setDataSource(projectsList);
-        } else {
-            popupContent.setDataSource(teamsList);
-        }
-    }
 });
 
 var contextOutput = new basis.ui.Node({
