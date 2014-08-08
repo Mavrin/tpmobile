@@ -30,7 +30,7 @@ var Board = basis.entity.createType('Board', {
 });
 
 // учим Board синхронизироваться
-Board.extend({
+Board.extendClass({
     syncAction: app.service.createAction({
         url: '/api/board/v1/:id',
         request: function() {

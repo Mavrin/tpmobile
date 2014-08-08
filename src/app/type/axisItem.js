@@ -12,7 +12,7 @@ AxisItem.byBoard = (function () {
     var cache = {};
     var Axis = basis.entity.createSetType('Axis', AxisItem);
 
-    Axis.extend({
+    Axis.extendClass({
         syncAction: app.service.createAction({
             method: 'POST',
             url: '/slice/v1/matrix/:axis',

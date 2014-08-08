@@ -4,7 +4,7 @@ basis.require('basis.entity');
 var defaultService = new basis.net.service.Service({
     transportClass: {
         contentType: 'application/json',
-        poolHashGetter: function(reqData){
+        poolHashGetter: function (reqData) {
             return reqData.origin.basisObjectId;
         },
         requestHeaders: {
@@ -44,17 +44,22 @@ function convertToLowerCase(item) {
             obj[key.toLowerCase()] = item[key];
         }
     }
+    return obj;
 }
 // в нужный вид
-Context.extendReader(function(data){
-    if(data.AppContext.ProjectContext.No) {
-
-
-        data.selectedProjects = [{id:"null"}].concat(data.SelectedProjects.Items.map(convertToLowerCase));
+Context.extendReader(function (data) {
+    data.selectedProjects = data.SelectedProjects.Items.map(convertToLowerCase);
+    data.selectedTeams = data.SelectedTeams.Items.map(convertToLowerCase);
+    if (data.AppContext.ProjectContext.No) {
+        data.selectedProjects = [
+            {id: "null"}
+        ].concat(data.selectedProjects);
     }
-    if(data.AppContext.TeamContext.No) {
+    if (data.AppContext.TeamContext.No) {
 
-        data.selectedTeams  = [{id:"null"}].concat(data.SelectedTeams.Items.map(convertToLowerCase));
+        data.selectedTeams = [
+            {id: "null"}
+        ].concat(data.selectedTeams);
     }
 
 });
@@ -67,7 +72,7 @@ Context.extendClass({
 
     // target: true,
 
-    updateAcid:function(acid) {
+    updateAcid: function (acid) {
 
         this.acid = acid;
 
@@ -75,19 +80,19 @@ Context.extendClass({
 
     },
 
-    getParams:function(){  // не понял зачем ты это вынес
+    getParams: function () {  // не понял зачем ты это вынес
 
-        if(this.acid) {
+        if (this.acid) {
 
-            return {acid:this.acid}
+            return {acid: this.acid}
 
-        }  else {
+        } else {
 
             return {
 
-                teamIds:'*',
+                teamIds: '*',
 
-                projectIds:'*'
+                projectIds: '*'
 
             }
         }
@@ -96,11 +101,11 @@ Context.extendClass({
 
     syncAction: defaultService.createAction({
 
-        request:function(){
+        request: function () {
 
             return {
 
-                params:this.getParams()
+                params: this.getParams()
 
             }
         },
@@ -108,7 +113,6 @@ Context.extendClass({
         url: '/api/v1/context.asmx',
 
         success: function (data) {
-
             this.update(Context.reader(data));
 
         }
@@ -117,44 +121,8 @@ Context.extendClass({
 });
 
 
+defaultService.context = Context();
 
-
-defaultService.context = Context();/* new basis.data.Object({
-    target: true,
-    updateAcid:function(acid) {
-        this.acid = acid;
-        this.setState(basis.data.STATE.UNDEFINED);
-    },
-    getParams:function(){
-      if(this.acid) {
-        return {acid:this.acid}
-      }  else {
-          return {
-              teamIds:'*',
-              projectIds:'*'
-          }
-      }
-    },
-    syncAction: defaultService.createAction({
-        request:function(){
-            return {
-                params:this.getParams()
-            }
-        },
-        url: '/api/v1/context.asmx',
-        success: function (data) {
-            if(data.AppContext.ProjectContext.No) {
-                var selectedProjects = data.SelectedProjects.Items;
-                data.SelectedProjects.Items = [{Id:"null"}].concat(selectedProjects);
-            }
-            if(data.AppContext.TeamContext.No) {
-                var selectedTeams = data.SelectedTeams.Items;
-                data.SelectedTeams.Items = [{Id:"null"}].concat(selectedTeams);
-            }
-            this.update(data);
-        }
-    })
-});*/
 
 module.exports = {
     main: defaultService,

@@ -11,7 +11,7 @@ var Cell = basis.entity.createType('Cell', {
     items: basis.entity.createSetType('CellItem')  // вложенный набор
 });
 
-Cell.extend({
+Cell.extendClass({
     syncEvents: {
         subscribersChanged: true,
         stateChanged: true,

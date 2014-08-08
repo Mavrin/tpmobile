@@ -6,7 +6,7 @@ var Items = basis.ui.Node.subclass({
         name: {
             events: 'update',
             getter: function (node) {
-                return node.data.Abbreviation;
+                return node.data.abbreviation;
             }
         }
     }
@@ -15,10 +15,10 @@ var Items = basis.ui.Node.subclass({
 var Container = basis.ui.Node.subclass({
     autoDelegate: true,
     sorting: function(child){
-        if(child.data.Id === 'null') {
+        if(child.data.id === 'null') {
             return 0;
         }
-        return child.data.Id;
+        return child.data.id;
     },
     sortingDesc: false,
     childClass: Items
