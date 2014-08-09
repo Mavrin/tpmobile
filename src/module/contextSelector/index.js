@@ -20,10 +20,18 @@ var projectsList = new basis.data.dataset.Filter({
     active: true
 });
 
-var selectedProjects = basis.data.Value
+var selectedProjects = new basis.data.Dataset();
+    basis.data.Value
     .from(app.service.context, 'update', function (context) {
-        return context.data.selectedProjects
-    });
+        return context.data.selectedProjects;
+    }).link(selectedProjects,function(projects){
+            if(projects) {
+                projects.addHandler({itemsChanged:function(sender){
+                    this.set(sender.getItems());
+                }}, this);
+                this.set(projects.getItems());
+            }
+        });
 
 
 //teams
@@ -33,11 +41,20 @@ var teams = app.type.Entity.Team.all;
 var teamsList = new basis.data.dataset.Filter({
     source: teams
 });
-var selectedTeams = basis.data.Value
+var selectedTeams =  new basis.data.Dataset();
+
+basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedTeams
 
-    });
+    }).link(selectedTeams,function(team){
+        if(team) {
+            team.addHandler({itemsChanged:function(sender){
+                this.set(sender.getItems());
+            }}, this);
+            this.set(team.getItems());
+        }
+    });;
 
 
 var modelToNode = new basis.data.KeyObjectMap({
@@ -102,34 +119,26 @@ var popupContent = new basis.ui.Node({
 });
 
 var selectionSyncHandler = {
-    update: function (sender) {
-        this.set(sender.value.getItems());
+    itemsChanged: function (sender) {
+        this.set(sender.getItems());
     }
 };
 
 
 basis.data.Value
     .from(popupContent, 'dataSourceChanged', function (node) {
-
-
         return node.dataSource === projectsList ? selectedProjects : selectedTeams;
     })
     .link(popupContent.selection, function (value, oldValue) {
         if (oldValue) {
             oldValue.removeHandler(selectionSyncHandler, this);
         }
-
-
         if (value) {
             value.addHandler(selectionSyncHandler, this);
-            if (value.value) {
-                this.set(value.value.getItems());
-            }
+            this.set(value.getItems());
         } else {
             this.clear();
         }
-
-
     });
 
 var popup = new Popup({
