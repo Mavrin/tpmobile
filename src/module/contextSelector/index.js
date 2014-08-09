@@ -47,12 +47,12 @@ basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedTeams
 
-    }).link(selectedTeams,function(team){
-        if(team) {
-            team.addHandler({itemsChanged:function(sender){
+    }).link(selectedTeams,function(teams){
+        if(teams) {
+            teams.addHandler({itemsChanged:function(sender){
                 this.set(sender.getItems());
             }}, this);
-            this.set(team.getItems());
+            this.set(teams.getItems());
         }
     });;
 
