@@ -2,34 +2,32 @@
 <b:style src="./../../../app/template/ui.typeicons.css"/>
 
 <div class="view">
-    <div class="icon-svg icon-close"></div>
+    <div event-click="close" class="icon-svg icon-close"></div>
     <div class="view__header">
         <div class="view__entity-number">
-            <i class="ui-type-icon ui-type-icon-userstory">User Story</i> 45678
+            <i class="ui-type-icon ui-type-icon-{type}">User Story</i> {id}
         </div>
         <div class="view__rows">
             <div class="header-h1">
-                Board access: email and
-                in-app notifications
+                {name}
             </div>
         </div>
 
         <div class="view__rows">
-            <span class="view__tags">iphone</span>
+           <!-- <span class="view__tags">iphone</span>
             <span class="view__tags">iPad</span>
             <span class="view__tags">Android</span>
-            <a href="#" class="view__tags-link">Add tag</a>
+            <a href="#" class="view__tags-link">Add tag</a>-->
         </div>
         <div class="view__rows view__state ">
-            <span class="view__state__txt">User Story state is</span>
+            <!--<span class="view__state__txt">User Story state is</span>
             <select  class="form-select" >
                 <option value="">in Progress</option>
-            </select>
+            </select>-->
         </div>
-
-        <b:include src="./view-tabs.tmpl"/>
+        <!--<b:include src="./view-tabs.tmpl"/>
         <b:include src="./attachments.tmpl"/>
         <b:include src="./description.tmpl"/>
-        <b:include src="./comments.tmpl"/>
+        <b:include src="./comments.tmpl"/>-->
     </div>
 </div>

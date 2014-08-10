@@ -6,6 +6,7 @@ var BaseCard = basis.ui.Node.subclass({
     action: {
       openView:function() {
           app.state.isOpenView.set(!app.state.isOpenView.value);
+          app.state.currentViewData.setDelegate(this.delegate);
       }
     },
     binding: {
