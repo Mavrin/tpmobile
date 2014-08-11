@@ -58,9 +58,10 @@ basis.data.Value
 
 
 var modelToNode = new basis.data.KeyObjectMap({
-    create: function (model) {
+    itemClass:ListItem
+  /*  create: function (model) {
         return new ListItem({ delegate: model });
-    }
+    }*/
 });
 
 var Popup = app.ui.popup.Popup;
@@ -118,9 +119,12 @@ var popupContent = new basis.ui.Node({
     }
 });
 
+
 var selectionSyncHandler = {
     itemsChanged: function (sender) {
-        this.set(sender.getItems());
+        this.set(sender.getValues(function(model){
+            return modelToNode.resolve(model);
+        }));
     }
 };
 
@@ -135,7 +139,9 @@ basis.data.Value
         }
         if (value) {
             value.addHandler(selectionSyncHandler, this);
-            this.set(value.getItems());
+            this.set(value.getValues(function(model){
+                return modelToNode.resolve(model);
+            }));
         } else {
             this.clear();
         }
