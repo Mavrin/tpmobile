@@ -152,32 +152,49 @@ var view = new basis.ui.Node({
  app.service.context.addHandler({update:function(obj){
  currentAcid = obj.data.Acid;
  }});*/
+//бредддддддддддддддддддддддддддддддддддд
 basis.router.add('/board/:id', function (id) {
-    var deferred = Q.defer();
-    lastX.update(null);
-    lastY.update(null);
-    var currentBoard = app.type.Board(id);
-    deferred.promise.then(function (currentBoard) {
-        return definitionFactory(currentBoard.data);
-    }).then(function (definitionObject) {
-        definition = definitionObject.data;
-        app.state.title.set(currentBoard.data.name);
-        view.setDelegate(definitionObject);
-        key = id;
-    });
 
-    if (currentBoard.state == basis.data.STATE.READY) {
-        deferred.resolve(currentBoard);
-    } else {
-        currentBoard.addHandler({
-            update: function () {
-                deferred.resolve(this);
-            }
+    var currentBoard = app.type.Board(id);
+    var refresh = function (currentBoard) {
+        var deferred = Q.defer();
+        lastX.update(null);
+        lastY.update(null);
+        deferred.promise.then(function (currentBoard) {
+            return definitionFactory(currentBoard.data);
+        }).then(function (definitionObject) {
+            definition = definitionObject.data;
+            app.state.title.set(currentBoard.data.name);
+            view.setDelegate(definitionObject);
+            key = id;
         });
-    }
-    if (currentBoard.state == basis.data.STATE.UNDEFINED) {
-        currentBoard.setActive(true);
-    }
+
+        if (currentBoard.state == basis.data.STATE.READY) {
+            deferred.resolve(currentBoard);
+        } else {
+            currentBoard.addHandler({
+                update: function () {
+                    deferred.resolve(this);
+                }
+            });
+        }
+        if (currentBoard.state == basis.data.STATE.UNDEFINED) {
+            currentBoard.setActive(true);
+        }
+    }.bind(null, currentBoard);
+    refresh();
+    var currentAcid = null;
+   /* app.service.context.addHandler({
+       update:function(sender) {
+           var acid = sender.get('acid');
+           if(currentAcid !== acid) {
+               currentAcid = acid;
+               refresh();
+           }
+           //refresh();
+       }
+    });*/
+
 });
 
 module.exports = view;

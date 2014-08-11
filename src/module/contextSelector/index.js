@@ -21,17 +21,19 @@ var projectsList = new basis.data.dataset.Filter({
 });
 
 var selectedProjects = new basis.data.Dataset();
-    basis.data.Value
+basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedProjects;
-    }).link(selectedProjects,function(projects){
-            if(projects) {
-                projects.addHandler({itemsChanged:function(sender){
+    }).link(selectedProjects, function (projects) {
+        if (projects) {
+            projects.addHandler({
+                itemsChanged: function (sender) {
                     this.set(sender.getItems());
-                }}, this);
-                this.set(projects.getItems());
-            }
-        });
+                }
+            }, this);
+            this.set(projects.getItems());
+        }
+    });
 
 
 //teams
@@ -41,27 +43,30 @@ var teams = app.type.Entity.Team.all;
 var teamsList = new basis.data.dataset.Filter({
     source: teams
 });
-var selectedTeams =  new basis.data.Dataset();
+var selectedTeams = new basis.data.Dataset();
 
 basis.data.Value
     .from(app.service.context, 'update', function (context) {
         return context.data.selectedTeams
 
-    }).link(selectedTeams,function(teams){
-        if(teams) {
-            teams.addHandler({itemsChanged:function(sender){
-                this.set(sender.getItems());
-            }}, this);
+    }).link(selectedTeams, function (teams) {
+        if (teams) {
+            teams.addHandler({
+                itemsChanged: function (sender) {
+                    this.set(sender.getItems());
+                }
+            }, this);
             this.set(teams.getItems());
         }
-    });;
+    });
+;
 
 
 var modelToNode = new basis.data.KeyObjectMap({
-    itemClass:ListItem
-  /*  create: function (model) {
-        return new ListItem({ delegate: model });
-    }*/
+    itemClass: ListItem
+    /*  create: function (model) {
+     return new ListItem({ delegate: model });
+     }*/
 });
 
 var Popup = app.ui.popup.Popup;
@@ -107,41 +112,61 @@ var popupContent = new basis.ui.Node({
     },
     binding: {
         projectsIsActive: activeProjectsTab.as(function (value) {
-            return  value && 'checked';
+            return value && 'checked';
         }),
         teamsIsActive: activeProjectsTab.as(function (value) {
             return !value && 'checked';
         })
     },
-    childClass:ListItem,
+    childClass: ListItem,
     childFactory: function (config) {
         return modelToNode.resolve(config.delegate);
     }
 });
 
+var activeProjectsTabSyncHandler = {
+    change:function () {
+        console.count(this);
+        this.selection.removeHandler(this.handler,this.source);
+    }
+};
 
+var projectsAndTeamsSyncHandler = {
+    itemsChanged: function (selection) {
+        this.set(selection.getValues('delegate'));
+        var projectIds = selectedTeams.getValues().map(function(item){return item.getId()});
+        var teamIds = selectedProjects.getValues().map(function(item){return item.getId()});
+        app.service.context.updateByProjectsAndTeams(projectIds, teamIds);
+    }
+};
 var selectionSyncHandler = {
     itemsChanged: function (sender) {
-        this.set(sender.getValues(function(model){
+        this.set(sender.getValues(function (model) {
             return modelToNode.resolve(model);
         }));
     }
 };
 
-
+var obj = null;
 basis.data.Value
     .from(popupContent, 'dataSourceChanged', function (node) {
+        console.log('dataSourceChanged');
         return node.dataSource === projectsList ? selectedProjects : selectedTeams;
     })
     .link(popupContent.selection, function (value, oldValue) {
         if (oldValue) {
+            this.removeHandler(projectsAndTeamsSyncHandler, oldValue);
             oldValue.removeHandler(selectionSyncHandler, this);
+            activeProjectsTab.removeHandler(activeProjectsTabSyncHandler, obj);
         }
         if (value) {
+            this.addHandler(projectsAndTeamsSyncHandler, value);
             value.addHandler(selectionSyncHandler, this);
-            this.set(value.getValues(function(model){
+            this.set(value.getValues(function (model) {
                 return modelToNode.resolve(model);
             }));
+            obj = {selection:this, source: value, handler:projectsAndTeamsSyncHandler};
+            activeProjectsTab.addHandler(activeProjectsTabSyncHandler, obj);
         } else {
             this.clear();
         }

@@ -18,13 +18,13 @@ var definition = function (data) {
       defer.resolve(new basis.data.Object({data: definition}));
   } else {
       app.service.context.updateAcid(data.acid);
-      if(app.service.context.data && app.service.context.data.Acid) {
-          definition.global.acid = app.service.context.data.Acid;
+      if(app.service.context.data && app.service.context.get('acid')) {
+          definition.global.acid = app.service.context.get('acid');
           defer.resolve(new basis.data.Object({data: definition}));
       } else {
           app.service.context.addHandler({
               update:function(obj){
-                  definition.global.acid = obj.data.Acid;
+                  definition.global.acid = obj.get('acid');
                   defer.resolve(new basis.data.Object({data: definition}));
               }
           })

@@ -19,6 +19,7 @@ var Context = basis.entity.createType({
 
     singleton: true,
     fields: {
+        acid: String,
         LoggedUser: Object,
         AppContext: Object,  // сохраняем как есть
 
@@ -61,6 +62,7 @@ Context.extendReader(function (data) {
             {id: "null"}
         ].concat(data.selectedTeams);
     }
+    data.acid = data.Acid;
 
 });
 
@@ -79,6 +81,14 @@ Context.extendClass({
         this.setState(basis.data.STATE.UNDEFINED);
 
     },
+    updateByProjectsAndTeams: function (teamIds, projectIds) {
+
+        this.acid = null;
+        this.teamIds = teamIds.join(',');
+        this.projectIds = projectIds.join(',');
+        this.setState(basis.data.STATE.UNDEFINED);
+
+    },
 
     getParams: function () {  // не понял зачем ты это вынес
 
@@ -90,9 +100,9 @@ Context.extendClass({
 
             return {
 
-                teamIds: '*',
+                teamIds: this.teamIds || '*',
 
-                projectIds: '*'
+                projectIds: this.projectIds || '*'
 
             }
         }
