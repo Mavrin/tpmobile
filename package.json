@@ -1,0 +1,32 @@
+{
+  "name": "tpmobile",
+  "version": "1.0.0",
+  "description": "Targetprocess client for mobile",
+  "main": "''",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "basisjs": "^1.4.1",
+    "q": "^1.4.1",
+    "tree-format": "^0.1.1"
+  },
+  "devDependencies": {
+    "basisjs-tools": "^1.5.0",
+    "gulp": "^3.8.8"
+  },
+  "scripts": {
+    "start":"basis server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mavrin/tpmobile.git"
+  },
+  "author": "konstantin krivlenia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mavrin/tpmobile/issues"
+  },
+  "homepage": "https://github.com/Mavrin/tpmobile#readme"
+}

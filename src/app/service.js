@@ -1,7 +1,7 @@
-basis.require('basis.net.service');
-basis.require('basis.entity');
+var service = basis.require('basis.net.service');
+var entity = basis.require('basis.entity');
 
-var defaultService = new basis.net.service.Service({
+var defaultService = new service.Service({
     transportClass: {
         contentType: 'application/json',
         poolHashGetter: function (reqData) {
@@ -13,7 +13,7 @@ var defaultService = new basis.net.service.Service({
     }
 });
 
-var Context = basis.entity.createType({
+var Context = entity.createType({
 
     name: 'Context',
 
@@ -23,13 +23,13 @@ var Context = basis.entity.createType({
         LoggedUser: Object,
         AppContext: Object,  // сохраняем как есть
 
-        selectedTeams: basis.entity.createSetType('Team'),  // набор типа где итемы типа Team
+        selectedTeams: entity.createSetType('Team'),  // набор типа где итемы типа Team
 
         // используем имя типа, так как тип
 
         // еще может быть не создан
 
-        selectedProjects: basis.entity.createSetType('Project')
+        selectedProjects: entity.createSetType('Project')
 
         // ... добавь еще полей
     }

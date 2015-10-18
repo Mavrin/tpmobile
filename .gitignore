@@ -1,5 +1,5 @@
-lib/
 build/
-.idea/workspace.xml
+.idea
 
 node_modules/
+npm-debug.log

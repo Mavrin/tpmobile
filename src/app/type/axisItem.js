@@ -21,7 +21,7 @@ AxisItem.byBoard = (function () {
                     routerParams: {
                         axis: this.axis
                     },
-                    postBody: JSON.stringify({
+                    body: JSON.stringify({
                         definition: this.definition,
                         take: 1000
                     })

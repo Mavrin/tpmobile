@@ -1,5 +1,5 @@
 basis.require('basis.ui.pageslider');
-var Q = basis.require('/lib/q/q.js');
+var Q = basis.require('/node_modules/q/q.js');
 var PageSlider = basis.ui.pageslider.PageSlider;
 
 var Axis = PageSlider.subclass({

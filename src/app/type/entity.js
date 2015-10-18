@@ -1,7 +1,7 @@
 basis.require('app.service');
 basis.require('basis.data');
 basis.require('basis.data.dataset');
-var treeFormat = basis.require('/lib/tree-format/index.js');
+var treeFormat = basis.require('/node_modules/tree-format/index.js');
 
 var create = function (type, params, Type) {
     return new basis.data.Dataset({

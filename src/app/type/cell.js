@@ -41,7 +41,7 @@ Cell.extendClass({
                 postBody.where = '(' + where.join('and') + ')';
             }
             return {
-                postBody: JSON.stringify(postBody)
+                body: JSON.stringify(postBody)
             };
         },
         success: function(data){

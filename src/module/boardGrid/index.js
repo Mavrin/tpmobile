@@ -4,7 +4,7 @@ basis.require('basis.router');
 basis.require('app.type');
 basis.require('app.service');
 basis.require('basis.ui.pageslider');
-var Q = basis.require('/lib/q/q.js');
+var Q = basis.require('/node_modules/q/q.js');
 var PageSlider = basis.ui.pageslider.PageSlider;
 var DIRECTIONS = basis.ui.pageslider.DIRECTIONS;
 var definitionFactory = basis.require('app.type.definition');
