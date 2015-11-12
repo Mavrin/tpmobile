@@ -1,6 +1,6 @@
 basis.require('basis.event');
 basis.require('basis.data');
-basis.require('basis.ui');
+var Node = require('basis.ui').Node;
 basis.require('basis.dragdrop');
 
 var DDE_HANDLER = {
@@ -22,7 +22,7 @@ var DDE_HANDLER = {
     }
 };
 
-var Node = basis.ui.Node.subclass({
+var updatableNode = Node.subclass({
     offsetY: 0,
     emit_offsetYChanged: basis.event.create('offsetYChanged'),
     setOffsetY: function(y){
@@ -35,7 +35,7 @@ var Node = basis.ui.Node.subclass({
     },
 
     emit_childNodesStateChanged: function(oldState){
-        basis.ui.Node.prototype.emit_childNodesStateChanged.call(this, oldState);
+        Node.prototype.emit_childNodesStateChanged.call(this, oldState);
 
         this.dde.stop();
         this.setOffsetY(this.childNodesState == basis.data.STATE.PROCESSING ? 51 : 0);
@@ -69,7 +69,7 @@ var Node = basis.ui.Node.subclass({
     },
 
     init: function(){
-        basis.ui.Node.prototype.init.call(this);
+        Node.prototype.init.call(this);
 
         this.dde = new basis.dragdrop.DragDropElement({
             handler: {
@@ -80,7 +80,7 @@ var Node = basis.ui.Node.subclass({
     },
 
     templateSync: function(){
-        basis.ui.Node.prototype.templateSync.call(this);
+        Node.prototype.templateSync.call(this);
         this.dde.setElement((this.tmpl && this.tmpl.dragElement) || this.element);
     },
 
@@ -88,10 +88,10 @@ var Node = basis.ui.Node.subclass({
         this.dde.destroy();
         this.dde = null;
 
-        basis.ui.Node.destroy.call(this);
+        Node.destroy.call(this);
     }
 });
 
 module.exports = {
-  Node: Node
+  Node: updatableNode
 };

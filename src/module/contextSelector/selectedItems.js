@@ -1,6 +1,6 @@
-basis.require('basis.ui');
+var Node = require('basis.ui').Node;
 
-var Items = basis.ui.Node.subclass({
+var Items = Node.subclass({
     template: resource('./template/selectedItem.tmpl'),
     binding: {
         name: {
@@ -12,7 +12,7 @@ var Items = basis.ui.Node.subclass({
     }
 });
 
-var Container = basis.ui.Node.subclass({
+var Container = Node.subclass({
     autoDelegate: true,
     sorting: function(child){
         if(child.data.id === 'null') {

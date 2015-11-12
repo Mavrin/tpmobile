@@ -1,9 +1,9 @@
-basis.require('basis.ui');
-basis.require('basis.data');
-basis.require('basis.data.dataset');
-basis.require('app.ui.popup');
-basis.require('app.service');
-basis.require('app.type');
+var Node = require('basis.ui').Node;
+var basisData = basis.require('basis.data');
+var Filter = basis.require('basis.data.dataset').Filter;
+var Popup = basis.require('app.ui.popup').Popup;
+var appService = basis.require('app.service');
+var Entity = basis.require('app.type').Entity;
 var SelectedItems = require('./selectedItems.js');
 var ListItem = require('./listItem.js');
 
@@ -12,66 +12,64 @@ var ListItem = require('./listItem.js');
 
 
 //projects
-app.type.Entity.create('projects', ['id', 'name', 'color', 'abbreviation'], app.type.Entity.Project);
-app.type.Entity.Project({abbreviation: 'No Project', name: 'No Project', id: 'null'});
-var projects = app.type.Entity.Project.all;
-var projectsList = new basis.data.dataset.Filter({
+Entity.create('projects', ['id', 'name', 'color', 'abbreviation'], Entity.Project);
+Entity.Project({abbreviation: 'No Project', name: 'No Project', id: 'null'});
+var projects = Entity.Project.all;
+var projectsList = new Filter({
     source: projects,
     active: true
 });
 
-var selectedProjects = new basis.data.Dataset();
-basis.data.Value
-    .from(app.service.context, 'update', function (context) {
+var selectedProjects = new basisData.Dataset();
+basisData.Value
+    .from(appService.context, 'update', function (context) {
         return context.data.selectedProjects;
     }).link(selectedProjects, function (projects) {
-        if (projects) {
-            projects.addHandler({
-                itemsChanged: function (sender) {
-                    this.set(sender.getItems());
-                }
-            }, this);
-            this.set(projects.getItems());
-        }
-    });
+    if (projects) {
+        projects.addHandler({
+            itemsChanged: function (sender) {
+                this.set(sender.getItems());
+            }
+        }, this);
+        this.set(projects.getItems());
+    }
+});
 
 
 //teams
-app.type.Entity.Team({abbreviation: 'No Team', name: 'No Team', id: 'null'});
-app.type.Entity.create('teams', ['id', 'name', 'icon', 'abbreviation'], app.type.Entity.Team);
-var teams = app.type.Entity.Team.all;
-var teamsList = new basis.data.dataset.Filter({
+Entity.Team({abbreviation: 'No Team', name: 'No Team', id: 'null'});
+Entity.create('teams', ['id', 'name', 'icon', 'abbreviation'], Entity.Team);
+var teams = Entity.Team.all;
+var teamsList = new Filter({
     source: teams
 });
-var selectedTeams = new basis.data.Dataset();
+var selectedTeams = new basisData.Dataset();
 
-basis.data.Value
-    .from(app.service.context, 'update', function (context) {
+basisData.Value
+    .from(appService.context, 'update', function (context) {
         return context.data.selectedTeams
 
     }).link(selectedTeams, function (teams) {
-        if (teams) {
-            teams.addHandler({
-                itemsChanged: function (sender) {
-                    this.set(sender.getItems());
-                }
-            }, this);
-            this.set(teams.getItems());
-        }
-    });
+    if (teams) {
+        teams.addHandler({
+            itemsChanged: function (sender) {
+                this.set(sender.getItems());
+            }
+        }, this);
+        this.set(teams.getItems());
+    }
+});
 ;
 
 
-var modelToNode = new basis.data.KeyObjectMap({
+var modelToNode = new basisData.KeyObjectMap({
     itemClass: ListItem
     /*  create: function (model) {
      return new ListItem({ delegate: model });
      }*/
 });
-
-var Popup = app.ui.popup.Popup;
-var activeProjectsTab = new basis.data.Value({value: true});
-var popupContent = new basis.ui.Node({
+var activeProjectsTab = new basisData.Value({value: true});
+var popupContent = new Node({
     active: true,
     selection: {multiple: true},
     template: resource('./template/list-project-team.tmpl'),
@@ -125,18 +123,22 @@ var popupContent = new basis.ui.Node({
 });
 
 var activeProjectsTabSyncHandler = {
-    change:function () {
-        console.count(this);
-        this.selection.removeHandler(this.handler,this.source);
+    change: function () {
+        //console.count(this);
+        this.selection.removeHandler(this.handler, this.source);
     }
 };
 
 var projectsAndTeamsSyncHandler = {
     itemsChanged: function (selection) {
         this.set(selection.getValues('delegate'));
-        var projectIds = selectedTeams.getValues().map(function(item){return item.getId()});
-        var teamIds = selectedProjects.getValues().map(function(item){return item.getId()});
-        app.service.context.updateByProjectsAndTeams(projectIds, teamIds);
+        var projectIds = selectedTeams.getValues().map(function (item) {
+            return item.getId()
+        });
+        var teamIds = selectedProjects.getValues().map(function (item) {
+            return item.getId()
+        });
+        appService.context.updateByProjectsAndTeams(projectIds, teamIds);
     }
 };
 var selectionSyncHandler = {
@@ -148,9 +150,9 @@ var selectionSyncHandler = {
 };
 
 var obj = null;
-basis.data.Value
+basisData.Value
     .from(popupContent, 'dataSourceChanged', function (node) {
-        console.log('dataSourceChanged');
+        //console.log('dataSourceChanged');
         return node.dataSource === projectsList ? selectedProjects : selectedTeams;
     })
     .link(popupContent.selection, function (value, oldValue) {
@@ -165,7 +167,7 @@ basis.data.Value
             this.set(value.getValues(function (model) {
                 return modelToNode.resolve(model);
             }));
-            obj = {selection:this, source: value, handler:projectsAndTeamsSyncHandler};
+            obj = {selection: this, source: value, handler: projectsAndTeamsSyncHandler};
             activeProjectsTab.addHandler(activeProjectsTabSyncHandler, obj);
         } else {
             this.clear();
@@ -189,7 +191,7 @@ var selectedTeamsContainer = new SelectedItems({
     dataSource: selectedTeams
 });
 
-var contextOutput = new basis.ui.Node({
+var contextOutput = new Node({
     autoDelegate: true,
     template: resource('./template/context-selector.tmpl'),
     binding: {

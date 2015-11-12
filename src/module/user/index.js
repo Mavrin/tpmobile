@@ -1,7 +1,7 @@
-basis.require('basis.ui');
+var Node = require('basis.ui').Node;
 
 // view для context
-module.exports = new basis.ui.Node({
+module.exports = new Node({
     autoDelegate: true,
     active: true,
 

@@ -1,20 +1,20 @@
-basis.require('basis.ui');
-basis.require('basis.app');
+var Node = require('basis.ui').Node;
+var appState = require('app.state');
 
 // view для context
-module.exports = new basis.ui.Node({
+module.exports = new Node({
     active: true,
-    delegate:app.state.currentViewData,
+    delegate: appState.currentViewData,
     template: resource('./template/view.tmpl'),
     action: {
         close: function () {
-            app.state.isOpenView.set(false);
+            appState.isOpenView.set(false);
         }
     },
     binding: {
         name: 'data:',
-        id:'data:',
-        type:'data:'
+        id: 'data:',
+        type: 'data:'
     }
 });
 

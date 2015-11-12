@@ -1,6 +1,6 @@
-basis.require('basis.ui');
+var Node = require('basis.ui').Node;
 
-var BaseCard = basis.ui.Node.subclass({
+var BaseCard = Node.subclass({
     className: 'BaseCard',
     template: resource('./template/card/base.tmpl'),
     action: {

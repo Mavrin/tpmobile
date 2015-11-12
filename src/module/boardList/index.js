@@ -1,25 +1,26 @@
-basis.require('basis.router');
-basis.require('app.type');
-basis.require('basis.ui');
-basis.require('basis.data');
-basis.require('basis.data.dataset');
+var router = require('basis.router');
+var Board = require('app.type').Board;
+var appState = require('app.state');
+var Node = require('basis.ui').Node;
+var basisData = require('basis.data');
+var Filter = require('basis.data.dataset').Filter;
 
 // выбранный Board
-var selectedBoard = new basis.data.Value();
+var selectedBoard = new basisData.Value();
 
 // основное представление
-var view = new basis.ui.Node({
+var view = new Node({
     autoDelegate: true,
 
     // создаем отложено
     dataSource: function (view) {
         // отфильтрованный набор
-        return new basis.data.dataset.Filter({
+        return new Filter({
             // источник от view
             active:true,
-            source: basis.data.Value.from(view, 'update', function (view) {
+            source: basisData.Value.from(view, 'update', function (view) {
                 // по его view.data.LoggedUser.Id получаем набор всех Board
-                return app.type.Board.byOwner(view.data.LoggedUser && view.data.LoggedUser.Id);
+                return Board.byOwner(view.data.LoggedUser && view.data.LoggedUser.Id);
             })
             // по умолчанию правило не устанавливаем, отсеиваться ничего не будет
         });
@@ -66,13 +67,13 @@ var view = new basis.ui.Node({
 
 // делаем список активным только когда меню открыто
 // active = true тригирует загрузку dataSource (срабатывает его syncAction)
-app.state.isMenuExpanded.link(view, function (value) {
+appState.isMenuExpanded.link(view, function (value) {
     this.setActive(value);
 });
 
 // подписываемся на смену url'а
 // синхронизируем selectedBoard
-basis.router.add('/board/:id', selectedBoard.set, selectedBoard);
+router.add('/board/:id', selectedBoard.set, selectedBoard);
 
 // экспортируем view
 module.exports = view;

@@ -1,32 +1,34 @@
-basis.require('basis.data.dataset');
-basis.require('basis.ui');
-basis.require('basis.router');
-basis.require('app.type');
-basis.require('app.service');
-basis.require('basis.ui.pageslider');
-var Q = basis.require('/node_modules/q/q.js');
-var PageSlider = basis.ui.pageslider.PageSlider;
-var DIRECTIONS = basis.ui.pageslider.DIRECTIONS;
-var definitionFactory = basis.require('app.type.definition');
+var Node = require('basis.ui').Node;
+var router = require('basis.router');
+var appType = require('app.type');
+var appState = require('app.state');
+//basis.require('app.service');
+var Slice = require('basis.data.dataset').Slice;
+var basisData = require('basis.data');
+var pageSlider = require('basis.ui.pageslider');
+var Q = require('/node_modules/q/q.js');
+var PageSlider = pageSlider.PageSlider;
+var DIRECTIONS = pageSlider.DIRECTIONS;
+var definitionFactory = require('app.type.definition');
 var cards = require('./cards.js');
 var Axis = require('./axis.js').Axis;
-var lastX = new basis.data.Object();
-var lastY = new basis.data.Object();
+var lastX = new basisData.Object();
+var lastY = new basisData.Object();
 var key = null;
 var definition = null;
 // делаем срезы от колонок/рядов - так как нужно показывать только одну ячейку, то размер среза 1
 // можно в последствии смещать viewport меняя offset у срезов
-var viewportCols = new basis.data.dataset.Slice({
+var viewportCols = new Slice({
     limit: 1000
 });
 
-var viewportRows = new basis.data.dataset.Slice({
+var viewportRows = new Slice({
     limit: 1000
 });
 
 // создаем класс для ячейки
-var Cell = new basis.ui.Node.subclass({
-    dataSource: basis.data.Value.factory('update', 'data.items'),
+var Cell = new Node.subclass({
+    dataSource: basisData.Value.factory('update', 'data.items'),
     active: true,
 
     template: resource('./template/cell.tmpl'),
@@ -45,7 +47,7 @@ var cell = new Cell();
 lastX.addHandler({
     update: function (sender, delta) {
         if (lastY.data.id && this.data) {
-            var dataSource = app.type.Cell({
+            var dataSource = appType.Cell({
                 definition: definition,
                 x: this.data.id,
                 y: lastY.data.id
@@ -58,7 +60,7 @@ lastX.addHandler({
 lastY.addHandler({
     update: function (sender, delta) {
         if (lastX.data.id && this.data) {
-            var dataSource = app.type.Cell({
+            var dataSource = appType.Cell({
                 definition: definition,
                 x: lastX.data.id,
                 y: this.data.id
@@ -78,7 +80,7 @@ var axisX = new Axis({
                     if (this.data.y && this.data.y.id) {
                         lastX.update(data.inserted[0].data);
                     } else {
-                        var dataSource = app.type.Cell({
+                        var dataSource = appType.Cell({
                             definition: this.data,
                             x: data.inserted[0].data.id
                         });
@@ -107,7 +109,7 @@ var axisY = new Axis({
                     if (this.data.x && this.data.x.id) {
                         lastY.update(data.inserted[0].data);
                     } else {
-                        var dataSource = app.type.Cell({
+                        var dataSource = appType.Cell({
                             definition: this.data,
                             y: data.inserted[0].data.id
                         });
@@ -128,12 +130,12 @@ var axisY = new Axis({
 });
 
 
-var view = new basis.ui.Node({
+var view = new Node({
     active: true,
     handler: {
         update: function (sender, delta) {
             if (!(this.data.x) && !(this.data.y)) {
-                var dataSource = app.type.Cell({
+                var dataSource = appType.Cell({
                     definition: this.data
                 });
                 cell.setDelegate(dataSource);
@@ -153,9 +155,9 @@ var view = new basis.ui.Node({
  currentAcid = obj.data.Acid;
  }});*/
 //бредддддддддддддддддддддддддддддддддддд
-basis.router.add('/board/:id', function (id) {
+router.add('/board/:id', function (id) {
 
-    var currentBoard = app.type.Board(id);
+    var currentBoard = appType.Board(id);
     var refresh = function (currentBoard) {
         var deferred = Q.defer();
         lastX.update(null);
@@ -164,12 +166,12 @@ basis.router.add('/board/:id', function (id) {
             return definitionFactory(currentBoard.data);
         }).then(function (definitionObject) {
             definition = definitionObject.data;
-            app.state.title.set(currentBoard.data.name);
+            appState.title.set(currentBoard.data.name);
             view.setDelegate(definitionObject);
             key = id;
         });
 
-        if (currentBoard.state == basis.data.STATE.READY) {
+        if (currentBoard.state == basisData.STATE.READY) {
             deferred.resolve(currentBoard);
         } else {
             currentBoard.addHandler({
@@ -178,7 +180,7 @@ basis.router.add('/board/:id', function (id) {
                 }
             });
         }
-        if (currentBoard.state == basis.data.STATE.UNDEFINED) {
+        if (currentBoard.state == basisData.STATE.UNDEFINED) {
             currentBoard.setActive(true);
         }
     }.bind(null, currentBoard);
