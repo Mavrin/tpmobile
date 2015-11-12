@@ -1,7 +1,6 @@
-basis.require('basis.ui.pageslider');
 var Q = basis.require('/node_modules/q/q.js');
-var PageSlider = basis.ui.pageslider.PageSlider;
-
+var PageSlider = require('basis.ui.pageslider').PageSlider;
+var appType = require('app.type');
 var Axis = PageSlider.subclass({
   autoDelegate: true,
   active: true,
@@ -14,7 +13,7 @@ var Axis = PageSlider.subclass({
     update: function(sender, delta){
       if (this.dataSource && this.data[this.axisKey])
       {      
-        this.dataSource.setSource(app.type.AxisItem.byBoard(this.data, this.axisKey + 'axis'));
+        this.dataSource.setSource(appType.AxisItem.byBoard(this.data, this.axisKey + 'axis'));
         if (this.axisKey in delta)
           this.dataSource.setActive(!!this.data[this.axisKey]);
       }

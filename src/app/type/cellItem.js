@@ -1,7 +1,7 @@
-basis.require('basis.entity');
+var entity = require('basis.entity');
 
-var CellItem = basis.entity.createType('CellItem', {
-    id: basis.entity.StringId,
+var CellItem = entity.createType('CellItem', {
+    id: entity.StringId,
     type: String,
     name: String,
     orderingValue: Number

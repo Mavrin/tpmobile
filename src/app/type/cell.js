@@ -1,14 +1,14 @@
-basis.require('basis.entity');
-basis.require('app.service');
-
-var Cell = basis.entity.createType('Cell', {
+var entity = require('basis.entity');
+var appService = require('app.service');
+var basisData = require('basis.data');
+var Cell = entity.createType('Cell', {
     definition: function(data){
         return data;
     },  // \
-    x: basis.entity.StringId,        //  } это составной ключ 
-    y: basis.entity.StringId,        // /
+    x: entity.StringId,        //  } это составной ключ 
+    y: entity.StringId,        // /
 
-    items: basis.entity.createSetType('CellItem')  // вложенный набор
+    items: entity.createSetType('CellItem')  // вложенный набор
 });
 
 Cell.extendClass({
@@ -19,10 +19,10 @@ Cell.extendClass({
     },
     isSyncRequired: function(){
         return this.subscriberCount > 0 &&
-               (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) /*&&
+               (this.state == basisData.STATE.UNDEFINED || this.state == basisData.STATE.DEPRECATED) /*&&
                this.getId();*/
     },
-    syncAction: app.service.createAction({
+    syncAction: appService.createAction({
         method: 'POST',
         url: '/slice/v1/matrix/cells',
         request: function(){

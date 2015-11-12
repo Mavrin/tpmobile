@@ -1,5 +1,5 @@
-basis.require('basis.data');
-basis.require('app.service');
+var basisData = require('basis.data');
+var appService = require('app.service');
 var Q = basis.require('/node_modules/q/q.js');
 var definition = function (data) {
   var key, definition = {}, defer = Q.defer();
@@ -14,18 +14,18 @@ var definition = function (data) {
   definition.global = {};
   if(data.acid) {
       definition.global.acid = data.acid;
-      app.service.context.updateAcid(data.acid);
-      defer.resolve(new basis.data.Object({data: definition}));
+      appService.context.updateAcid(data.acid);
+      defer.resolve(new basisData.Object({data: definition}));
   } else {
-      app.service.context.updateAcid(data.acid);
-      if(app.service.context.data && app.service.context.get('acid')) {
-          definition.global.acid = app.service.context.get('acid');
-          defer.resolve(new basis.data.Object({data: definition}));
+      appService.context.updateAcid(data.acid);
+      if(appService.context.data && appService.context.get('acid')) {
+          definition.global.acid = appService.context.get('acid');
+          defer.resolve(new basisData.Object({data: definition}));
       } else {
-          app.service.context.addHandler({
+          appService.context.addHandler({
               update:function(obj){
                   definition.global.acid = obj.get('acid');
-                  defer.resolve(new basis.data.Object({data: definition}));
+                  defer.resolve(new basisData.Object({data: definition}));
               }
           })
       }

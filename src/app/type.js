@@ -1,4 +1,4 @@
-basis.require('basis.entity');
+var entity = require('basis.entity');
 
 module.exports = {
     Board: require('./type/board.js'),
@@ -9,4 +9,4 @@ module.exports = {
 };
 
 // проверка, что все типы, на которые ссылаются другие типы, объявлены
-basis.entity.validate();
+entity.validate();

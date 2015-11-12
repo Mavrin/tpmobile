@@ -1,15 +1,16 @@
-basis.require('app.service');
-basis.require('basis.data');
-basis.require('basis.data.dataset');
+var appService = require('app.service');
+var basisData = require('basis.data');
+var entity = require('basis.entity');
+
 var treeFormat = basis.require('/node_modules/tree-format/index.js');
 
 var create = function (type, params, Type) {
-    return new basis.data.Dataset({
+    return new basisData.Dataset({
         isSyncRequired: function(){
-            return (this.state == basis.data.STATE.UNDEFINED || this.state == basis.data.STATE.DEPRECATED) /*&&
+            return (this.state == basisData.STATE.UNDEFINED || this.state == basisData.STATE.DEPRECATED) /*&&
              this.getId();*/
         },
-        syncAction: app.service.createAction({
+        syncAction: appService.createAction({
             url: '/api/v1/' + type + '/?include=' + treeFormat.stringify({'': params}),
             success: function (data) {
                 this.sync(data.Items.map(function (data) {
@@ -27,13 +28,13 @@ var create = function (type, params, Type) {
     });
 };
 
-var Team = basis.entity.createType('Team', {
-    id: basis.entity.StringId,
+var Team = entity.createType('Team', {
+    id: entity.StringId,
     name: String,
     abbreviation: String
 });
-var Project = basis.entity.createType('Project', {
-    id: basis.entity.StringId,
+var Project = entity.createType('Project', {
+    id: entity.StringId,
     name: String,
     abbreviation: String
 });

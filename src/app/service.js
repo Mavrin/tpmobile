@@ -1,6 +1,6 @@
-var service = basis.require('basis.net.service');
-var entity = basis.require('basis.entity');
-
+var service = require('basis.net.service');
+var entity = require('basis.entity');
+var basisData = require('basis.data');
 var defaultService = new service.Service({
     transportClass: {
         contentType: 'application/json',
@@ -78,7 +78,7 @@ Context.extendClass({
 
         this.acid = acid;
 
-        this.setState(basis.data.STATE.UNDEFINED);
+        this.setState(basisData.STATE.UNDEFINED);
 
     },
     updateByProjectsAndTeams: function (teamIds, projectIds) {
@@ -86,7 +86,7 @@ Context.extendClass({
         this.acid = null;
         this.teamIds = teamIds.join(',');
         this.projectIds = projectIds.join(',');
-        this.setState(basis.data.STATE.UNDEFINED);
+        this.setState(basisData.STATE.UNDEFINED);
 
     },
 

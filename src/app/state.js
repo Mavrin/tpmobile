@@ -1,8 +1,8 @@
-basis.require('basis.data');
+var data = require('basis.data');
 
 module.exports = {
-    isMenuExpanded: new basis.data.Value({ value: false }),
-    isOpenView: new basis.data.Value({ value: false }),
-    currentViewData: new basis.data.Object(),
+    isMenuExpanded: new data.Value({ value: false }),
+    isOpenView: new data.Value({ value: false }),
+    currentViewData: new data.Object(),
     title: new basis.Token('')
 };

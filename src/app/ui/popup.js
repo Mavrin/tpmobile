@@ -1,7 +1,4 @@
-basis.require('basis.ui');
-basis.require('basis.ui.popup');
-
-var Popup = basis.ui.popup.Popup.subclass({
+var Popup =require('basis.ui.popup').Popup.subclass({
     dir: 'left bottom left top',
     autorotate: true,
     visibleState:false,

@@ -1,7 +1,8 @@
-basis.require('basis.entity');
-basis.require('app.service');
+var entity = require('basis.entity');
+var appService = require('app.service');
 
-var AxisItem = basis.entity.createType('AxisItem', {
+
+var AxisItem = entity.createType('AxisItem', {
     id: String,
     type: String,
     name: String,
@@ -10,10 +11,10 @@ var AxisItem = basis.entity.createType('AxisItem', {
 
 AxisItem.byBoard = (function () {
     var cache = {};
-    var Axis = basis.entity.createSetType('Axis', AxisItem);
+    var Axis = entity.createSetType('Axis', AxisItem);
 
     Axis.extendClass({
-        syncAction: app.service.createAction({
+        syncAction: appService.createAction({
             method: 'POST',
             url: '/slice/v1/matrix/:axis',
             request: function () {             

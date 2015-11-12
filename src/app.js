@@ -1,50 +1,50 @@
-basis.require('basis.app');
-basis.require('basis.ui');
-basis.require('basis.router');
-basis.require('app.service');
-basis.require('app.state');
-basis.require('app.type');
+var basisApp = basis.require('basis.app');
+var Node = require('basis.ui').Node;
+var router = basis.require('basis.router');
+var appService = require('app.service');
+var appState = require('app.state');
+var appType = require('app.type');
 /** @cut */ require('basis.devpanel');
 
-module.exports = basis.app.create({
-    title: app.state.title,
+module.exports = basisApp.create({
+    title: appState.title,
     init: function () {
         // включаем отслеживание изменения URL
-        basis.router.start();
+        router.start();
         var lastBoard = false;
-        basis.router.add('',function(){
+        router.add('',function(){
             lastBoard = true;
         });
-        app.service.context.addHandler({
+        appService.context.addHandler({
             update:function(obj){
                 if(lastBoard) {
-                    var boards = app.type.Board.byOwner(obj.data.LoggedUser && obj.data.LoggedUser.Id);
+                    var boards = appType.Board.byOwner(obj.data.LoggedUser && obj.data.LoggedUser.Id);
                     boards.addHandler({itemsChanged:function(data){
-                        basis.router.navigate('/board/' + data.getItems()[0].data.key);
-                    }})
+                        router.navigate('/board/' + data.getItems()[0].data.key);
+                    }});
                     boards.setActive(true);
 
                 }
             }
-        })
-        app.state.title.set('tp3');
-        return new basis.ui.Node({
-            delegate: app.service.context,
+        });
+        appState.title.set('tp3');
+        return new Node({
+            delegate: appService.context,
             active:true,
             template: resource('./app/template/layout.tmpl'),
 
             action: {
                 hideMenu: function () {
-                    app.state.isMenuExpanded.set(false);
+                    appState.isMenuExpanded.set(false);
                 },
                 toggleMenu: function () {
-                    app.state.isMenuExpanded.set(!app.state.isMenuExpanded.value);
+                    appState.isMenuExpanded.set(!appState.isMenuExpanded.value);
                 }
             },
             binding: {
-                title:app.state.title,
-                expanded: app.state.isMenuExpanded,
-                open:app.state.isOpenView,
+                title:appState.title,
+                expanded: appState.isMenuExpanded,
+                open:appState.isOpenView,
                 // subviews
                 loggedUser: require('./module/user/index.js'),
                 view: require('./module/view/index.js'),

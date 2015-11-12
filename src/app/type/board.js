@@ -1,6 +1,6 @@
-basis.require('basis.entity');
-basis.require('app.service');
-
+var entity = require('basis.entity');
+var appService = require('app.service');
+//var Split = basis.require('basis.data.dataset').Split
 
 function CellSettings(value, oldValue){
     if (value && !value.items)
@@ -15,8 +15,9 @@ function CellSettings(value, oldValue){
 }
 
 // создаем тип, это позволит ссылаться по идентификатору и нормализовывать значения
-var Board = basis.entity.createType('Board', {
-    key: basis.entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
+
+var Board = entity.createType('Board', {
+    key: entity.StringId, // идентификатор не число, так как длинные значения, чтобы не случилось переполнение
     ownerId: Number,
     name: String,
     acid:function(data){
@@ -31,7 +32,7 @@ var Board = basis.entity.createType('Board', {
 
 // учим Board синхронизироваться
 Board.extendClass({
-    syncAction: app.service.createAction({
+    syncAction: appService.createAction({
         url: '/api/board/v1/:id',
         request: function() {
             return {
@@ -48,12 +49,12 @@ Board.extendClass({
 });
 
 // разбивка Board по полю ownerId
-var splitByOwner = new basis.entity.Grouping({
+var splitByOwner = new entity.Grouping({
     source: Board.all,     // все экземпляры типа хранятся в наборе, который хранится в свойстве all
     rule: 'data.ownerId',  // это шоткат для function(item){ return item.data.onwerId }
     wrapper: Board,
     subsetClass: {
-        syncAction: app.service.createAction({ // каждая группа 
+        syncAction: appService.createAction({ // каждая группа
             url: '/api/boards/v1/visibleForUser/:id',
             request: function(){
                 return {
