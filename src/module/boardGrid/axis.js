@@ -1,4 +1,3 @@
-var Q = basis.require('/node_modules/q/q.js');
 var PageSlider = require('basis.ui.pageslider').PageSlider;
 var appType = require('app.type');
 var Axis = PageSlider.subclass({

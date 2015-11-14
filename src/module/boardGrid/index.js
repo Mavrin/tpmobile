@@ -1,4 +1,5 @@
 var Node = require('basis.ui').Node;
+var Promise =require('basis.promise');
 var router = require('basis.router');
 var appType = require('app.type');
 var appState = require('app.state');
@@ -159,10 +160,20 @@ router.add('/board/:id', function (id) {
 
     var currentBoard = appType.Board(id);
     var refresh = function (currentBoard) {
-        var deferred = Q.defer();
+        var deferred = new Promise(function(resolve) {
+            if (currentBoard.state == basisData.STATE.READY) {
+                resolve(currentBoard);
+            } else {
+                currentBoard.addHandler({
+                    update: function () {
+                        resolve(this);
+                    }
+                });
+            }
+        });
         lastX.update(null);
         lastY.update(null);
-        deferred.promise.then(function (currentBoard) {
+        deferred.then(function (currentBoard) {
             return definitionFactory(currentBoard.data);
         }).then(function (definitionObject) {
             definition = definitionObject.data;
@@ -171,15 +182,7 @@ router.add('/board/:id', function (id) {
             key = id;
         });
 
-        if (currentBoard.state == basisData.STATE.READY) {
-            deferred.resolve(currentBoard);
-        } else {
-            currentBoard.addHandler({
-                update: function () {
-                    deferred.resolve(this);
-                }
-            });
-        }
+
         if (currentBoard.state == basisData.STATE.UNDEFINED) {
             currentBoard.setActive(true);
         }
