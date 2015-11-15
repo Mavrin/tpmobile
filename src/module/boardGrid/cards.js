@@ -1,12 +1,12 @@
 var Node = require('basis.ui').Node;
-
+var appState = require('app.state');
 var BaseCard = Node.subclass({
     className: 'BaseCard',
     template: resource('./template/card/base.tmpl'),
     action: {
       openView:function() {
-          app.state.isOpenView.set(!app.state.isOpenView.value);
-          app.state.currentViewData.setDelegate(this.delegate);
+          appState.isOpenView.set(!appState.isOpenView.value);
+          appState.currentViewData.setDelegate(this.delegate);
       }
     },
     binding: {
