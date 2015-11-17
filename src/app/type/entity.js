@@ -13,7 +13,7 @@ var create = function (type, params, Type) {
         syncAction: appService.createAction({
             url: '/api/v1/' + type + '/?include=' + treeFormat.stringify({'': params}),
             success: function (data) {
-                this.sync(data.Items.map(function (data) {
+                this.setAndDestroyRemoved(data.Items.map(function (data) {
                     var obj = {};
                     for (var key in data) {
                         if (data.hasOwnProperty(key)) {

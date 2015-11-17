@@ -64,7 +64,7 @@ var splitByOwner = new entity.Grouping({
                 };
             },
             success: function (data) {
-                this.sync(data.items.map(function(data){
+                this.setAndDestroyRemoved(data.items.map(function(data){
                     data.ownerId = this.ruleValue;
                     return Board.reader(data);
                 }, this));

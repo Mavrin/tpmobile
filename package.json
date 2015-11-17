@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "basisjs": "^1.4.1",
+    "basisjs": "^1.5.0",
     "tree-format": "^0.1.1"
   },
   "devDependencies": {
