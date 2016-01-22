@@ -7,15 +7,15 @@
     "test": "tests"
   },
   "dependencies": {
-    "basisjs": "^1.5.0",
-    "tree-format": "^0.1.1"
+    "basisjs": "1.6.1",
+    "tree-format": "0.1.1"
   },
   "devDependencies": {
-    "basisjs-tools": "^1.5.1",
-    "gulp": "^3.8.8"
+    "basisjs-tools": "1.7.0",
+    "yatra": "^1.0.3"
   },
   "scripts": {
-    "start":"basis server",
+    "start": "basis server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
