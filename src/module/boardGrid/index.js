@@ -7,7 +7,6 @@ var appState = require('app.state');
 var Slice = require('basis.data.dataset').Slice;
 var basisData = require('basis.data');
 var pageSlider = require('basis.ui.pageslider');
-var Q = require('/node_modules/q/q.js');
 var PageSlider = pageSlider.PageSlider;
 var DIRECTIONS = pageSlider.DIRECTIONS;
 var definitionFactory = require('app.type.definition');
