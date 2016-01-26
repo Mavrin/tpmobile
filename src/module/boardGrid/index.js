@@ -3,6 +3,7 @@ var Promise =require('basis.promise');
 var router = require('basis.router');
 var appType = require('app.type');
 var appState = require('app.state');
+var View = require('app.type.view').View;
 //basis.require('app.service');
 var Slice = require('basis.data.dataset').Slice;
 var basisData = require('basis.data');
@@ -157,7 +158,7 @@ var view = new Node({
 //бредддддддддддддддддддддддддддддддддддд
 router.add('/board/:id', function (id) {
 
-    var currentBoard = appType.Board(id);
+    var currentBoard = View(id);
     var refresh = function (currentBoard) {
         var deferred = new Promise(function(resolve) {
             if (currentBoard.state == basisData.STATE.READY) {

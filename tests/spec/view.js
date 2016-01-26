@@ -1,26 +1,24 @@
 module.exports = {
     init: function () {
-        var Folder = basis.require('/src/app/type/view');
+        var View = basis.require('/src/app/type/view').View;
         var Node = basis.require('basis.ui').Node;
     },
     name: 'View service',
     test: [
         {
-            name: 'context should return data',
+            name: 'view should return only board yet',
             timeout: 3000,
             test: function (done) {
-
-                Folder.all.debug_emit = function () {
-                    console.log(arguments)
-                }
                 new Node({
                     active: true,
-                    dataSource:Folder.all
+                    dataSource: View.all
                 });
 
-                Folder.all.addHandler({
-                    itemsChanged: function (data) {
-                        console.log(data)
+                View.all.addHandler({
+                    itemsChanged: function () {
+                        assert(View.all.getItems().length, 2);
+                        console.log(View.all.getItems());
+                        console.count('test')
                         done();
                     }
                 })

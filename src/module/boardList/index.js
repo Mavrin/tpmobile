@@ -1,5 +1,6 @@
 var router = require('basis.router');
-var Board = require('app.type').Board;
+//var Board = require('app.type').Board;
+var View = require('app.type.view').View
 var appState = require('app.state');
 var Node = require('basis.ui').Node;
 var basisData = require('basis.data');
@@ -18,10 +19,7 @@ var view = new Node({
         return new Filter({
             // источник от view
             active:true,
-            source: basisData.Value.from(view, 'update', function (view) {
-                // по его view.data.LoggedUser.Id получаем набор всех Board
-                return Board.byOwner(view.data.LoggedUser && view.data.LoggedUser.Id);
-            })
+            source: View.all
             // по умолчанию правило не устанавливаем, отсеиваться ничего не будет
         });
     },
@@ -32,11 +30,9 @@ var view = new Node({
             var terms = event.target.value.trim().toLowerCase();
 
             if (terms) {
-                // если ввод содержит непробельные символы
-                // делаем массив слов
+                
                 terms = terms.split(/\s+/);
 
-                // создаем правило-фильтр (замыкание)
                 rule = function (item) {
                     var text = (item.data.name || '').toLowerCase();
                     return terms.every(function (term) {
@@ -64,12 +60,6 @@ var view = new Node({
     }
 });
 
-
-// делаем список активным только когда меню открыто
-// active = true тригирует загрузку dataSource (срабатывает его syncAction)
-appState.isMenuExpanded.link(view, function (value) {
-    this.setActive(value);
-});
 
 // подписываемся на смену url'а
 // синхронизируем selectedBoard
