@@ -7,6 +7,7 @@ var View = require('app.type.view').View;
 //basis.require('app.service');
 var Slice = require('basis.data.dataset').Slice;
 var basisData = require('basis.data');
+var Expression = require('basis.data.value').Expression;
 var pageSlider = require('basis.ui.pageslider');
 var PageSlider = pageSlider.PageSlider;
 var DIRECTIONS = pageSlider.DIRECTIONS;
@@ -156,8 +157,16 @@ var view = new Node({
  currentAcid = obj.data.Acid;
  }});*/
 //бредддддддддддддддддддддддддддддддддддд
+var currentBoardValue = new basisData.Value();
+var appService = require('app.service');
+new Expression(currentBoardValue, basisData.Value
+    .from(appService.context, 'update', function (context) {
+        return context.data.acid;
+    }),function(id, acid){
+    console.log(arguments);
+})
 router.add('/board/:id', function (id) {
-
+    currentBoardValue.set(id);
     var currentBoard = View(id);
     var refresh = function (currentBoard) {
         var deferred = new Promise(function(resolve) {
