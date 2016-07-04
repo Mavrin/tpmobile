@@ -7,12 +7,12 @@
     "test": "tests"
   },
   "dependencies": {
-    "basisjs": "1.6.1",
+    "basisjs": "1.7.0",
     "tree-format": "0.1.1"
   },
   "devDependencies": {
-    "basisjs-tools": "1.7.0",
-    "yatra": "^1.0.3"
+    "basisjs-tools": "1.8.0",
+    "yatra": "1.1.0"
   },
   "scripts": {
     "start": "basis server",
