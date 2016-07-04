@@ -1,30 +1,14 @@
 #How do launch?
 
 1. Install http://nodejs.org/ .
-2. Install npm bower
+
+2. Get dependency
     ```
-     npm install -g bower
+      npm i
     ```
-3. Get dependency
+3. Run server
     ```
-      bower install
+       npm start
     ```
-4. Install basisjs-tool
-    ```
-       npm install -g basisjs-tools
-    ```
-5. Install gulp and gulp plugins
-    ```
-       npm install gulp
-       npm install gulp-autoprefixer
-       npm install gulp-stylus --safe
-    ```
-6. Run basis server
-    ```
-        basis server
-    ```
-7. Run gulp
-    ```
-       gulp
-    ```
-8. Open [tpmobile](http://localhost:8001/)
+
+4. Open [tpmobile](http://localhost:8001/)
